@@ -11,7 +11,7 @@ window.SITE = {
     "fr": "",
     "en": ""
   },
-  "notionBacklog": "https://app.notion.com/p/Altea-Outdoor-Portail-de-retours-V1-3eda32b763b9814a9231f3080bdc7843",
+  "notionBacklog": "https://glitter-rail-fdd.notion.site/Altea-Outdoor-Portail-de-retours-V1-3eda32b763b9814a9231f3080bdc7843",
   "github": "https://github.com/adrienmateo",
   "repoSite": "https://github.com/adrienmateo/site_web",
   "repoF1": "https://github.com/adrienmateo/F1-duel-rythme",

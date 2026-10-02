@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Analyse de performance F1 — Adrien-Matéo Soules</title>
-  <meta name="description" content="Un dashboard pour comparer les pilotes de F1 au-delà du classement, et une automatisation qui résume chaque Grand Prix par mail.">
-  <meta property="og:title" content="Analyse de performance F1 — Adrien-Matéo Soules">
-  <meta property="og:description" content="Un dashboard pour comparer les pilotes de F1 au-delà du classement, et une automatisation qui résume chaque Grand Prix par mail.">
+  <title>Du besoin au backlog — Adrien-Matéo Soules</title>
+  <meta name="description" content="Étude de cas : cadrage d'un portail de retours e-commerce, backlog de 38 user stories, Sprint 1 priorisé, critères Gherkin et wireframes.">
+  <meta property="og:title" content="Du besoin au backlog — Adrien-Matéo Soules">
+  <meta property="og:description" content="Étude de cas : cadrage d'un portail de retours e-commerce, backlog de 38 user stories, Sprint 1 priorisé, critères Gherkin et wireframes.">
   <meta property="og:image" content="https://adrienmateo-soules.com/photo.jpg">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231F5E4E'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='700' font-size='14' fill='white' text-anchor='middle'%3EAS%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body data-page="f1">
+<body data-page="backlog">
   <a class="skip" href="#main" data-i18n="ui.skip">Aller au contenu</a>
   <header class="topbar">
     <div class="wrap topbar-inner">
@@ -28,43 +28,52 @@
   </header>
 
   <main id="main">
-    <div id="f1-root"></div>
+    <div id="bl-root"></div>
 
     <section class="wrap project-hero">
-      <span class="kind hero-in" data-i18n="f1.kind"></span>
-      <h1 class="hero-in" style="--i:1" data-i18n="f1.title"></h1>
-      <p class="pitch hero-in" style="--i:2" data-i18n="f1.lead"></p>
+      <span class="kind hero-in" data-i18n="backlog.kind"></span>
+      <h1 class="hero-in" style="--i:1" data-i18n="backlog.title"></h1>
+      <p class="pitch hero-in" style="--i:2" data-i18n="backlog.lead"></p>
       <div class="actions">
-        <a class="btn primary" data-href="dashboardF1" href="https://f1-automatisation.netlify.app" target="_blank" rel="noopener" data-i18n="f1.open"></a>
-        <a class="btn" data-href="repoF1" href="https://github.com/adrienmateo/F1-duel-rythme" target="_blank" rel="noopener" data-i18n="f1.code"></a>
+        <a class="btn primary notion-link" href="#" target="_blank" rel="noopener" data-i18n="backlog.notionCta"></a>
       </div>
     </section>
 
     <section class="section wrap">
-      <div class="goals" id="f1-goals"></div>
+      <div class="goals">
+        <article class="goal">
+          <h3 data-i18n="backlog.contextTitle"></h3>
+          <p data-i18n="backlog.context"></p>
+        </article>
+        <article class="goal">
+          <h3 data-i18n="backlog.problemTitle"></h3>
+          <ul class="plain-list" id="bl-problem"></ul>
+        </article>
+      </div>
     </section>
 
     <section class="section wrap">
-      <h2 data-i18n="f1.archTitle"></h2>
-      <p class="lead" data-i18n="f1.archLead"></p>
-      <div class="arch-wrap" id="f1-arch"></div>
-      <p class="scroll-hint" data-i18n="f1.scrollHint"></p>
+      <h2 data-i18n="backlog.approachTitle"></h2>
+      <ol class="approach" id="bl-approach"></ol>
     </section>
 
     <section class="section wrap">
-      <h2 data-i18n="f1.makeTitle"></h2>
-      <p class="lead" data-i18n="f1.makeText"></p>
-      <figure class="shot"><img id="f1-make-img" src="make-f1.png" alt="" width="777" height="306" loading="lazy"></figure>
+      <h2 data-i18n="backlog.sprintTitle"></h2>
+      <p class="lead" data-i18n="backlog.sprintLead"></p>
+      <div class="table-wrap sprint-wrap"><table class="sprint" id="bl-sprint"></table></div>
+      <p class="reserve" data-i18n="backlog.reserve"></p>
     </section>
 
     <section class="section wrap">
-      <h2 data-i18n="f1.choicesTitle"></h2>
-      <ul class="choices" id="f1-choices"></ul>
+      <h2 data-i18n="backlog.wfTitle"></h2>
+      <p class="lead" data-i18n="backlog.wfLead"></p>
+      <div id="bl-wf"></div>
     </section>
 
-    <section class="section wrap">
-      <h2 data-i18n="f1.stackTitle"></h2>
-      <ul class="tools" id="f1-stack"></ul>
+    <section class="section wrap more">
+      <h2 data-i18n="backlog.moreTitle"></h2>
+      <p class="lead" data-i18n="backlog.moreText"></p>
+      <a class="btn primary notion-link" href="#" target="_blank" rel="noopener" data-i18n="backlog.notionCta"></a>
     </section>
   </main>
 

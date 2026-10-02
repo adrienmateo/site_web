@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adrien-Matéo Soules — Business Analyst</title>
+  <meta name="description" content="Business Analyst, consultant fonctionnel et technique. Je transforme des besoins métier en solutions qui fonctionnent, de l'atelier client jusqu'à l'intégration.">
+  <meta property="og:title" content="Adrien-Matéo Soules — Business Analyst">
+  <meta property="og:description" content="Consultant fonctionnel et technique : analyse métier, intégration de systèmes, automatisation et IA.">
+  <meta property="og:type" content="profile">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="ui.skip">Aller au contenu</a>
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#top">Adrien-Matéo Soules</a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#about" data-i18n="nav.about">À propos</a>
+        <a href="#skills" data-i18n="nav.skills">Compétences</a>
+        <a href="#demo" data-i18n="nav.demo">Démo</a>
+        <a href="#work" data-i18n="nav.work">Réalisations</a>
+        <a href="#path" data-i18n="nav.path">Parcours</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="lang" role="group" aria-label="Langue / Language">
+        <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero wrap" id="top">
+      <div class="hero-text">
+        <h1>Adrien-Matéo Soules</h1>
+        <p class="role" data-i18n="hero.role"></p>
+        <p class="pitch" data-i18n="hero.pitch"></p>
+        <div class="actions">
+          <a class="btn primary" href="#contact" data-i18n="hero.ctaContact"></a>
+          <a class="btn" id="cv-link" href="assets/cv-fr.pdf" download data-i18n="hero.ctaCv"></a>
+          <a class="btn ghost" href="#" id="linkedin-hero" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <ul class="facts" id="facts"></ul>
+      </div>
+      <figure class="portrait">
+        <!-- Remplacer par : <img src="assets/photo.jpg" alt="Portrait d'Adrien-Matéo Soules"> -->
+        <div class="portrait-placeholder todo" data-i18n="hero.photoTodo"></div>
+      </figure>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section wrap" id="about">
+      <h2 data-i18n="about.title"></h2>
+      <div class="about-body" id="about-body"></div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section wrap" id="skills">
+      <h2 data-i18n="skills.title"></h2>
+      <p class="lead" data-i18n="skills.lead"></p>
+      <div class="skills" id="skills-list"></div>
+    </section>
+
+    <!-- DEMO -->
+    <section class="section demo-section" id="demo">
+      <div class="wrap">
+        <h2 data-i18n="demo.title"></h2>
+        <p class="lead" data-i18n="demo.lead"></p>
+
+        <div class="console" id="console">
+          <ol class="steps" id="demo-steps" role="tablist"></ol>
+          <div class="console-body" id="demo-body" aria-live="polite"></div>
+          <div class="console-foot">
+            <button type="button" class="btn small" id="demo-prev" data-i18n="demo.prev"></button>
+            <span class="note" data-i18n="demo.note"></span>
+            <button type="button" class="btn small primary" id="demo-next" data-i18n="demo.next"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="section wrap" id="work">
+      <h2 data-i18n="work.title"></h2>
+      <p class="lead" data-i18n="work.lead"></p>
+      <div class="work" id="work-list"></div>
+    </section>
+
+    <!-- METHOD -->
+    <section class="section wrap" id="method">
+      <h2 data-i18n="method.title"></h2>
+      <div class="todo block" data-i18n="method.todo"></div>
+    </section>
+
+    <!-- PATH -->
+    <section class="section wrap" id="path">
+      <h2 data-i18n="path.title"></h2>
+      <div class="path-grid">
+        <div>
+          <h3 data-i18n="path.xp"></h3>
+          <ol class="timeline" id="timeline"></ol>
+        </div>
+        <div>
+          <h3 data-i18n="path.edu"></h3>
+          <ul class="plain" id="education"></ul>
+          <h3 data-i18n="path.certs"></h3>
+          <div class="todo block" data-i18n="path.certsTodo"></div>
+          <h3 data-i18n="path.langs"></h3>
+          <ul class="plain" id="languages"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section wrap contact" id="contact">
+      <h2 data-i18n="contact.title"></h2>
+      <p class="lead" data-i18n="contact.lead"></p>
+      <div class="actions">
+        <a class="btn primary" id="mail-link" href="mailto:contact@exemple.com" data-i18n="contact.mail"></a>
+        <a class="btn" href="#" id="linkedin-contact" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap" data-i18n="footer"></div>
+  </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

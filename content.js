@@ -27,8 +27,8 @@ window.CONTENT = {
       ctaCv: "Télécharger mon CV",
       photoTodo: "Photo à ajouter : assets/photo.jpg (format portrait, environ 800 × 1000 px)",
       facts: [
-        ["4 pays", "de déploiement : France, Royaume-Uni, Québec, Inde"],
-        ["65 comptes", "B2B suivis en Customer Success"],
+        ["Projets multiples", "d'intégration, menés de bout en bout"],
+        ["65 comptes", "B2B pilotés en Customer Success"],
         ["FR / EN", "en atelier comme à l'écrit"]
       ]
     },
@@ -62,7 +62,7 @@ window.CONTENT = {
         {
           name: "Automatisation et IA",
           text: "Quand une tâche se répète, je l'automatise. Je conçois des workflows et des agents IA qui retirent le travail répétitif aux équipes.",
-          tools: [["N8N", "workflows automatisés"], ["Rovo", "agents IA Atlassian"], ["LLM", "rédaction et analyse automatisées"], ["Tableau", "visualisation de données"]]
+          tools: [["N8N", "workflows automatisés"], ["Make", "automatisations sans code"], ["Rovo", "agents IA Atlassian"], ["LLM", "rédaction et analyse automatisées"], ["Tableau", "visualisation de données"]]
         }
       ]
     },
@@ -96,7 +96,9 @@ window.CONTENT = {
       title: "Réalisations",
       lead: "Des preuves concrètes, anonymisées quand il le faut.",
       proves: "Ce que ça montre",
-      items: [
+      proTitle: "Projets professionnels",
+      persoTitle: "Projets personnels",
+      pro: [
         {
           title: "Du besoin au backlog",
           kind: "Étude de cas",
@@ -117,13 +119,16 @@ window.CONTENT = {
           text: "Conception d'un agent IA qui répond aux questions récurrentes de l'équipe à partir de la documentation : cadrage du besoin, rédaction des instructions, tests.",
           proves: "Automatisation, IA appliquée",
           todo: "Captures (données fictives) et gain mesuré à ajouter"
-        },
+        }
+      ],
+      perso: [
         {
-          title: "Analyse automatique d'un Grand Prix",
-          kind: "Projet personnel",
-          text: "Données de course récupérées via l'API publique OpenF1, puis analysées pour comparer le rythme des pilotes, avec un rapport généré après chaque course.",
-          proves: "API, données, automatisation de bout en bout",
-          todo: "Lien et capture du tableau de bord à ajouter"
+          title: "Analyse de performance F1",
+          kind: "Dashboard et automatisation",
+          text: "Un dashboard pour comparer les performances entre pilotes et analyser une course en détail, et une automatisation qui envoie un résumé de chaque Grand Prix aux personnes inscrites.",
+          proves: "API, données, automatisation no-code, IA appliquée",
+          link: "f1.html",
+          linkLabel: "Voir le projet"
         }
       ]
     },
@@ -139,17 +144,63 @@ window.CONTENT = {
       certsTodo: "Certifications à ajouter, avec un lien vers chaque justificatif.",
       langs: "Langues",
       timeline: [
-        { when: "TODO dates", role: "Business Analyst IT", org: "OneStock", text: "Projets d'intégration de bout en bout pour des clients internationaux : ateliers, spécifications, intégrations API, recette et mise en production." },
-        { when: "TODO dates", role: "Customer Success Manager", org: "Buybox", text: "Suivi de 65 comptes B2B : onboarding, accompagnement et fidélisation." },
-        { when: "TODO dates", role: "Chef de projet junior", org: "Capgemini Engineering", text: "Appui au pilotage de projets : planning, suivi et reporting." },
-        { when: "TODO dates", role: "Implémentation CRM", org: "Ecotec", text: "Mise en place d'un CRM : recueil des besoins, paramétrage et accompagnement des utilisateurs." }
+        { when: "2024 – aujourd'hui", role: "Business Analyst IT", org: "OneStock", text: "Pilotage de multiples projets d'implémentation de bout en bout, de la conception à l'hypercare : spécifications fonctionnelles et techniques, intégration avec ERP, CRM, transporteurs et e-commerce, recette, formation des key users." },
+        { when: "2023 – 2024", role: "Customer Success Manager (alternance)", org: "Buybox", text: "Portefeuille de 65 comptes B2B piloté en autonomie : onboarding et intégrations clients, reporting de performance, pipeline d'upsell." },
+        { when: "2022", role: "Chef de projet (stage)", org: "Capgemini Engineering", text: "Cadrage et lancement d'un programme de formation interne à l'échelle du groupe : objectifs, conception, coordination inter-équipes." },
+        { when: "2022", role: "Assistant de gestion (alternance)", org: "Ecotec", text: "Mise en place d'un CRM et restructuration de la base de données clients." }
       ],
       education: [
-        { name: "Toulouse Business School", text: "Programme Grande École, Strategic Innovation Management. Mention Bien, Certificate of Excellence in Consulting." },
-        { name: "Université de Bordeaux", text: "Licence Économie-Gestion" },
-        { name: "IUT de Rodez", text: "DUT (TODO spécialité)" }
+        { name: "Toulouse Business School", text: "2021 – 2024 · Programme Grande École, Strategic Innovation Management. Mention Bien, Certificat d'excellence Consulting." },
+        { name: "Université de Bordeaux", text: "2020 – 2021 · Licence Économie-Gestion, Mention Bien" },
+        { name: "IUT de Rodez", text: "2018 – 2020 · DUT Gestion des Entreprises et des Administrations" }
       ],
-      languages: [["Français", "langue maternelle"], ["Anglais", "courant, usage professionnel quotidien"]]
+      languages: [["Français", "langue maternelle"], ["Anglais", "courant, usage professionnel quotidien"], ["Espagnol", "notions (A2)"]]
+    },
+    f1: {
+      meta: {
+        title: "Analyse de performance F1 — Adrien-Matéo Soules",
+        description: "Un dashboard pour comparer les pilotes de F1 au-delà du classement, et une automatisation qui résume chaque Grand Prix par mail."
+      },
+      back: "Retour au portfolio",
+      kind: "Projet personnel",
+      title: "Analyse de performance F1",
+      lead: "Un outil pour comparer les pilotes au-delà du classement, et une automatisation qui résume chaque Grand Prix.",
+      open: "Ouvrir le dashboard",
+      goals: [
+        { title: "Le dashboard : comparer et analyser", text: "Un outil web pour comparer les performances entre pilotes, coéquipiers ou pilotes au choix, et analyser une course en détail : écarts tour par tour, rythme de course sur les tours propres, positions en piste et stratégies de pneus. Les données viennent en direct de l'API publique OpenF1." },
+        { title: "Le compte rendu : résumer et diffuser", text: "Après chaque Grand Prix, une automatisation calcule les chiffres clés de la course. Claude en rédige un résumé, qui est envoyé par mail aux personnes inscrites. Chaque duel entre coéquipiers est archivé pour suivre les tendances sur la saison." }
+      ],
+      archTitle: "Architecture",
+      archLead: "Deux usages, un même moteur de calcul.",
+      scrollHint: "Faites glisser le schéma pour l'explorer.",
+      makeTitle: "Le scénario Make",
+      makeText: "Le webhook reçoit les chiffres du Grand Prix envoyés par GitHub Actions. Claude rédige le résumé, puis un routeur envoie le mail aux inscrits et archive chaque duel dans Google Sheets.",
+      makeAlt: "Scénario Make : webhook, Claude, routeur, Gmail, itérateur et Google Sheets",
+      choicesTitle: "Choix de conception",
+      choices: [
+        ["Un seul code de calcul", "Le dashboard et le compte rendu utilisent exactement la même logique : les chiffres du mail sont toujours ceux affichés à l'écran."],
+        ["Claude rédige, il ne calcule pas", "L'IA reçoit des chiffres déjà vérifiés et une consigne qui lui interdit d'inventer. L'analyse reste fiable, la rédaction fluide."],
+        ["Un secours à chaque étape", "Si Claude échoue, le mail part avec les chiffres seuls. Si Make est injoignable, GitHub envoie lui-même le compte rendu."]
+      ],
+      stackTitle: "Stack",
+      stack: [["OpenF1", "API REST publique"], ["JavaScript", "dashboard et graphiques"], ["Node.js", "calcul du compte rendu"], ["GitHub Actions", "exécution à la demande"], ["Make", "orchestration par webhook"], ["Claude", "rédaction du résumé"], ["Gmail", "envoi aux inscrits"], ["Google Sheets", "historique de la saison"], ["Netlify", "hébergement et inscriptions"]],
+      diagram: {
+        top: "Dashboard, à chaque visite",
+        bottom: "Compte rendu, à la demande",
+        chrono: ["Chronométrage F1", "flux live officiel"],
+        openf1: ["OpenF1", "API REST, JSON", "sans clé, ~3 req/s"],
+        netlify: ["Netlify", "héberge index.html"],
+        browser: ["Navigateur", "du visiteur", "calcul + graphiques"],
+        dashboard: ["Dashboard", "écarts entre pilotes", "tour par tour, en piste", "stratégies pneus"],
+        forms: ["Netlify Forms", "inscrits au compte rendu"],
+        me: ["Moi", "Run workflow"],
+        gha: ["GitHub Actions", "report.mjs, Node.js", "calcul du GP + mail"],
+        make: ["Make", "webhook"],
+        claude: ["Claude", "rédige le résumé"],
+        gmail: ["Gmail", "moi + inscrits (Cci)"],
+        sheets: ["Google Sheets", "1 ligne par duel"],
+        l: { records: "enregistre", records2: "chaque session", fetch: "fetch (CORS)", serves: "sert la page", draws: "trace", subscribe: "s'inscrire", same: "même code", same2: "de calcul", launches: "lance", calls: "8 appels", reads: "lit les inscrits", reads2: "(API Netlify)", post: "POST JSON", facts: "faits", summary: "résumé HTML", iter: "Iterator, 11 duels", fallback: "secours : si Make est injoignable, GitHub envoie lui-même le mail factuel" }
+      }
     },
     contact: {
       title: "Travaillons ensemble",
@@ -174,7 +225,7 @@ window.CONTENT = {
       ctaCv: "Download my resume",
       photoTodo: "Photo to add: assets/photo.jpg (portrait, about 800 × 1000 px)",
       facts: [
-        ["4 countries", "of rollouts: France, UK, Quebec, India"],
+        ["Multiple projects", "integration projects run end to end"],
         ["65 accounts", "B2B accounts managed in Customer Success"],
         ["FR / EN", "in workshops and in writing"]
       ]
@@ -209,7 +260,7 @@ window.CONTENT = {
         {
           name: "Automation and AI",
           text: "When a task repeats, I automate it. I design workflows and AI agents that take repetitive work off teams' plates.",
-          tools: [["N8N", "automated workflows"], ["Rovo", "Atlassian AI agents"], ["LLMs", "automated writing and analysis"], ["Tableau", "data visualization"]]
+          tools: [["N8N", "automated workflows"], ["Make", "no-code automations"], ["Rovo", "Atlassian AI agents"], ["LLMs", "automated writing and analysis"], ["Tableau", "data visualization"]]
         }
       ]
     },
@@ -243,7 +294,9 @@ window.CONTENT = {
       title: "Work",
       lead: "Concrete proof, anonymized where needed.",
       proves: "What it shows",
-      items: [
+      proTitle: "Professional projects",
+      persoTitle: "Personal projects",
+      pro: [
         {
           title: "From need to backlog",
           kind: "Case study",
@@ -264,13 +317,16 @@ window.CONTENT = {
           text: "Designed an AI agent that answers the team's recurring questions from the documentation: scoping the need, writing the instructions, testing.",
           proves: "Automation, applied AI",
           todo: "Screenshots (fictional data) and measured gain to add"
-        },
+        }
+      ],
+      perso: [
         {
-          title: "Automated Grand Prix analysis",
-          kind: "Personal project",
-          text: "Race data pulled from the public OpenF1 API and analyzed to compare drivers' pace, with a report generated after every race.",
-          proves: "APIs, data, end-to-end automation",
-          todo: "Dashboard link and screenshot to add"
+          title: "F1 performance analysis",
+          kind: "Dashboard and automation",
+          text: "A dashboard to compare drivers' performance and analyze a race in detail, plus an automation that emails a summary of every Grand Prix to subscribers.",
+          proves: "APIs, data, no-code automation, applied AI",
+          link: "f1.html",
+          linkLabel: "See the project"
         }
       ]
     },
@@ -286,17 +342,63 @@ window.CONTENT = {
       certsTodo: "Certifications to add, each with a link to the certificate.",
       langs: "Languages",
       timeline: [
-        { when: "TODO dates", role: "IT Business Analyst", org: "OneStock", text: "End-to-end integration projects for international clients: workshops, specifications, API integrations, UAT and go-live." },
-        { when: "TODO dates", role: "Customer Success Manager", org: "Buybox", text: "Managed 65 B2B accounts: onboarding, support and retention." },
-        { when: "TODO dates", role: "Junior Project Manager", org: "Capgemini Engineering", text: "Supported project delivery: planning, tracking and reporting." },
-        { when: "TODO dates", role: "CRM implementation", org: "Ecotec", text: "Rolled out a CRM: requirements gathering, configuration and user support." }
+        { when: "2024 – present", role: "IT Business Analyst", org: "OneStock", text: "Ran multiple implementation projects end to end, from design to hypercare: functional and technical specifications, integration with ERPs, CRMs, carriers and e-commerce, UAT, key-user training." },
+        { when: "2023 – 2024", role: "Customer Success Manager (work-study)", org: "Buybox", text: "Managed a portfolio of 65 B2B accounts on my own: onboarding and client integrations, performance reporting, upsell pipeline." },
+        { when: "2022", role: "Project Manager (internship)", org: "Capgemini Engineering", text: "Scoped and launched a group-wide internal training program: objectives, design, cross-team coordination." },
+        { when: "2022", role: "Business Assistant (work-study)", org: "Ecotec", text: "Rolled out a CRM and restructured the customer database." }
       ],
       education: [
-        { name: "Toulouse Business School", text: "Master in Management (Grande École), Strategic Innovation Management. Graduated with honors, Certificate of Excellence in Consulting." },
-        { name: "University of Bordeaux", text: "Bachelor's in Economics and Management" },
-        { name: "IUT de Rodez", text: "Two-year technical degree (DUT) (TODO field)" }
+        { name: "Toulouse Business School", text: "2021 – 2024 · Master in Management (Grande École), Strategic Innovation Management. Graduated with honors, Certificate of Excellence in Consulting." },
+        { name: "University of Bordeaux", text: "2020 – 2021 · Bachelor's in Economics and Management, with honors" },
+        { name: "IUT de Rodez", text: "2018 – 2020 · Two-year degree in Business and Administration (DUT GEA)" }
       ],
-      languages: [["French", "native"], ["English", "fluent, used daily at work"]]
+      languages: [["French", "native"], ["English", "fluent, used daily at work"], ["Spanish", "basic (A2)"]]
+    },
+    f1: {
+      meta: {
+        title: "F1 performance analysis — Adrien-Matéo Soules",
+        description: "A dashboard to compare F1 drivers beyond the final standings, and an automation that emails a summary of every Grand Prix."
+      },
+      back: "Back to portfolio",
+      kind: "Personal project",
+      title: "F1 performance analysis",
+      lead: "A tool to compare drivers beyond the final standings, and an automation that sums up every Grand Prix.",
+      open: "Open the dashboard",
+      goals: [
+        { title: "The dashboard: compare and analyze", text: "A web tool to compare drivers' performance, teammates or any two drivers, and analyze a race in detail: lap-by-lap gaps, race pace on clean laps, track position and tyre strategies. Data comes live from the public OpenF1 API." },
+        { title: "The race report: summarize and share", text: "After each Grand Prix, an automation computes the key figures of the race. Claude writes a summary, which is emailed to subscribers. Every teammate duel is logged to track trends across the season." }
+      ],
+      archTitle: "Architecture",
+      archLead: "Two uses, one calculation engine.",
+      scrollHint: "Drag the diagram to explore it.",
+      makeTitle: "The Make scenario",
+      makeText: "The webhook receives the Grand Prix figures sent by GitHub Actions. Claude writes the summary, then a router emails subscribers and logs each duel to Google Sheets.",
+      makeAlt: "Make scenario: webhook, Claude, router, Gmail, iterator and Google Sheets",
+      choicesTitle: "Design choices",
+      choices: [
+        ["One calculation codebase", "The dashboard and the race report run exactly the same logic, so the figures in the email always match what's on screen."],
+        ["Claude writes, it doesn't compute", "The AI gets figures that are already checked, with instructions that forbid inventing anything. The analysis stays reliable, the writing reads well."],
+        ["A fallback at every step", "If Claude fails, the email goes out with the figures alone. If Make is unreachable, GitHub sends the report itself."]
+      ],
+      stackTitle: "Stack",
+      stack: [["OpenF1", "public REST API"], ["JavaScript", "dashboard and charts"], ["Node.js", "report calculation"], ["GitHub Actions", "on-demand runs"], ["Make", "webhook orchestration"], ["Claude", "summary writing"], ["Gmail", "sending to subscribers"], ["Google Sheets", "season history"], ["Netlify", "hosting and sign-ups"]],
+      diagram: {
+        top: "Dashboard, on every visit",
+        bottom: "Race report, on demand",
+        chrono: ["F1 timing", "official live feed"],
+        openf1: ["OpenF1", "REST API, JSON", "no key, ~3 req/s"],
+        netlify: ["Netlify", "hosts index.html"],
+        browser: ["Browser", "visitor's", "calculation + charts"],
+        dashboard: ["Dashboard", "gaps between drivers", "lap by lap, on track", "tyre strategies"],
+        forms: ["Netlify Forms", "report subscribers"],
+        me: ["Me", "Run workflow"],
+        gha: ["GitHub Actions", "report.mjs, Node.js", "GP calculation + email"],
+        make: ["Make", "webhook"],
+        claude: ["Claude", "writes the summary"],
+        gmail: ["Gmail", "me + subscribers (Bcc)"],
+        sheets: ["Google Sheets", "1 row per duel"],
+        l: { records: "records", records2: "every session", fetch: "fetch (CORS)", serves: "serves the page", draws: "draws", subscribe: "subscribe", same: "same", same2: "calculation code", launches: "runs", calls: "8 calls", reads: "reads subscribers", reads2: "(Netlify API)", post: "POST JSON", facts: "facts", summary: "HTML summary", iter: "Iterator, 11 duels", fallback: "fallback: if Make is unreachable, GitHub sends the factual email itself" }
+      }
     },
     contact: {
       title: "Let's work together",

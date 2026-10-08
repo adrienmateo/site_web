@@ -15,7 +15,7 @@ window.SITE = {
   "github": "https://github.com/adrienmateo",
   "repoSite": "https://github.com/adrienmateo/site_web",
   "repoF1": "https://github.com/adrienmateo/F1-duel-rythme",
-  "dashboardF1": "https://f1-automatisation.netlify.app"
+  "dashboardF1": "https://adrienmateo.github.io/F1-duel-rythme/"
 };
 
 window.CONTENT = {
@@ -188,18 +188,19 @@ window.CONTENT = {
         },
         {
           "id": "f1",
-          "title": "Analyse de performance F1",
+          "title": "Duel de rythme F1",
           "kind": "Projet personnel",
-          "text": "Un dashboard pour comparer les pilotes, et un compte rendu automatique après chaque Grand Prix.",
-          "summary": "Un outil web qui compare les performances entre pilotes à partir de l'API OpenF1, et une automatisation qui envoie un résumé de chaque Grand Prix aux personnes inscrites, rédigé par Claude.",
-          "shows": "API, données, automatisation, IA appliquée",
+          "text": "Un site qui raconte chaque Grand Prix par les données, et un compte rendu par mail rédigé par Claude.",
+          "summary": "Un site pour les curieux comme pour les experts : le GP en 30 secondes, les moments clés rejoués, les duels et un Explorer. Derrière : une archive hebdomadaire, une API à débit limité maîtrisée, et un compte rendu par mail orchestré par Make et rédigé par Claude.",
+          "shows": "Curiosité, sens du détail UX, API, automatisation, IA appliquée",
           "tags": [
             "OpenF1",
             "GitHub Actions",
             "Make",
-            "Claude"
+            "Claude",
+            "ECharts"
           ],
-          "img": "make-f1.png",
+          "img": "f1-gp.jpg",
           "links": [
             [
               "f1.html",
@@ -208,7 +209,7 @@ window.CONTENT = {
             ],
             [
               "@dashboard",
-              "Ouvrir le dashboard",
+              "Ouvrir le site",
               false
             ],
             [
@@ -563,39 +564,90 @@ window.CONTENT = {
     },
     "f1": {
       "meta": {
-        "title": "Analyse de performance F1 — Adrien-Matéo Soules",
-        "description": "Un dashboard pour comparer les pilotes de F1 au-delà du classement, et une automatisation qui résume chaque Grand Prix par mail."
+        "title": "Duel de rythme F1 — Adrien-Matéo Soules",
+        "description": "Un site qui raconte chaque Grand Prix par les données, et un compte rendu par mail rédigé par Claude."
       },
       "back": "Retour au portfolio",
       "kind": "Projet personnel",
-      "title": "Analyse de performance F1",
-      "lead": "Un outil pour comparer les pilotes au-delà du classement, et une automatisation qui résume chaque Grand Prix.",
-      "open": "Ouvrir le dashboard",
+      "title": "Duel de rythme F1",
+      "lead": "Un site qui raconte chaque Grand Prix par les données, pour les curieux comme pour les experts, et un compte rendu par mail rédigé par Claude.",
+      "open": "Ouvrir le site",
+      "code": "Voir le code",
+      "heroAlt": "Page d'un Grand Prix sur le site Duel de rythme",
       "goals": [
         {
-          "title": "Le dashboard : comparer et analyser",
-          "text": "Un outil web pour comparer les performances entre pilotes, coéquipiers ou pilotes au choix, et analyser une course en détail : écarts tour par tour, rythme de course sur les tours propres, positions en piste et stratégies de pneus. Les données viennent en direct de l'API publique OpenF1."
+          "title": "Raconter le Grand Prix",
+          "text": "Le GP en 30 secondes, les 3 moments qui ont fait la course rejoués avec les voitures, puis la course tour par tour. On voit les voitures s'affronter plutôt que de lire des courbes."
         },
         {
-          "title": "Le compte rendu : résumer et diffuser",
-          "text": "Après chaque Grand Prix, une automatisation calcule les chiffres clés de la course. Claude en rédige un résumé, qui est envoyé par mail aux personnes inscrites. Chaque duel entre coéquipiers est archivé pour suivre les tendances sur la saison."
+          "title": "Analyser",
+          "text": "Les duels entre coéquipiers, les stratégies pneus, et un Explorer pour comparer jusqu'à 4 pilotes : temps au tour, écart en piste, régularité, meilleur tour secteur par secteur."
+        },
+        {
+          "title": "Automatiser",
+          "text": "Chaque lundi, les courses terminées sont archivées pour rester visibles même quand l'API est fermée. À la demande, un compte rendu du GP part par mail, résumé par Claude."
         }
       ],
+      "galleryTitle": "En images",
+      "gallery": [
+        {
+          "img": "f1-moments.jpg",
+          "title": "Les moments qui ont fait la course",
+          "text": "Repérés par des règles fixes, puis rejoués avec les voitures concernées."
+        },
+        {
+          "img": "f1-duels.jpg",
+          "title": "Qui a dominé son coéquipier ?",
+          "text": "Un écart de rythme par écurie, sur une échelle commune."
+        },
+        {
+          "img": "f1-explorer.jpg",
+          "title": "L'Explorer",
+          "text": "Jusqu'à 4 pilotes comparés tour par tour, avec le contexte de course."
+        }
+      ],
+      "traitsTitle": "Ce que ce projet dit de moi",
+      "traits": [
+        [
+          "Curieux",
+          "Je suis parti d'une question simple, « qui a vraiment été le plus rapide ? », et j'ai creusé jusqu'aux données tour par tour."
+        ],
+        [
+          "Attentif au détail de l'expérience",
+          "Navigation pensée pour le pouce sur mobile, secondes au format français, une explication « Comment lire » sur chaque graphique, et jamais de donnée manquante affichée comme une erreur."
+        ],
+        [
+          "Des appels API ciblés",
+          "Chaque écran ne demande que les données dont il a besoin, puis les garde en mémoire dans le navigateur pour ne pas les redemander."
+        ],
+        [
+          "Une limite d'API maîtrisée",
+          "28 appels par minute au plus, un nouvel essai silencieux quand l'API sature, et une archive hebdomadaire pour ne plus dépendre de l'API pendant les séances en direct."
+        ],
+        [
+          "Une architecture à plusieurs outils",
+          "GitHub Pages, GitHub Actions, Make, Claude, Gmail et Google Sheets, chacun à sa place. La partie Make continue d'évoluer."
+        ]
+      ],
       "archTitle": "Architecture",
-      "archLead": "Deux usages, un même moteur de calcul.",
+      "archLead": "Un même moteur de calcul pour le site, l'archive et le compte rendu.",
       "scrollHint": "Faites glisser le schéma pour l'explorer.",
       "makeTitle": "Le scénario Make",
-      "makeText": "Le webhook reçoit les chiffres du Grand Prix envoyés par GitHub Actions. Claude rédige le résumé, puis un routeur envoie le mail aux inscrits et archive chaque duel dans Google Sheets.",
+      "makeText": "Le webhook reçoit les chiffres du Grand Prix envoyés par GitHub Actions. Claude rédige le résumé, puis un routeur envoie le mail et archive chaque duel dans Google Sheets. Ce scénario est en cours d'évolution.",
       "makeAlt": "Scénario Make : webhook, Claude, routeur, Gmail, itérateur et Google Sheets",
       "choicesTitle": "Choix de conception",
       "choices": [
         [
           "Un seul code de calcul",
-          "Le dashboard et le compte rendu utilisent exactement la même logique : les chiffres du mail sont toujours ceux affichés à l'écran."
+          "Le site, l'archive et le compte rendu utilisent exactement la même logique : les chiffres du mail sont ceux affichés à l'écran."
         ],
         [
-          "Claude rédige, il ne calcule pas",
-          "L'IA reçoit des chiffres déjà vérifiés et une consigne qui lui interdit d'inventer. L'analyse reste fiable, la rédaction fluide."
+          "L'IA rédige, elle ne calcule pas",
+          "Le site n'appelle jamais l'IA : tout est calculé dans le navigateur, avec des règles fixes. Claude n'intervient que pour rédiger le résumé du mail, à partir de chiffres déjà vérifiés."
+        ],
+        [
+          "Ne pas dépendre du direct",
+          "L'API ferme pendant les séances en direct. L'archive du lundi garde chaque course passée consultable, et le site la lit en premier."
         ],
         [
           "Un secours à chaque étape",
@@ -610,15 +662,27 @@ window.CONTENT = {
         ],
         [
           "JavaScript",
-          "dashboard et graphiques"
+          "site et calculs"
+        ],
+        [
+          "ECharts",
+          "graphiques"
+        ],
+        [
+          "Python",
+          "assemblage du site"
         ],
         [
           "Node.js",
-          "calcul du compte rendu"
+          "archive et compte rendu"
         ],
         [
           "GitHub Actions",
-          "exécution à la demande"
+          "archive du lundi, envoi à la demande"
+        ],
+        [
+          "GitHub Pages",
+          "hébergement"
         ],
         [
           "Make",
@@ -630,55 +694,60 @@ window.CONTENT = {
         ],
         [
           "Gmail",
-          "envoi aux inscrits"
+          "envoi du compte rendu"
         ],
         [
           "Google Sheets",
           "historique de la saison"
-        ],
-        [
-          "Netlify",
-          "hébergement et inscriptions"
         ]
       ],
       "diagram": {
-        "top": "Dashboard, à chaque visite",
-        "bottom": "Compte rendu, à la demande",
+        "top": "Le site, à chaque visite",
+        "bottom": "Automatisations, sur GitHub Actions",
         "chrono": [
           "Chronométrage F1",
-          "flux live officiel"
+          "flux officiel"
         ],
         "openf1": [
           "OpenF1",
           "API REST, JSON",
-          "sans clé, ~3 req/s"
+          "≤ 28 appels / min"
         ],
-        "netlify": [
-          "Netlify",
-          "héberge index.html"
+        "pages": [
+          "GitHub Pages",
+          "héberge le site"
         ],
         "browser": [
           "Navigateur",
           "du visiteur",
           "calcul + graphiques"
         ],
-        "dashboard": [
-          "Dashboard",
-          "écarts entre pilotes",
-          "tour par tour, en piste",
-          "stratégies pneus"
+        "site": [
+          "Le site",
+          "GP en 30 s, moments",
+          "duels, stratégies, Explorer"
         ],
-        "forms": [
-          "Netlify Forms",
-          "inscrits au compte rendu"
+        "archive": [
+          "Archive data/",
+          "courses passées",
+          "lue en premier"
+        ],
+        "archiveJob": [
+          "archive.mjs",
+          "chaque lundi"
+        ],
+        "store": [
+          "data/ + gp/",
+          "courses archivées",
+          "pages de partage"
         ],
         "me": [
           "Moi",
           "Run workflow"
         ],
-        "gha": [
-          "GitHub Actions",
-          "report.mjs, Node.js",
+        "report": [
+          "report.mjs",
+          "à la demande",
           "calcul du GP + mail"
         ],
         "make": [
@@ -691,7 +760,7 @@ window.CONTENT = {
         ],
         "gmail": [
           "Gmail",
-          "moi + inscrits (Cci)"
+          "compte rendu"
         ],
         "sheets": [
           "Google Sheets",
@@ -699,25 +768,22 @@ window.CONTENT = {
         ],
         "l": {
           "records": "enregistre",
-          "records2": "chaque session",
-          "fetch": "fetch (CORS)",
-          "serves": "sert la page",
-          "draws": "trace",
-          "subscribe": "s'inscrire",
+          "sert": "sert la page",
+          "affiche": "affiche",
+          "first": "lit d'abord",
+          "fetch": "sinon : fetch",
+          "calls": "appels",
+          "commit": "commit, site relancé",
           "same": "même code",
           "same2": "de calcul",
           "launches": "lance",
-          "calls": "8 appels",
-          "reads": "lit les inscrits",
-          "reads2": "(API Netlify)",
           "post": "POST JSON",
           "facts": "faits",
           "summary": "résumé HTML",
-          "iter": "Iterator, 11 duels",
+          "iter": "Iterator, duels",
           "fallback": "secours : si Make est injoignable, GitHub envoie lui-même le mail factuel"
         }
-      },
-      "code": "Voir le code"
+      }
     },
     "demo": {
       "title": "Démo : une commande est bloquée",
@@ -920,18 +986,19 @@ window.CONTENT = {
         },
         {
           "id": "f1",
-          "title": "F1 performance analysis",
+          "title": "F1 pace duel",
           "kind": "Personal project",
-          "text": "A dashboard to compare drivers, and an automated report after every Grand Prix.",
-          "summary": "A web tool comparing drivers' performance from the OpenF1 API, and an automation that emails a summary of every Grand Prix to subscribers, written by Claude.",
-          "shows": "APIs, data, automation, applied AI",
+          "text": "A site that tells every Grand Prix through data, and an email race report written by Claude.",
+          "summary": "A site for curious fans and experts alike: the GP in 30 seconds, key moments replayed, duels and an Explorer. Behind it: a weekly archive, a rate-limited API kept under control, and an email report orchestrated by Make and written by Claude.",
+          "shows": "Curiosity, UX attention to detail, APIs, automation, applied AI",
           "tags": [
             "OpenF1",
             "GitHub Actions",
             "Make",
-            "Claude"
+            "Claude",
+            "ECharts"
           ],
-          "img": "make-f1.png",
+          "img": "f1-gp.jpg",
           "links": [
             [
               "f1.html",
@@ -940,7 +1007,7 @@ window.CONTENT = {
             ],
             [
               "@dashboard",
-              "Open the dashboard",
+              "Open the site",
               false
             ],
             [
@@ -1295,39 +1362,90 @@ window.CONTENT = {
     },
     "f1": {
       "meta": {
-        "title": "F1 performance analysis — Adrien-Matéo Soules",
-        "description": "A dashboard to compare F1 drivers beyond the final standings, and an automation that emails a summary of every Grand Prix."
+        "title": "F1 pace duel — Adrien-Matéo Soules",
+        "description": "A site that tells every Grand Prix through data, and an email race report written by Claude."
       },
       "back": "Back to portfolio",
       "kind": "Personal project",
-      "title": "F1 performance analysis",
-      "lead": "A tool to compare drivers beyond the final standings, and an automation that sums up every Grand Prix.",
-      "open": "Open the dashboard",
+      "title": "F1 pace duel",
+      "lead": "A site that tells every Grand Prix through data, for curious fans and experts alike, plus an email race report written by Claude.",
+      "open": "Open the site",
+      "code": "See the code",
+      "heroAlt": "A Grand Prix page on the Duel de rythme site",
       "goals": [
         {
-          "title": "The dashboard: compare and analyze",
-          "text": "A web tool to compare drivers' performance, teammates or any two drivers, and analyze a race in detail: lap-by-lap gaps, race pace on clean laps, track position and tyre strategies. Data comes live from the public OpenF1 API."
+          "title": "Tell the Grand Prix",
+          "text": "The GP in 30 seconds, the 3 moments that made the race replayed with the cars, then the race lap by lap. You watch the cars battle instead of reading curves."
         },
         {
-          "title": "The race report: summarize and share",
-          "text": "After each Grand Prix, an automation computes the key figures of the race. Claude writes a summary, which is emailed to subscribers. Every teammate duel is logged to track trends across the season."
+          "title": "Analyze",
+          "text": "Teammate duels, tyre strategies, and an Explorer comparing up to 4 drivers: lap times, gap on track, consistency, best lap sector by sector."
+        },
+        {
+          "title": "Automate",
+          "text": "Every Monday, finished races are archived so they stay viewable even when the API is closed. On demand, a race report goes out by email, summarized by Claude."
         }
       ],
+      "galleryTitle": "Screenshots",
+      "gallery": [
+        {
+          "img": "f1-moments.jpg",
+          "title": "The moments that made the race",
+          "text": "Spotted with fixed rules, then replayed with the cars involved."
+        },
+        {
+          "img": "f1-duels.jpg",
+          "title": "Who beat their teammate?",
+          "text": "A pace gap per team, on a shared scale."
+        },
+        {
+          "img": "f1-explorer.jpg",
+          "title": "The Explorer",
+          "text": "Up to 4 drivers compared lap by lap, with race context."
+        }
+      ],
+      "traitsTitle": "What this project says about me",
+      "traits": [
+        [
+          "Curious",
+          "I started from a simple question, \"who was really the fastest?\", and dug all the way down to lap-by-lap data."
+        ],
+        [
+          "Attentive to experience details",
+          "Thumb-friendly mobile navigation, a \"How to read\" note on every chart, and missing data never shown as an error."
+        ],
+        [
+          "Targeted API calls",
+          "Each screen requests only the data it needs, then keeps it in the browser so it isn't fetched again."
+        ],
+        [
+          "A managed API limit",
+          "28 calls per minute at most, a silent retry when the API is saturated, and a weekly archive so the site no longer depends on the API during live sessions."
+        ],
+        [
+          "A multi-tool architecture",
+          "GitHub Pages, GitHub Actions, Make, Claude, Gmail and Google Sheets, each in its place. The Make part keeps evolving."
+        ]
+      ],
       "archTitle": "Architecture",
-      "archLead": "Two uses, one calculation engine.",
+      "archLead": "One calculation engine for the site, the archive and the race report.",
       "scrollHint": "Drag the diagram to explore it.",
       "makeTitle": "The Make scenario",
-      "makeText": "The webhook receives the Grand Prix figures sent by GitHub Actions. Claude writes the summary, then a router emails subscribers and logs each duel to Google Sheets.",
+      "makeText": "The webhook receives the Grand Prix figures sent by GitHub Actions. Claude writes the summary, then a router sends the email and logs each duel to Google Sheets. This scenario is still evolving.",
       "makeAlt": "Make scenario: webhook, Claude, router, Gmail, iterator and Google Sheets",
       "choicesTitle": "Design choices",
       "choices": [
         [
           "One calculation codebase",
-          "The dashboard and the race report run exactly the same logic, so the figures in the email always match what's on screen."
+          "The site, the archive and the race report run exactly the same logic, so the figures in the email match what's on screen."
         ],
         [
-          "Claude writes, it doesn't compute",
-          "The AI gets figures that are already checked, with instructions that forbid inventing anything. The analysis stays reliable, the writing reads well."
+          "AI writes, it doesn't compute",
+          "The site never calls AI: everything is computed in the browser with fixed rules. Claude only writes the email summary, from figures that are already checked."
+        ],
+        [
+          "Don't depend on live",
+          "The API closes during live sessions. The Monday archive keeps every past race viewable, and the site reads it first."
         ],
         [
           "A fallback at every step",
@@ -1342,15 +1460,27 @@ window.CONTENT = {
         ],
         [
           "JavaScript",
-          "dashboard and charts"
+          "site and calculations"
+        ],
+        [
+          "ECharts",
+          "charts"
+        ],
+        [
+          "Python",
+          "site assembly"
         ],
         [
           "Node.js",
-          "report calculation"
+          "archive and race report"
         ],
         [
           "GitHub Actions",
-          "on-demand runs"
+          "Monday archive, on-demand report"
+        ],
+        [
+          "GitHub Pages",
+          "hosting"
         ],
         [
           "Make",
@@ -1362,55 +1492,60 @@ window.CONTENT = {
         ],
         [
           "Gmail",
-          "sending to subscribers"
+          "sending the report"
         ],
         [
           "Google Sheets",
           "season history"
-        ],
-        [
-          "Netlify",
-          "hosting and sign-ups"
         ]
       ],
       "diagram": {
-        "top": "Dashboard, on every visit",
-        "bottom": "Race report, on demand",
+        "top": "The site, on every visit",
+        "bottom": "Automations, on GitHub Actions",
         "chrono": [
           "F1 timing",
-          "official live feed"
+          "official feed"
         ],
         "openf1": [
           "OpenF1",
           "REST API, JSON",
-          "no key, ~3 req/s"
+          "≤ 28 calls / min"
         ],
-        "netlify": [
-          "Netlify",
-          "hosts index.html"
+        "pages": [
+          "GitHub Pages",
+          "hosts the site"
         ],
         "browser": [
           "Browser",
           "visitor's",
           "calculation + charts"
         ],
-        "dashboard": [
-          "Dashboard",
-          "gaps between drivers",
-          "lap by lap, on track",
-          "tyre strategies"
+        "site": [
+          "The site",
+          "GP in 30 s, moments",
+          "duels, strategies, Explorer"
         ],
-        "forms": [
-          "Netlify Forms",
-          "report subscribers"
+        "archive": [
+          "data/ archive",
+          "past races",
+          "read first"
+        ],
+        "archiveJob": [
+          "archive.mjs",
+          "every Monday"
+        ],
+        "store": [
+          "data/ + gp/",
+          "archived races",
+          "share pages"
         ],
         "me": [
           "Me",
           "Run workflow"
         ],
-        "gha": [
-          "GitHub Actions",
-          "report.mjs, Node.js",
+        "report": [
+          "report.mjs",
+          "on demand",
           "GP calculation + email"
         ],
         "make": [
@@ -1423,7 +1558,7 @@ window.CONTENT = {
         ],
         "gmail": [
           "Gmail",
-          "me + subscribers (Bcc)"
+          "race report"
         ],
         "sheets": [
           "Google Sheets",
@@ -1431,25 +1566,22 @@ window.CONTENT = {
         ],
         "l": {
           "records": "records",
-          "records2": "every session",
-          "fetch": "fetch (CORS)",
-          "serves": "serves the page",
-          "draws": "draws",
-          "subscribe": "subscribe",
+          "sert": "serves the page",
+          "affiche": "renders",
+          "first": "reads first",
+          "fetch": "otherwise: fetch",
+          "calls": "calls",
+          "commit": "commit, site rebuilt",
           "same": "same",
           "same2": "calculation code",
           "launches": "runs",
-          "calls": "8 calls",
-          "reads": "reads subscribers",
-          "reads2": "(Netlify API)",
           "post": "POST JSON",
           "facts": "facts",
           "summary": "HTML summary",
-          "iter": "Iterator, 11 duels",
+          "iter": "Iterator, duels",
           "fallback": "fallback: if Make is unreachable, GitHub sends the factual email itself"
         }
-      },
-      "code": "See the code"
+      }
     },
     "demo": {
       "title": "Demo: an order is stuck",

@@ -264,47 +264,56 @@
 
   function diagram(D) {
     var L = D.l, s = "";
-    s += '<svg class="arch" viewBox="0 0 1000 630" role="img" aria-label="' + esc(C[lang].f1.archTitle) + '">';
+    s += '<svg class="arch" viewBox="0 0 1000 640" role="img" aria-label="' + esc(C[lang].f1.archTitle) + '">';
     s += '<defs><marker id="d-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="d-head"/></marker>' +
          '<marker id="d-arrow-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="d-head-acc"/></marker></defs>';
-    // panels
-    s += '<rect class="d-panel" x="225" y="12" width="765" height="312" rx="10"/>' + label(975, 36, D.top, "end", "d-panel-l");
-    s += '<rect class="d-panel" x="225" y="340" width="765" height="282" rx="10"/>' + label(975, 364, D.bottom, "end", "d-panel-l");
-    // boxes
-    s += box(20, 49, 170, 50, D.chrono);
-    s += box(20, 258, 170, 78, D.openf1, "d-key");
-    s += box(245, 49, 155, 50, D.netlify);
-    s += box(245, 139, 155, 82, D.browser);
-    s += box(480, 139, 165, 82, D.dashboard);
-    s += box(480, 258, 165, 50, D.forms);
-    s += box(245, 372, 110, 42, D.me);
-    s += box(245, 452, 155, 90, D.gha);
-    s += box(480, 462, 115, 54, D.make);
-    s += box(650, 462, 135, 54, D.claude);
-    s += box(830, 394, 150, 54, D.gmail);
-    s += box(830, 528, 150, 54, D.sheets);
-    // arrows
-    s += arrow("105,99 105,256") + label(113, 160, L.records) + label(113, 174, L.records2);
-    s += arrow("245,200 150,200 150,256") + label(160, 193, L.fetch);
-    s += arrow("322,99 322,137") + label(330, 123, L.serves);
-    s += arrow("400,172 478,172") + label(439, 165, L.draws, "middle");
-    s += arrow("400,206 440,206 440,283 478,283") + label(446, 245, L.subscribe);
-    s += arrow("378,221 378,450", "d-same") + label(372, 330, L.same, "end", "d-acc") + label(372, 344, L.same2, "end", "d-acc");
-    s += arrow("300,414 300,450") + label(307, 436, L.launches);
-    s += arrow("245,497 150,497 150,338") + label(196, 490, L.calls, "middle");
-    s += arrow("400,470 425,470 425,300 478,300") + label(431, 385, L.reads) + label(431, 399, L.reads2);
-    s += arrow("400,489 478,489") + label(439, 482, L.post, "middle");
-    s += arrow("595,489 648,489") + label(621, 482, L.facts, "middle");
-    s += arrow("785,478 808,478 808,421 828,421") + label(803, 451, L.summary, "end");
-    s += arrow("785,500 808,500 808,555 828,555") + label(803, 540, L.iter, "end");
-    s += arrow("322,542 322,605 990,605 990,432 982,432", "d-dash") + label(656, 598, L.fallback, "middle");
+    s += '<rect class="d-panel" x="225" y="12" width="765" height="245" rx="10"/>' + label(975, 36, D.top, "end", "d-panel-l");
+    s += '<rect class="d-panel" x="225" y="272" width="765" height="356" rx="10"/>' + label(975, 296, D.bottom, "end", "d-panel-l");
+    s += box(20, 45, 170, 50, D.chrono);
+    s += box(20, 290, 170, 78, D.openf1, "d-key");
+    s += box(245, 45, 155, 50, D.pages);
+    s += box(245, 135, 155, 82, D.browser);
+    s += box(470, 135, 200, 82, D.site);
+    s += box(740, 135, 230, 82, D.archive);
+    s += box(245, 304, 155, 64, D.archiveJob);
+    s += box(470, 304, 190, 74, D.store);
+    s += box(245, 410, 110, 42, D.me);
+    s += box(245, 478, 155, 82, D.report);
+    s += box(470, 492, 115, 54, D.make);
+    s += box(640, 492, 135, 54, D.claude);
+    s += box(830, 432, 150, 50, D.gmail);
+    s += box(830, 556, 150, 50, D.sheets);
+    s += arrow("105,95 105,288") + label(97, 245, L.records, "end");
+    s += arrow("322,95 322,133") + label(330, 119, L.sert);
+    s += arrow("400,165 468,165") + label(434, 158, L.affiche, "middle");
+    s += arrow("400,200 440,200 440,240 855,240 855,219") + label(700, 233, L.first, "middle");
+    s += arrow("245,190 150,190 150,288") + label(158, 183, L.fetch);
+    s += arrow("245,336 192,336") + label(218, 329, L.calls, "middle");
+    s += arrow("400,336 468,336");
+    s += arrow("660,336 900,336 900,219") + label(780, 329, L.commit, "middle");
+    s += arrow("380,217 380,302", "d-same") + label(374, 262, L.same, "end", "d-acc") + label(374, 276, L.same2, "end", "d-acc");
+    s += arrow("380,368 380,476", "d-same");
+    s += arrow("300,452 300,476") + label(307, 468, L.launches);
+    s += arrow("245,520 120,520 120,370") + label(182, 513, L.calls, "middle");
+    s += arrow("400,519 468,519") + label(434, 512, L.post, "middle");
+    s += arrow("585,519 638,519") + label(611, 512, L.facts, "middle");
+    s += arrow("775,508 805,508 805,457 828,457") + label(800, 485, L.summary, "end");
+    s += arrow("775,530 805,530 805,581 828,581") + label(800, 566, L.iter, "end");
+    s += arrow("322,560 322,618 990,618 990,447 982,447", "d-dash") + label(656, 612, L.fallback, "middle");
     return s + "</svg>";
   }
 
   function renderF1(T) {
     var F = T.f1;
-    $("f1-goals").innerHTML = F.goals.map(function (g) {
-      return '<article class="goal"><h3>' + esc(g.title) + "</h3><p>" + esc(g.text) + "</p></article>";
+    $("f1-goals").innerHTML = F.goals.map(function (g, i) {
+      return '<article class="goal"><span class="goal-n">' + (i + 1) + "</span><h3>" + esc(g.title) + "</h3><p>" + esc(g.text) + "</p></article>";
+    }).join("");
+    $("f1-hero-img").setAttribute("alt", F.heroAlt);
+    $("f1-gallery").innerHTML = F.gallery.map(function (g) {
+      return '<figure class="shot-card"><a href="' + esc(g.img) + '" target="_blank" rel="noopener"><img src="' + esc(g.img) + '" alt="' + esc(g.title) + '" loading="lazy"></a><figcaption><strong>' + esc(g.title) + "</strong><span>" + esc(g.text) + "</span></figcaption></figure>";
+    }).join("");
+    $("f1-traits").innerHTML = F.traits.map(function (t) {
+      return "<li><h3>" + esc(t[0]) + "</h3><p>" + esc(t[1]) + "</p></li>";
     }).join("");
     $("f1-arch").innerHTML = diagram(F.diagram);
     $("f1-make-img").setAttribute("alt", F.makeAlt);

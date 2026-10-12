@@ -59,39 +59,33 @@ window.CONTENT = {
         {
           "id": "cadrer",
           "name": "Cadrer",
-          "tag": "Comprendre le besoin",
-          "text": "Ateliers avec les équipes métier, analyse de l'existant, identification des écarts entre le besoin et la solution."
+          "tag": "Aligner les équipes",
+          "text": "J'anime des réunions de plus de 20 personnes, sur des sujets à la fois techniques et fonctionnels, avec des interlocuteurs d'horizons très différents. Cadrage du besoin, écoute active, et toutes les parties prenantes embarquées dans la même direction."
         },
         {
           "id": "concevoir",
           "name": "Concevoir",
-          "tag": "Le rendre technique",
-          "text": "Spécifications fonctionnelles et techniques, user stories, critères d'acceptance en Gherkin, relais avec l'équipe produit."
+          "tag": "Proposer la solution technique",
+          "text": "Je transforme un besoin métier en proposition technique : architecture des flux entre les systèmes, choix de solution, spécifications fonctionnelles et techniques. Je travaille avec des profils fonctionnels comme techniques, et je construis la solution avec les développeurs."
         },
         {
           "id": "integrer",
           "name": "Intégrer",
           "tag": "Relier les systèmes",
-          "text": "API REST, webhooks, SFTP, flux avec les ERP, les CRM, l'e-commerce et les transporteurs."
+          "text": "Je définis le détail des intégrations entre la solution et les systèmes du client : mapping des champs, formats d'échange, gestion des erreurs, par API REST, webhooks, SFTP ou middlewares sur mesure. Je paramètre une partie des flux moi-même et je travaille avec les développeurs sur les couches plus techniques. Je discute directement avec les intégrateurs des formats, des champs et des erreurs, je rédige la documentation technique, et je débogue la solution jusqu'à identifier les correctifs à apporter."
         },
         {
           "id": "tester",
-          "name": "Tester",
-          "tag": "S'assurer que ça tient",
-          "text": "Cahiers de recette, analyse des logs, diagnostic et résolution des anomalies."
-        },
-        {
-          "id": "accompagner",
-          "name": "Accompagner",
-          "tag": "Faire adopter",
-          "text": "Formation des key users, coordination jusqu'à l'hypercare, suivi après la mise en production."
+          "name": "Tester et automatiser",
+          "tag": "Fiabiliser, puis gagner du temps",
+          "text": "Recette, analyse des logs, diagnostic des anomalies. Et quand une vérification se répète, je l'automatise."
         }
       ],
       "auto": {
-        "id": "automatiser",
-        "name": "Automatiser",
-        "tag": "En continu, à chaque étape",
-        "text": "Workflows automatisés, agents IA, scripts et petits outils internes qui retirent les tâches répétitives."
+        "id": "accompagner",
+        "name": "Accompagner",
+        "tag": "Du premier atelier à l'hypercare",
+        "text": "Je reste le point de contact des équipes tout au long du projet, puis je forme les utilisateurs pour que l'outil soit réellement adopté."
       },
       "cats": [
         [
@@ -103,6 +97,10 @@ window.CONTENT = {
           "Technique et IA"
         ],
         [
+          "fmt",
+          "Formats et échanges"
+        ],
+        [
           "sys",
           "Systèmes intégrés"
         ]
@@ -111,25 +109,41 @@ window.CONTENT = {
         "jira": "Suivi du backlog, des anomalies et des remontées produit.",
         "confluence": "Documentation projet et spécifications partagées.",
         "notion": "Cadrage, notes d'atelier et backlog d'études de cas.",
+        "rovo": "Agents IA internes qui outillent les équipes au quotidien.",
         "productboard": "Remontée des besoins clients vers l'équipe produit.",
         "trello": "Organisation des tâches au quotidien.",
         "drawio": "Schémas de flux et d'architecture.",
+        "office": "Comptes rendus d'atelier, supports de formation et présentations.",
         "excel": "Analyses de données, mapping de champs, suivi de recette.",
         "gsheets": "Tableaux partagés et historiques automatisés.",
-        "postman": "Je rejoue les appels API pour isoler un bug.",
-        "mongodb": "Requêtes et exports pour diagnostiquer les données.",
-        "datadog": "Je remonte les logs pour comprendre une anomalie.",
-        "vscode": "Lecture de JSON, scripts et outils internes.",
-        "node": "Scripts de calcul et d'automatisation.",
-        "github": "Versionner mes projets et les exécuter avec GitHub Actions.",
+        "tableau": "Tableaux de bord et reporting.",
+        "postman": "Tester les appels API, rejouer les cas d'erreur et automatiser des séquences d'appels.",
+        "swagger": "Lire et vérifier la documentation des API avant de paramétrer un flux.",
+        "mongodb": "Explorer les données et vérifier les documents via Compass.",
+        "elasticsearch": "Rechercher dans les données et les logs pour diagnostiquer une anomalie.",
+        "datadog": "Suivre les logs et remonter à l'origine d'une erreur.",
+        "kafka": "Configurer des webhooks sur mesure, diffusés via Kafka.",
+        "vault": "Stocker et gérer les secrets des intégrations : clés API, identifiants.",
+        "github": "Consulter le code et l'historique des changements pour comprendre un comportement, gérer les secrets.",
+        "ghactions": "Tâches planifiées de mes projets, comme l'archive hebdomadaire du dashboard F1.",
+        "vscode": "Lecture de JSON et de fichiers de configuration.",
+        "node": "Exécution des scripts de calcul et d'automatisation de mes projets.",
         "make": "Scénarios automatisés par webhook, avec l'IA intégrée.",
         "n8n": "Workflows d'automatisation entre outils.",
-        "claude": "Agents IA, rédaction et analyse automatisées.",
+        "claude": "Agents IA, analyse, et Claude Code pour construire mes projets.",
+        "api": "Le format d'échange principal entre la solution et les systèmes du client.",
+        "webhooks": "Des événements poussés en temps réel vers les systèmes du client.",
+        "json": "Lire et corriger les payloads échangés.",
+        "xml": "Les flux des systèmes plus anciens, ERP en tête.",
+        "csv": "Les imports et exports en masse.",
+        "logfeeds": "Suivre les feeds de logs des middlewares pour retracer un échange de bout en bout.",
+        "sftp": "Déposer et récupérer les fichiers d'échange.",
         "sap": "ERP connecté aux flux de commandes et de stock.",
         "cegid": "ERP et CRM retail intégrés aux flux.",
         "nav": "ERP connecté aux flux de commandes.",
         "hubspot": "CRM : suivi de portefeuille et reporting.",
-        "shopify": "Plateforme e-commerce reliée aux flux de commandes."
+        "shopify": "Plateforme e-commerce reliée aux flux de commandes.",
+        "commercetools": "Plateforme e-commerce headless reliée aux flux de commandes."
       }
     },
     "work": {
@@ -857,39 +871,33 @@ window.CONTENT = {
         {
           "id": "cadrer",
           "name": "Scope",
-          "tag": "Understand the need",
-          "text": "Workshops with business teams, analysis of the current setup, gaps between the need and the solution."
+          "tag": "Align the teams",
+          "text": "I run meetings of more than 20 people on topics that are both technical and functional, with stakeholders from very different backgrounds. Scoping the need, active listening, and every stakeholder brought on board in the same direction."
         },
         {
           "id": "concevoir",
           "name": "Design",
-          "tag": "Make it technical",
-          "text": "Functional and technical specifications, user stories, Gherkin acceptance criteria, liaison with the product team."
+          "tag": "Propose the technical solution",
+          "text": "I turn a business need into a technical proposal: data-flow architecture between systems, solution choices, functional and technical specifications. I work with functional and technical profiles alike, and I build the solution with the developers."
         },
         {
           "id": "integrer",
           "name": "Integrate",
           "tag": "Connect the systems",
-          "text": "REST APIs, webhooks, SFTP, flows with ERPs, CRMs, e-commerce and carriers."
+          "text": "I define the integration details between the solution and the client's systems: field mapping, exchange formats, error handling, over REST APIs, webhooks, SFTP or custom middleware. I configure part of the flows myself and work with the developers on the more technical layers. I talk directly with integrators about formats, fields and errors, I write the technical documentation, and I debug the solution down to the fixes it needs."
         },
         {
           "id": "tester",
-          "name": "Test",
-          "tag": "Make sure it holds",
-          "text": "Test plans, log analysis, diagnosing and fixing issues."
-        },
-        {
-          "id": "accompagner",
-          "name": "Support",
-          "tag": "Drive adoption",
-          "text": "Key-user training, coordination through hypercare, follow-up after go-live."
+          "name": "Test and automate",
+          "tag": "Make it reliable, then save time",
+          "text": "Acceptance testing, log analysis, defect diagnosis. And when a check keeps coming back, I automate it."
         }
       ],
       "auto": {
-        "id": "automatiser",
-        "name": "Automate",
-        "tag": "Continuously, at every step",
-        "text": "Automated workflows, AI agents, scripts and small internal tools that remove repetitive work."
+        "id": "accompagner",
+        "name": "Support",
+        "tag": "From the first workshop to hypercare",
+        "text": "I remain the teams' point of contact throughout the project, then I train users so the tool is genuinely adopted."
       },
       "cats": [
         [
@@ -901,33 +909,53 @@ window.CONTENT = {
           "Technical and AI"
         ],
         [
+          "fmt",
+          "Formats and data exchange"
+        ],
+        [
           "sys",
           "Integrated systems"
         ]
       ],
       "uses": {
-        "jira": "Tracking the backlog, issues and product feedback.",
+        "jira": "Tracking the backlog, defects and product feedback.",
         "confluence": "Project documentation and shared specifications.",
         "notion": "Scoping, workshop notes and case-study backlogs.",
+        "rovo": "Internal AI agents that equip the teams day to day.",
         "productboard": "Passing client needs on to the product team.",
-        "trello": "Day-to-day task organization.",
-        "drawio": "Flow and architecture diagrams.",
+        "trello": "Organising day-to-day tasks.",
+        "drawio": "Data-flow and architecture diagrams.",
+        "office": "Workshop minutes, training material and presentations.",
         "excel": "Data analysis, field mapping, test tracking.",
-        "gsheets": "Shared sheets and automated logs.",
-        "postman": "I replay API calls to isolate a bug.",
-        "mongodb": "Queries and exports to diagnose data.",
-        "datadog": "I trace logs to understand an issue.",
-        "vscode": "Reading JSON, scripts and internal tools.",
-        "node": "Calculation and automation scripts.",
-        "github": "Versioning my projects and running them with GitHub Actions.",
-        "make": "Webhook-driven automations with built-in AI.",
-        "n8n": "Automation workflows across tools.",
-        "claude": "AI agents, automated writing and analysis.",
+        "gsheets": "Shared tables and automated histories.",
+        "tableau": "Dashboards and reporting.",
+        "postman": "Testing API calls, replaying error cases and automating call sequences.",
+        "swagger": "Reading and checking API documentation before configuring a flow.",
+        "mongodb": "Exploring data and checking documents with Compass.",
+        "elasticsearch": "Searching data and logs to diagnose a defect.",
+        "datadog": "Following logs back to the source of an error.",
+        "kafka": "Configuring custom webhooks, delivered through Kafka.",
+        "vault": "Storing and managing integration secrets: API keys, credentials.",
+        "github": "Reading code and change history to understand a behaviour, managing secrets.",
+        "ghactions": "Scheduled jobs for my projects, such as the F1 dashboard's weekly archive.",
+        "vscode": "Reading JSON and configuration files.",
+        "node": "Running the calculation and automation scripts of my projects.",
+        "make": "Webhook-driven scenarios with built-in AI.",
+        "n8n": "Automation workflows between tools.",
+        "claude": "AI agents, analysis, and Claude Code to build my projects.",
+        "api": "The main exchange format between the solution and the client's systems.",
+        "webhooks": "Events pushed in real time to the client's systems.",
+        "json": "Reading and fixing exchanged payloads.",
+        "xml": "Flows from older systems, ERPs first.",
+        "csv": "Bulk imports and exports.",
+        "logfeeds": "Following middleware log feeds to trace an exchange end to end.",
+        "sftp": "Dropping and picking up exchange files.",
         "sap": "ERP connected to order and stock flows.",
         "cegid": "Retail ERP and CRM integrated into the flows.",
         "nav": "ERP connected to order flows.",
-        "hubspot": "CRM: account portfolio and reporting.",
-        "shopify": "E-commerce platform connected to order flows."
+        "hubspot": "CRM: portfolio tracking and reporting.",
+        "shopify": "E-commerce platform connected to order flows.",
+        "commercetools": "Headless e-commerce platform connected to order flows."
       }
     },
     "work": {

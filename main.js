@@ -89,7 +89,8 @@
 
   /* ---------- home: skills (frise + toolbox) ---------- */
   function toolIcon(t) {
-    if (t.path) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + t.path + '"/></svg>';
+    if (t.path) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + t.path + '"/></svg>' +
+      (t.extra ? '<svg class="extra" viewBox="0 0 24 24" aria-hidden="true" style="--brand:' + t.extra.color + '"><path d="' + t.extra.path + '"/></svg>' : "");
     return '<span class="mono" aria-hidden="true">' + esc(t.mono) + "</span>";
   }
 

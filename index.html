@@ -38,18 +38,19 @@
 
   <main id="main">
     <section class="hero wrap" id="top">
+      <svg class="thread" id="thread" aria-hidden="true"><path id="thread-path" d=""/><circle class="node n1" r="4.5"/><circle class="node n2" r="4.5"/><circle class="pulse" r="3"/></svg>
       <div>
-        <h1 class="hero-in" style="--i:0">Adrien-Matéo<br>Soules</h1>
-        <p class="role hero-in" style="--i:1" data-i18n="hero.role"></p>
-        <p class="pitch hero-in" style="--i:2" data-i18n="hero.pitch"></p>
-        <div class="actions hero-in" style="--i:3">
+        <h1 class="hero-name"><span class="ln"><span>Adrien-Matéo</span></span><span class="ln"><span id="name-last">Soules</span></span></h1>
+        <p class="role hero-in" style="--i:5" data-i18n="hero.role"></p>
+        <p class="pitch hero-in" style="--i:6" data-i18n="hero.pitch"></p>
+        <div class="actions hero-in" style="--i:7">
           <a class="btn primary" href="#contact" data-i18n="hero.ctaContact"></a>
           <a class="btn" data-href="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn" data-href="github" href="#" target="_blank" rel="noopener">GitHub</a>
           <a class="btn" id="cv-link" href="#" download hidden data-i18n="hero.ctaCv"></a>
         </div>
       </div>
-      <figure class="portrait hero-in" style="--i:2">
+      <figure class="portrait">
         <img src="photo.jpg" alt="Portrait d'Adrien-Matéo Soules" width="400" height="400">
       </figure>
     </section>
@@ -85,7 +86,7 @@
         <h2 data-i18n="work.title"></h2>
         <p class="lead" data-i18n="work.lead"></p>
       </div>
-      <div class="tiles reveal" id="work-list"></div>
+      <div class="work-card reveal" id="work-list"></div>
     </section>
 
     <section class="section wrap" id="path">
@@ -116,6 +117,8 @@
       </div>
     </section>
   </main>
+
+  <div class="peek" id="peek" aria-hidden="true"></div>
 
   <dialog class="modal" id="modal" aria-labelledby="modal-title">
     <button type="button" class="modal-close" id="modal-close" data-i18n-label="ui.close" aria-label="Fermer">×</button>

@@ -18,6 +18,7 @@
   <a class="skip" href="#main" data-i18n="ui.skip">Aller au contenu</a>
 
   <header class="topbar">
+    <div class="progress" id="progress" aria-hidden="true"></div>
     <div class="wrap topbar-inner">
       <a class="brand" href="#top">Adrien-Matéo Soules</a>
       <nav class="nav" aria-label="Navigation principale">
@@ -53,27 +54,34 @@
       </figure>
     </section>
 
-    <section class="section wrap about reveal" id="about">
-      <h2 data-i18n="about.title"></h2>
-      <div class="about-body" id="about-body"></div>
+    <section class="section wrap about" id="about">
+      <div class="about-side reveal" data-anim="left">
+        <h2 data-i18n="about.title"></h2>
+        <dl class="about-facts" id="about-facts"></dl>
+      </div>
+      <div class="about-body reveal" data-anim="right" id="about-body"></div>
     </section>
 
     <section class="section wrap" id="skills">
-      <div class="reveal">
+      <div class="reveal" data-anim="left">
         <h2 data-i18n="skills.title"></h2>
         <p class="lead" data-i18n="skills.lead"></p>
       </div>
       <div class="skills-card reveal">
-        <ol class="frise" id="skills-frise"></ol>
-        <div class="auto-row" id="skills-auto"></div>
-        <div class="step-panel" id="step-panel" aria-live="polite"></div>
-        <h3 class="toolbox-title" data-i18n="skills.toolsTitle"></h3>
-        <div class="toolbox" id="toolbox"></div>
+        <div class="skills-steps">
+          <ol class="frise" id="skills-frise"></ol>
+          <div class="auto-row" id="skills-auto"></div>
+        </div>
+        <div class="skills-tools">
+          <h3 class="toolbox-title" data-i18n="skills.toolsTitle"></h3>
+          <div class="toolbox" id="toolbox"></div>
+          <p class="tool-use" id="tool-use" aria-live="polite"></p>
+        </div>
       </div>
     </section>
 
     <section class="section wrap" id="work">
-      <div class="reveal">
+      <div class="reveal" data-anim="left">
         <h2 data-i18n="work.title"></h2>
         <p class="lead" data-i18n="work.lead"></p>
       </div>
@@ -81,7 +89,7 @@
     </section>
 
     <section class="section wrap" id="path">
-      <h2 class="reveal" data-i18n="path.title"></h2>
+      <h2 class="reveal" data-anim="left" data-i18n="path.title"></h2>
       <div class="path-grid reveal">
         <div>
           <h3 data-i18n="path.xp"></h3>

@@ -47,11 +47,25 @@ window.CONTENT = {
       "body": [
         "Je suis Business Analyst IT, avec un profil technico-fonctionnel. J'interviens sur des projets de mise en place de solutions SaaS et informatiques, du premier atelier à la fin du projet. Je cadre le besoin avec les équipes métier, je construis la solution avec les développeurs, je la teste, puis j'accompagne les utilisateurs jusqu'à son adoption.",
         "Ce qui me caractérise, c'est la curiosité. Je vais chercher le détail, je fouille jusqu'à comprendre comment les choses fonctionnent vraiment, pour que rien ne casse une fois en production. Et quand une tâche se répète, je l'automatise."
+      ],
+      "facts": [
+        [
+          "Basé à",
+          "Toulouse"
+        ],
+        [
+          "Langues",
+          "Français, anglais"
+        ],
+        [
+          "Formation",
+          "Toulouse Business School, Grande École"
+        ]
       ]
     },
     "skills": {
       "title": "Compétences",
-      "lead": "Mes compétences, dans l'ordre où elles interviennent sur un projet. Choisissez une étape ou un outil.",
+      "lead": "Mes compétences, dans l'ordre où elles interviennent sur un projet, et les outils qui vont avec. Choisissez une étape ou un outil.",
       "hint": "Sélectionnez une étape pour voir ce que j'y fais et avec quels outils.",
       "toolsTitle": "Boîte à outils",
       "usedIn": "Utilisé pour",
@@ -89,16 +103,16 @@ window.CONTENT = {
       },
       "cats": [
         [
-          "fonc",
-          "Fonctionnel et gestion de projet"
-        ],
-        [
           "tech",
           "Technique et IA"
         ],
         [
           "fmt",
           "Formats et échanges"
+        ],
+        [
+          "fonc",
+          "Fonctionnel et gestion de projet"
         ],
         [
           "sys",
@@ -114,7 +128,7 @@ window.CONTENT = {
         "trello": "Organisation des tâches au quotidien.",
         "drawio": "Schémas de flux et d'architecture.",
         "office": "Comptes rendus d'atelier, supports de formation et présentations.",
-        "excel": "Analyses de données, mapping de champs, suivi de recette.",
+        "excel": "Analyses de données, mapping de champs, suivi de recette, tableaux partagés.",
         "gsheets": "Tableaux partagés et historiques automatisés.",
         "tableau": "Tableaux de bord et reporting.",
         "postman": "Tester les appels API, rejouer les cas d'erreur et automatiser des séquences d'appels.",
@@ -144,7 +158,9 @@ window.CONTENT = {
         "hubspot": "CRM : suivi de portefeuille et reporting.",
         "shopify": "Plateforme e-commerce reliée aux flux de commandes.",
         "commercetools": "Plateforme e-commerce headless reliée aux flux de commandes."
-      }
+      },
+      "toolHint": "Cliquez sur un outil pour voir à quoi il me sert.",
+      "stepCount": "outils servent à cette étape"
     },
     "work": {
       "title": "Projets",
@@ -269,53 +285,63 @@ window.CONTENT = {
           "when": "2024 – aujourd'hui",
           "role": "Business Analyst IT",
           "org": "OneStock",
-          "text": "Pilotage de multiples projets d'implémentation de bout en bout, de la conception à l'hypercare : spécifications fonctionnelles et techniques, intégration avec ERP, CRM, transporteurs et e-commerce, recette, formation des key users."
+          "text": "Pilotage de multiples projets d'implémentation de bout en bout, de la conception à l'hypercare : spécifications fonctionnelles et techniques, intégration avec ERP, CRM, transporteurs et e-commerce, recette, formation des key users.",
+          "logo": "logo-onestock.png"
         },
         {
           "when": "2023 – 2024",
           "role": "Customer Success Manager (alternance)",
           "org": "Buybox",
-          "text": "Portefeuille de 65 comptes B2B piloté en autonomie : onboarding et intégrations clients, reporting de performance, pipeline d'upsell."
+          "text": "Portefeuille de 65 comptes B2B piloté en autonomie : onboarding et intégrations clients, reporting de performance, pipeline d'upsell.",
+          "logo": "logo-buybox.png"
         },
         {
           "when": "2022",
           "role": "Chef de projet (stage)",
           "org": "Capgemini Engineering",
-          "text": "Cadrage et lancement d'un programme de formation interne à l'échelle du groupe : objectifs, conception, coordination inter-équipes."
+          "text": "Cadrage et lancement d'un programme de formation interne à l'échelle du groupe : objectifs, conception, coordination inter-équipes.",
+          "logo": "logo-capgemini.png"
         },
         {
           "when": "2022",
           "role": "Assistant de gestion (alternance)",
           "org": "Ecotec",
-          "text": "Mise en place d'un CRM et restructuration de la base de données clients."
+          "text": "Mise en place d'un CRM et restructuration de la base de données clients.",
+          "mono": "EC"
         }
       ],
       "education": [
         {
           "name": "Toulouse Business School",
-          "text": "2021 – 2024 · Programme Grande École, Strategic Innovation Management. Mention Bien, Certificat d'excellence Consulting."
+          "text": "2021 – 2024 · Programme Grande École, Strategic Innovation Management. Mention Bien, Certificat d'excellence Consulting.",
+          "logo": "logo-tbs.png"
         },
         {
           "name": "Université de Bordeaux",
-          "text": "2020 – 2021 · Licence Économie-Gestion, Mention Bien"
+          "text": "2020 – 2021 · Licence Économie-Gestion, Mention Bien",
+          "logo": "logo-bordeaux.png"
         },
         {
           "name": "IUT de Rodez",
-          "text": "2018 – 2020 · DUT Gestion des Entreprises et des Administrations"
+          "text": "2018 – 2020 · DUT Gestion des Entreprises et des Administrations",
+          "logo": "logo-iut-rodez.png"
         }
       ],
       "languages": [
         [
           "Français",
-          "langue maternelle"
+          "langue maternelle",
+          "fr"
         ],
         [
           "Anglais",
-          "courant, usage professionnel quotidien"
+          "courant, usage professionnel quotidien",
+          "gb"
         ],
         [
           "Espagnol",
-          "notions (A2)"
+          "notions (A2)",
+          "es"
         ]
       ]
     },
@@ -859,11 +885,25 @@ window.CONTENT = {
       "body": [
         "I'm an IT Business Analyst with a functional and technical profile. I work on SaaS and IT implementation projects, from the first workshop to the end of the project. I scope the need with business teams, build the solution with developers, test it, then support users all the way to adoption.",
         "What defines me is curiosity. I go after the details and dig until I understand how things really work, so nothing breaks once in production. And when a task repeats, I automate it."
+      ],
+      "facts": [
+        [
+          "Based in",
+          "Toulouse, France"
+        ],
+        [
+          "Languages",
+          "French, English"
+        ],
+        [
+          "Education",
+          "Toulouse Business School, Grande École"
+        ]
       ]
     },
     "skills": {
       "title": "Skills",
-      "lead": "My skills, in the order they come into play on a project. Pick a step or a tool.",
+      "lead": "My skills, in the order they come into play on a project, and the tools that go with them. Pick a step or a tool.",
       "hint": "Select a step to see what I do there and which tools I use.",
       "toolsTitle": "Toolbox",
       "usedIn": "Used for",
@@ -901,16 +941,16 @@ window.CONTENT = {
       },
       "cats": [
         [
-          "fonc",
-          "Functional and project management"
-        ],
-        [
           "tech",
           "Technical and AI"
         ],
         [
           "fmt",
           "Formats and data exchange"
+        ],
+        [
+          "fonc",
+          "Functional and project management"
         ],
         [
           "sys",
@@ -926,7 +966,7 @@ window.CONTENT = {
         "trello": "Organising day-to-day tasks.",
         "drawio": "Data-flow and architecture diagrams.",
         "office": "Workshop minutes, training material and presentations.",
-        "excel": "Data analysis, field mapping, test tracking.",
+        "excel": "Data analysis, field mapping, test tracking, shared tables.",
         "gsheets": "Shared tables and automated histories.",
         "tableau": "Dashboards and reporting.",
         "postman": "Testing API calls, replaying error cases and automating call sequences.",
@@ -956,7 +996,9 @@ window.CONTENT = {
         "hubspot": "CRM: portfolio tracking and reporting.",
         "shopify": "E-commerce platform connected to order flows.",
         "commercetools": "Headless e-commerce platform connected to order flows."
-      }
+      },
+      "toolHint": "Click a tool to see what I use it for.",
+      "stepCount": "tools are used at this step"
     },
     "work": {
       "title": "Projects",
@@ -1081,53 +1123,63 @@ window.CONTENT = {
           "when": "2024 – present",
           "role": "IT Business Analyst",
           "org": "OneStock",
-          "text": "Ran multiple implementation projects end to end, from design to hypercare: functional and technical specifications, integration with ERPs, CRMs, carriers and e-commerce, UAT, key-user training."
+          "text": "Ran multiple implementation projects end to end, from design to hypercare: functional and technical specifications, integration with ERPs, CRMs, carriers and e-commerce, UAT, key-user training.",
+          "logo": "logo-onestock.png"
         },
         {
           "when": "2023 – 2024",
           "role": "Customer Success Manager (work-study)",
           "org": "Buybox",
-          "text": "Managed a portfolio of 65 B2B accounts on my own: onboarding and client integrations, performance reporting, upsell pipeline."
+          "text": "Managed a portfolio of 65 B2B accounts on my own: onboarding and client integrations, performance reporting, upsell pipeline.",
+          "logo": "logo-buybox.png"
         },
         {
           "when": "2022",
           "role": "Project Manager (internship)",
           "org": "Capgemini Engineering",
-          "text": "Scoped and launched a group-wide internal training program: objectives, design, cross-team coordination."
+          "text": "Scoped and launched a group-wide internal training program: objectives, design, cross-team coordination.",
+          "logo": "logo-capgemini.png"
         },
         {
           "when": "2022",
           "role": "Business Assistant (work-study)",
           "org": "Ecotec",
-          "text": "Rolled out a CRM and restructured the customer database."
+          "text": "Rolled out a CRM and restructured the customer database.",
+          "mono": "EC"
         }
       ],
       "education": [
         {
           "name": "Toulouse Business School",
-          "text": "2021 – 2024 · Master in Management (Grande École), Strategic Innovation Management. Graduated with honors, Certificate of Excellence in Consulting."
+          "text": "2021 – 2024 · Master in Management (Grande École), Strategic Innovation Management. Graduated with honors, Certificate of Excellence in Consulting.",
+          "logo": "logo-tbs.png"
         },
         {
           "name": "University of Bordeaux",
-          "text": "2020 – 2021 · Bachelor's in Economics and Management, with honors"
+          "text": "2020 – 2021 · Bachelor's in Economics and Management, with honors",
+          "logo": "logo-bordeaux.png"
         },
         {
           "name": "IUT de Rodez",
-          "text": "2018 – 2020 · Two-year degree in Business and Administration (DUT GEA)"
+          "text": "2018 – 2020 · Two-year degree in Business and Administration (DUT GEA)",
+          "logo": "logo-iut-rodez.png"
         }
       ],
       "languages": [
         [
           "French",
-          "native"
+          "native",
+          "fr"
         ],
         [
           "English",
-          "fluent, used daily at work"
+          "fluent, used daily at work",
+          "gb"
         ],
         [
           "Spanish",
-          "basic (A2)"
+          "basic (A2)",
+          "es"
         ]
       ]
     },

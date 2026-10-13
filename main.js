@@ -85,34 +85,41 @@
   /* ---------- home: about ---------- */
   function renderAbout(T) {
     $("about-body").innerHTML = T.about.body.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("");
+    $("about-facts").innerHTML = (T.about.facts || []).map(function (f, i) {
+      return '<div class="st" style="--i:' + i + '"><dt>' + esc(f[0]) + "</dt><dd>" + esc(f[1]) + "</dd></div>";
+    }).join("");
   }
 
-  /* ---------- home: skills (frise + toolbox) ---------- */
+  /* ---------- home: skills (frise verticale + boîte à outils) ---------- */
   function toolIcon(t) {
     if (t.path) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + t.path + '"/></svg>' +
       (t.extra ? '<svg class="extra" viewBox="0 0 24 24" aria-hidden="true" style="--brand:' + t.extra.color + '"><path d="' + t.extra.path + '"/></svg>' : "");
     return '<span class="mono" aria-hidden="true">' + esc(t.mono) + "</span>";
   }
 
+  function stepHTML(s, dot, cls) {
+    return '<button type="button" class="step' + (cls || "") + '" data-step="' + s.id + '" aria-expanded="false">' +
+      '<span class="dot">' + dot + '</span><span class="step-head"><span class="step-name">' + esc(s.name) + '</span><span class="step-tag">' + esc(s.tag) + "</span></span>" +
+      '<span class="chev" aria-hidden="true"></span></button>' +
+      '<div class="step-text"><div><p>' + esc(s.text) + "</p></div></div>";
+  }
+
   function renderSkills(T) {
     var K = T.skills;
     $("skills-frise").innerHTML =
       '<div class="track" aria-hidden="true"><span class="fill" id="frise-fill"></span></div>' +
-      K.steps.map(function (s, i) {
-        return '<li><button type="button" class="step" data-step="' + s.id + '" aria-pressed="false">' +
-          '<span class="dot">' + (i + 1) + '</span><span class="step-name">' + esc(s.name) + '</span><span class="step-tag">' + esc(s.tag) + "</span></button></li>";
-      }).join("");
-    $("skills-auto").innerHTML =
-      '<button type="button" class="step auto" data-step="' + K.auto.id + '" aria-pressed="false"><span class="dot">∞</span><span class="step-name">' +
-      esc(K.auto.name) + '</span><span class="step-tag">' + esc(K.auto.tag) + "</span></button>";
+      K.steps.map(function (s, i) { return '<li class="st" style="--i:' + i + '">' + stepHTML(s, i + 1) + "</li>"; }).join("");
+    $("skills-auto").innerHTML = '<div class="st" style="--i:4">' + stepHTML(K.auto, "∞", " auto") + "</div>";
 
+    var n = 0;
     $("toolbox").innerHTML = K.cats.map(function (c) {
-      return '<div class="tool-cat"><h3>' + esc(c[1]) + '</h3><ul class="tool-grid">' +
+      return '<div class="tool-cat"><h4>' + esc(c[1]) + '</h4><ul class="tool-grid">' +
         TOOLS.filter(function (t) { return t.cat === c[0]; }).map(function (t) {
-          return '<li><button type="button" class="tool-btn" data-tool="' + t.id + '" style="--brand:' + t.color + '" aria-pressed="false">' +
+          n++;
+          return '<li class="st" style="--i:' + Math.min(n * 0.6, 14).toFixed(1) + '"><button type="button" class="tool-btn" data-tool="' + t.id + '" style="--brand:' + t.color + '" aria-pressed="false">' +
             '<span class="tool-logo">' + toolIcon(t) + '</span><span class="tool-name">' + esc(t.name) + "</span></button></li>";
         }).join("") + "</ul></div>";
-    }).join("") + '<div class="tool-pop" id="tool-pop" role="dialog" hidden></div>';
+    }).join("");
 
     document.querySelectorAll("#skills .step").forEach(function (b) {
       b.addEventListener("click", function () { selectStep(b.getAttribute("data-step")); });
@@ -127,33 +134,38 @@
 
   function allSteps(K) { return K.steps.concat([K.auto]); }
 
+  function setUse(html) {
+    var u = $("tool-use");
+    u.innerHTML = html;
+    u.classList.remove("swap"); void u.offsetWidth; u.classList.add("swap");
+  }
+
   function selectStep(id, silent) {
     var K = C[lang].skills;
     if (!silent && id === activeStep) id = null;
     activeStep = id; activeTool = null;
-    hidePop();
     var ids = K.steps.map(function (s) { return s.id; });
     var idx = ids.indexOf(id);
     document.querySelectorAll("#skills .step").forEach(function (b) {
       var on = b.getAttribute("data-step") === id;
       b.classList.toggle("on", on); b.classList.remove("lit");
-      b.setAttribute("aria-pressed", String(on));
+      b.classList.toggle("done", idx > 0 && ids.indexOf(b.getAttribute("data-step")) >= 0 && ids.indexOf(b.getAttribute("data-step")) < idx);
+      b.setAttribute("aria-expanded", String(on));
+      b.parentNode.classList.toggle("open", on);
     });
     var fill = $("frise-fill");
-    if (fill) fill.style.width = idx < 0 ? "0%" : (idx / (ids.length - 1) * 100) + "%";
+    if (fill) fill.style.height = idx < 0 ? "0%" : (idx / (ids.length - 1) * 100) + "%";
+    var count = 0;
     document.querySelectorAll(".tool-btn").forEach(function (b) {
       var tool = TOOLS.filter(function (t) { return t.id === b.getAttribute("data-tool"); })[0];
       var lit = id && tool.steps.indexOf(id) >= 0;
+      if (lit) count++;
       b.classList.toggle("lit", !!lit);
       b.classList.toggle("dim", !!id && !lit);
       b.classList.remove("sel"); b.setAttribute("aria-pressed", "false");
     });
-    var panel = $("step-panel");
     var st = allSteps(K).filter(function (s) { return s.id === id; })[0];
-    panel.classList.remove("swap"); void panel.offsetWidth; panel.classList.add("swap");
-    panel.innerHTML = st
-      ? '<span class="panel-tag">' + esc(st.tag) + "</span><h3>" + esc(st.name) + "</h3><p>" + esc(st.text) + "</p>"
-      : '<p class="panel-hint">' + esc(K.hint) + "</p>";
+    setUse(st ? "<b>" + esc(st.name) + "</b> · " + count + " " + esc(K.stepCount) : esc(K.toolHint));
   }
 
   function selectTool(id) {
@@ -162,36 +174,20 @@
     activeTool = id; activeStep = null;
     var tool = TOOLS.filter(function (t) { return t.id === id; })[0];
     document.querySelectorAll("#skills .step").forEach(function (b) {
-      b.classList.remove("on");
+      b.classList.remove("on", "done");
       b.classList.toggle("lit", tool.steps.indexOf(b.getAttribute("data-step")) >= 0);
-      b.setAttribute("aria-pressed", "false");
+      b.setAttribute("aria-expanded", "false");
+      b.parentNode.classList.remove("open");
     });
-    var fill = $("frise-fill"); if (fill) fill.style.width = "0%";
-    var btn;
+    var fill = $("frise-fill"); if (fill) fill.style.height = "0%";
     document.querySelectorAll(".tool-btn").forEach(function (b) {
       var me = b.getAttribute("data-tool") === id;
-      if (me) btn = b;
       b.classList.toggle("sel", me); b.classList.toggle("dim", !me); b.classList.remove("lit");
       b.setAttribute("aria-pressed", String(me));
     });
-    var names = allSteps(K).filter(function (s) { return tool.steps.indexOf(s.id) >= 0; }).map(function (s) { return '<span class="chip">' + esc(s.name) + "</span>"; }).join("");
-    var pop = $("tool-pop");
-    pop.innerHTML = '<div class="pop-head"><span class="tool-logo" style="--brand:' + tool.color + '">' + toolIcon(tool) + "</span><strong>" + esc(tool.name) + "</strong></div>" +
-      "<p>" + esc(K.uses[id] || "") + '</p><div class="pop-steps"><span>' + esc(K.usedIn) + "</span>" + names + "</div>";
-    pop.hidden = false;
-    var box = $("toolbox").getBoundingClientRect(), r = btn.getBoundingClientRect();
-    var w = Math.min(300, box.width - 8);
-    var left = Math.max(4, Math.min(r.left - box.left + r.width / 2 - w / 2, box.width - w - 4));
-    pop.style.width = w + "px";
-    pop.style.left = left + "px";
-    pop.style.top = (r.bottom - box.top + 10) + "px";
-    pop.style.setProperty("--arrow", (r.left - box.left + r.width / 2 - left) + "px");
-    pop.classList.remove("show"); void pop.offsetWidth; pop.classList.add("show");
-    var panel = $("step-panel");
-    panel.innerHTML = '<p class="panel-hint">' + esc(K.hint) + "</p>";
+    var names = allSteps(K).filter(function (s) { return tool.steps.indexOf(s.id) >= 0; }).map(function (s) { return '<span class="use-step">' + esc(s.name) + "</span>"; }).join("");
+    setUse("<b>" + esc(tool.name) + "</b> · " + esc(K.uses[id] || "") + ' <span class="use-steps">' + names + "</span>");
   }
-
-  function hidePop() { var p = $("tool-pop"); if (p) { p.hidden = true; p.classList.remove("show"); } }
 
   /* ---------- home: projects + modal ---------- */
   function thumb(p) {
@@ -223,18 +219,27 @@
     if (typeof m.showModal === "function") m.showModal(); else m.setAttribute("open", "");
   }
 
+  var FLAGS = {
+    fr: '<svg viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE1126"/></svg>',
+    es: '<svg viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="3" height="2" fill="#AA151B"/><rect y=".5" width="3" height="1" fill="#F1BF00"/></svg>',
+    gb: '<svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="gb-t"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0 60,30M60,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 60,30M60,0 0,30" clip-path="url(#gb-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg>'
+  };
+  function badge(x) {
+    return '<span class="org-logo" aria-hidden="true">' + (x.logo ? '<img src="' + esc(x.logo) + '" alt="">' : "<b>" + esc(x.mono || "") + "</b>") + "</span>";
+  }
   function renderPath(T) {
-    $("timeline").innerHTML = T.path.timeline.map(function (t) {
-      return '<li><span class="when">' + esc(t.when) + '</span><div><h4>' + esc(t.role) +
+    $("timeline").innerHTML = T.path.timeline.map(function (t, i) {
+      return '<li class="st" style="--i:' + i + '">' + badge(t) + '<div><span class="when">' + esc(t.when) + "</span><h4>" + esc(t.role) +
         ' <span class="org">' + esc(t.org) + "</span></h4><p>" + esc(t.text) + "</p></div></li>";
     }).join("");
-    $("education").innerHTML = T.path.education.map(function (e) {
-      return "<li><strong>" + esc(e.name) + "</strong><span>" + esc(e.text) + "</span></li>";
+    $("education").innerHTML = T.path.education.map(function (e, i) {
+      return '<li class="st" style="--i:' + (i + 2) + '">' + badge(e) + "<div><strong>" + esc(e.name) + "</strong><span>" + esc(e.text) + "</span></div></li>";
     }).join("");
-    $("languages").innerHTML = T.path.languages.map(function (l) {
-      return "<li><strong>" + esc(l[0]) + "</strong><span>" + esc(l[1]) + "</span></li>";
+    $("languages").innerHTML = T.path.languages.map(function (l, i) {
+      return '<li class="st lang-item" style="--i:' + (i + 5) + '"><span class="flag">' + (FLAGS[l[2]] || "") + "</span><div><strong>" + esc(l[0]) + "</strong><span>" + esc(l[1]) + "</span></div></li>";
     }).join("");
   }
+
 
   /* ---------- method page ---------- */
   function renderMethode(T) {
@@ -435,7 +440,19 @@
   /* ---------- page behaviors ---------- */
   function initChrome() {
     var bar = document.querySelector(".topbar");
-    function onScroll() { if (bar) bar.classList.toggle("scrolled", window.scrollY > 8); }
+    var prog = $("progress"), photo = document.querySelector(".portrait img");
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var ticking = false;
+    function frame() {
+      ticking = false;
+      var y = window.scrollY, max = document.documentElement.scrollHeight - window.innerHeight;
+      if (prog) prog.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
+      if (photo && !calm && window.innerWidth > 900) photo.style.transform = "translateY(" + Math.min(y * 0.12, 80) + "px)";
+    }
+    function onScroll() {
+      if (bar) bar.classList.toggle("scrolled", window.scrollY > 8);
+      if (!ticking) { ticking = true; requestAnimationFrame(frame); }
+    }
     window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
     if ("IntersectionObserver" in window) {
@@ -463,7 +480,7 @@
       $("modal-close").addEventListener("click", function () { m.close(); });
     }
     document.addEventListener("click", function (e) {
-      if (activeTool && !e.target.closest(".tool-pop")) selectStep(null, true);
+      if (activeTool && !e.target.closest(".tool-btn")) selectStep(null, true);
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && activeTool) selectStep(null, true); });
   }

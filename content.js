@@ -22,7 +22,7 @@ window.CONTENT = {
   "fr": {
     "meta": {
       "title": "Adrien-Matéo Soules — Business Analyst IT",
-      "description": "Business Analyst IT au profil technico-fonctionnel : du premier atelier à l'adoption de la solution."
+      "description": "Consultant technico-fonctionnel : je comprends le besoin, je configure et j'intègre la solution, puis je la fais adopter."
     },
     "ui": {
       "skip": "Aller au contenu",
@@ -37,16 +37,41 @@ window.CONTENT = {
       "contact": "Contact"
     },
     "hero": {
-      "role": "Business Analyst IT",
-      "pitch": "Profil technico-fonctionnel. Du premier atelier à l'adoption de la solution.",
+      "role": "Consultant technico-fonctionnel",
+      "pitch": "Comprendre le besoin, configurer la solution, la faire adopter : j'anime les ateliers, je paramètre, j'intègre et je débogue.",
       "ctaContact": "Me contacter",
-      "ctaCv": "Télécharger mon CV"
+      "ctaCv": "Télécharger mon CV",
+      "thread": [
+        "besoin métier",
+        "cadrage",
+        "spécifications",
+        "API REST",
+        "webhooks",
+        "ERP",
+        "CRM",
+        "e-commerce",
+        "recette",
+        "adoption"
+      ],
+      "stats": [
+        [
+          "exp",
+          "**4 ans** d'expérience"
+        ],
+        [
+          "proj",
+          "**8** projets d'implémentation"
+        ],
+        [
+          "ai",
+          "**IA** au quotidien"
+        ]
+      ]
     },
     "about": {
-      "title": "À propos",
+      "title": "Ce que j'apporte",
       "body": [
-        "Je suis Business Analyst IT, avec un profil technico-fonctionnel. J'interviens sur des projets de mise en place de solutions SaaS et informatiques, du premier atelier à la fin du projet. Je cadre le besoin avec les équipes métier, je construis la solution avec les développeurs, je la teste, puis j'accompagne les utilisateurs jusqu'à son adoption.",
-        "Ce qui me caractérise, c'est la curiosité. Je vais chercher le détail, je fouille jusqu'à comprendre comment les choses fonctionnent vraiment, pour que rien ne casse une fois en production. Et quand une tâche se répète, je l'automatise."
+        "Ce qui me caractérise, c'est **la curiosité** : je fouille jusqu'à comprendre comment les choses fonctionnent vraiment, pour que rien ne casse une fois en production."
       ],
       "facts": [
         [
@@ -61,11 +86,49 @@ window.CONTENT = {
           "Formation",
           "Toulouse Business School, Grande École"
         ]
+      ],
+      "pillars": [
+        {
+          "id": "need",
+          "title": "Comprendre le besoin",
+          "points": [
+            "**Animation des ateliers** : 20+ personnes, profils métier et IT",
+            "Écoute active et reformulation du besoin",
+            "Traduction en **specs fonctionnelles et techniques**"
+          ]
+        },
+        {
+          "id": "config",
+          "title": "Configurer et intégrer",
+          "points": [
+            "**Configuration complète** de la solution à partir de mes specs",
+            "Paramétrage des **API et des flux** : ERP, CRM, e-commerce",
+            "**Débogage** et rédaction des demandes de développement"
+          ]
+        },
+        {
+          "id": "adopt",
+          "title": "Mettre en production et faire adopter",
+          "points": [
+            "**Gestion des tickets** pendant le projet",
+            "**Mise en production** jusqu'à la passation",
+            "**Formation des key users** et relation client"
+          ]
+        },
+        {
+          "id": "ai",
+          "title": "Automatiser avec l'IA",
+          "points": [
+            "Conception d'un **agent IA** pour l'équipe support",
+            "**Automatisations** avec Make et n8n",
+            "Usage des **LLM au quotidien**"
+          ]
+        }
       ]
     },
     "skills": {
       "title": "Compétences",
-      "lead": "Mes compétences, dans l'ordre où elles interviennent sur un projet, et les outils qui vont avec. Choisissez une étape ou un outil.",
+      "lead": "Choisissez une étape ou un outil pour avoir plus de détails sur mes compétences.",
       "hint": "Sélectionnez une étape pour voir ce que j'y fais et avec quels outils.",
       "toolsTitle": "Boîte à outils",
       "usedIn": "Utilisé pour",
@@ -74,32 +137,32 @@ window.CONTENT = {
           "id": "cadrer",
           "name": "Cadrer",
           "tag": "Aligner les équipes",
-          "text": "J'anime des réunions de plus de 20 personnes, sur des sujets à la fois techniques et fonctionnels, avec des interlocuteurs d'horizons très différents. Cadrage du besoin, écoute active, et toutes les parties prenantes embarquées dans la même direction."
+          "text": "J'anime des **réunions de plus de 20 personnes**, sur des sujets à la fois techniques et fonctionnels, avec des interlocuteurs d'horizons très différents. Cadrage du besoin, écoute active, et toutes les parties prenantes embarquées dans la même direction."
         },
         {
           "id": "concevoir",
           "name": "Concevoir",
           "tag": "Proposer la solution technique",
-          "text": "Je transforme un besoin métier en proposition technique : architecture des flux entre les systèmes, choix de solution, spécifications fonctionnelles et techniques. Je travaille avec des profils fonctionnels comme techniques, et je construis la solution avec les développeurs."
+          "text": "Je transforme un **besoin métier en proposition technique** : architecture des flux entre les systèmes, choix de solution, spécifications fonctionnelles et techniques. Je travaille avec des profils fonctionnels comme techniques, et je construis la solution avec les développeurs."
         },
         {
           "id": "integrer",
           "name": "Intégrer",
           "tag": "Relier les systèmes",
-          "text": "Je définis le détail des intégrations entre la solution et les systèmes du client : mapping des champs, formats d'échange, gestion des erreurs, par API REST, webhooks, SFTP ou middlewares sur mesure. Je paramètre une partie des flux moi-même et je travaille avec les développeurs sur les couches plus techniques. Je discute directement avec les intégrateurs des formats, des champs et des erreurs, je rédige la documentation technique, et je débogue la solution jusqu'à identifier les correctifs à apporter."
+          "text": "Je définis **le détail des intégrations** entre la solution et les systèmes du client : mapping des champs, formats d'échange, gestion des erreurs, par API REST, webhooks, SFTP ou middlewares sur mesure. Je paramètre une partie des flux moi-même et je travaille avec les développeurs sur les couches plus techniques. Je discute directement avec les intégrateurs des formats, des champs et des erreurs, je rédige la documentation technique, et je débogue la solution jusqu'à identifier les correctifs à apporter."
         },
         {
           "id": "tester",
           "name": "Tester et automatiser",
           "tag": "Fiabiliser, puis gagner du temps",
-          "text": "Recette, analyse des logs, diagnostic des anomalies. Et quand une vérification se répète, je l'automatise."
+          "text": "Recette, analyse des logs, diagnostic des anomalies. Et quand une vérification se répète, **je l'automatise**."
         }
       ],
       "auto": {
         "id": "accompagner",
         "name": "Accompagner",
         "tag": "Du premier atelier à l'hypercare",
-        "text": "Je reste le point de contact des équipes tout au long du projet, puis je forme les utilisateurs pour que l'outil soit réellement adopté."
+        "text": "Je reste **le point de contact des équipes** tout au long du projet, puis je forme les utilisateurs pour que l'outil soit réellement adopté."
       },
       "cats": [
         [
@@ -160,35 +223,38 @@ window.CONTENT = {
         "commercetools": "Plateforme e-commerce headless reliée aux flux de commandes."
       },
       "toolHint": "Cliquez sur un outil pour voir à quoi il me sert.",
-      "stepCount": "outils servent à cette étape"
+      "stepCount": "outils servent à cette étape",
+      "method": {
+        "kicker": "Comment je travaille",
+        "title": "Ma méthode de travail",
+        "text": "Le déroulé d'un projet d'implémentation, avec qui je travaille et ce que je livre à chaque étape.",
+        "phases": [
+          [
+            "Design",
+            "ateliers, specs"
+          ],
+          [
+            "Build",
+            "flux, intégrations"
+          ],
+          [
+            "Recette",
+            "tests, correctifs"
+          ],
+          [
+            "Hypercare",
+            "formation, suivi"
+          ]
+        ],
+        "cta": "Découvrir ma méthode"
+      }
     },
     "work": {
       "title": "Projets",
-      "lead": "Ce que je fais, montré plutôt que raconté.",
+      "lead": "Voici une sélection de mes projets. Cliquez sur l'un d'eux pour en savoir plus.",
       "open": "Découvrir",
       "shows": "Ce que ça montre",
       "projects": [
-        {
-          "id": "methode",
-          "title": "Ma méthode de travail",
-          "kind": "Pratique professionnelle",
-          "text": "Comment je mène un projet d'implémentation, de la conception à l'hypercare.",
-          "summary": "Des projets SaaS de 9 mois à 2 ans, en France et à l'international. Le déroulé d'un projet, avec qui je travaille, ce que je livre, et un exemple concret de diagnostic.",
-          "shows": "Pilotage, intégration, recette, accompagnement",
-          "tags": [
-            "Design",
-            "Build",
-            "Recette",
-            "Hypercare"
-          ],
-          "links": [
-            [
-              "methode.html",
-              "Voir ma méthode",
-              true
-            ]
-          ]
-        },
         {
           "id": "backlog",
           "title": "Du besoin au backlog",
@@ -269,7 +335,8 @@ window.CONTENT = {
               "Voir le code",
               true
             ]
-          ]
+          ],
+          "img": "site-hero.jpg"
         }
       ]
     },
@@ -286,28 +353,53 @@ window.CONTENT = {
           "role": "Business Analyst IT",
           "org": "OneStock",
           "text": "Pilotage de multiples projets d'implémentation de bout en bout, de la conception à l'hypercare : spécifications fonctionnelles et techniques, intégration avec ERP, CRM, transporteurs et e-commerce, recette, formation des key users.",
-          "logo": "logo-onestock.png"
+          "logo": "logo-onestock.png",
+          "points": [
+            "Pilotage **de bout en bout** de **8 projets d'implémentation** SaaS pour des retailers internationaux, de l'atelier à la passation",
+            "**IA au quotidien** : conception d'un **agent IA (Rovo)** pour l'équipe support et d'**outils internes** qui automatisent les vérifications",
+            "**Ateliers de cadrage** avec les équipes métier et IT des clients, et **specs fonctionnelles et techniques**",
+            "**Configuration complète de la solution** à partir de mes specs, paramétrage des API et des flux : ERP, CRM, e-commerce, transporteurs",
+            "**Gestion des tickets** et rédaction des **demandes de développement** pendant le projet",
+            "**Mise en production** jusqu'à la passation, **formation des key users**",
+            "Remontée des besoins clients à l'équipe produit (**proxy PO**, Productboard)"
+          ],
+          "tag": "IA"
         },
         {
           "when": "2023 – 2024",
           "role": "Customer Success Manager (alternance)",
           "org": "Buybox",
           "text": "Portefeuille de 65 comptes B2B piloté en autonomie : onboarding et intégrations clients, reporting de performance, pipeline d'upsell.",
-          "logo": "logo-buybox.png"
+          "logo": "logo-buybox.png",
+          "points": [
+            "**Portefeuille de 65 comptes B2B** piloté en autonomie",
+            "**Onboarding et intégration** des nouveaux clients",
+            "**Reporting de performance** auprès des clients",
+            "**Développement commercial** : construction et suivi du pipeline d'upsell"
+          ]
         },
         {
           "when": "2022",
           "role": "Chef de projet (stage)",
           "org": "Capgemini Engineering",
           "text": "Cadrage et lancement d'un programme de formation interne à l'échelle du groupe : objectifs, conception, coordination inter-équipes.",
-          "logo": "logo-capgemini.png"
+          "logo": "logo-capgemini.png",
+          "points": [
+            "**Cadrage et lancement** d'un programme de formation interne à l'échelle du groupe",
+            "Définition des objectifs et **conception du programme**",
+            "**Coordination inter-équipes**"
+          ]
         },
         {
           "when": "2022",
           "role": "Assistant de gestion (alternance)",
           "org": "Ecotec",
           "text": "Mise en place d'un CRM et restructuration de la base de données clients.",
-          "mono": "EC"
+          "mono": "EC",
+          "points": [
+            "**Mise en place d'un CRM**",
+            "**Restructuration de la base de données clients**"
+          ]
         }
       ],
       "education": [
@@ -860,7 +952,7 @@ window.CONTENT = {
   "en": {
     "meta": {
       "title": "Adrien-Matéo Soules — IT Business Analyst",
-      "description": "IT Business Analyst with a functional and technical profile: from the first workshop to solution adoption."
+      "description": "Functional and technical consultant: I understand the need, configure and integrate the solution, then drive its adoption."
     },
     "ui": {
       "skip": "Skip to content",
@@ -875,16 +967,41 @@ window.CONTENT = {
       "contact": "Contact"
     },
     "hero": {
-      "role": "IT Business Analyst",
-      "pitch": "Functional and technical profile. From the first workshop to solution adoption.",
+      "role": "Functional & technical consultant",
+      "pitch": "Understand the need, configure the solution, get it adopted: I run the workshops, configure, integrate and debug.",
       "ctaContact": "Get in touch",
-      "ctaCv": "Download my resume"
+      "ctaCv": "Download my resume",
+      "thread": [
+        "business need",
+        "scoping",
+        "specifications",
+        "REST API",
+        "webhooks",
+        "ERP",
+        "CRM",
+        "e-commerce",
+        "testing",
+        "adoption"
+      ],
+      "stats": [
+        [
+          "exp",
+          "**4 years** of experience"
+        ],
+        [
+          "proj",
+          "**8** implementation projects"
+        ],
+        [
+          "ai",
+          "**AI** every day"
+        ]
+      ]
     },
     "about": {
-      "title": "About",
+      "title": "What I bring",
       "body": [
-        "I'm an IT Business Analyst with a functional and technical profile. I work on SaaS and IT implementation projects, from the first workshop to the end of the project. I scope the need with business teams, build the solution with developers, test it, then support users all the way to adoption.",
-        "What defines me is curiosity. I go after the details and dig until I understand how things really work, so nothing breaks once in production. And when a task repeats, I automate it."
+        "What defines me is **curiosity**: I dig until I understand how things really work, so nothing breaks once in production."
       ],
       "facts": [
         [
@@ -899,11 +1016,49 @@ window.CONTENT = {
           "Education",
           "Toulouse Business School, Grande École"
         ]
+      ],
+      "pillars": [
+        {
+          "id": "need",
+          "title": "Understand the need",
+          "points": [
+            "**Running workshops**: 20+ people, business and IT profiles",
+            "Active listening and restating the need",
+            "Turning it into **functional and technical specs**"
+          ]
+        },
+        {
+          "id": "config",
+          "title": "Configure and integrate",
+          "points": [
+            "**Full configuration** of the solution from my own specs",
+            "Setting up **APIs and data flows**: ERP, CRM, e-commerce",
+            "**Debugging** and writing development requests"
+          ]
+        },
+        {
+          "id": "adopt",
+          "title": "Go live and drive adoption",
+          "points": [
+            "**Ticket management** throughout the project",
+            "**Go-live** through to handover",
+            "**Key-user training** and client relationship"
+          ]
+        },
+        {
+          "id": "ai",
+          "title": "Automate with AI",
+          "points": [
+            "Built an **AI agent** for the support team",
+            "**Automations** with Make and n8n",
+            "**LLMs in my daily work**"
+          ]
+        }
       ]
     },
     "skills": {
       "title": "Skills",
-      "lead": "My skills, in the order they come into play on a project, and the tools that go with them. Pick a step or a tool.",
+      "lead": "Pick a step or a tool to see more detail about my skills.",
       "hint": "Select a step to see what I do there and which tools I use.",
       "toolsTitle": "Toolbox",
       "usedIn": "Used for",
@@ -912,32 +1067,32 @@ window.CONTENT = {
           "id": "cadrer",
           "name": "Scope",
           "tag": "Align the teams",
-          "text": "I run meetings of more than 20 people on topics that are both technical and functional, with stakeholders from very different backgrounds. Scoping the need, active listening, and every stakeholder brought on board in the same direction."
+          "text": "I run **meetings of more than 20 people** on topics that are both technical and functional, with stakeholders from very different backgrounds. Scoping the need, active listening, and every stakeholder brought on board in the same direction."
         },
         {
           "id": "concevoir",
           "name": "Design",
           "tag": "Propose the technical solution",
-          "text": "I turn a business need into a technical proposal: data-flow architecture between systems, solution choices, functional and technical specifications. I work with functional and technical profiles alike, and I build the solution with the developers."
+          "text": "I turn a **business need into a technical proposal**: data-flow architecture between systems, solution choices, functional and technical specifications. I work with functional and technical profiles alike, and I build the solution with the developers."
         },
         {
           "id": "integrer",
           "name": "Integrate",
           "tag": "Connect the systems",
-          "text": "I define the integration details between the solution and the client's systems: field mapping, exchange formats, error handling, over REST APIs, webhooks, SFTP or custom middleware. I configure part of the flows myself and work with the developers on the more technical layers. I talk directly with integrators about formats, fields and errors, I write the technical documentation, and I debug the solution down to the fixes it needs."
+          "text": "I define **the integration details** between the solution and the client's systems: field mapping, exchange formats, error handling, over REST APIs, webhooks, SFTP or custom middleware. I configure part of the flows myself and work with the developers on the more technical layers. I talk directly with integrators about formats, fields and errors, I write the technical documentation, and I debug the solution down to the fixes it needs."
         },
         {
           "id": "tester",
           "name": "Test and automate",
           "tag": "Make it reliable, then save time",
-          "text": "Acceptance testing, log analysis, defect diagnosis. And when a check keeps coming back, I automate it."
+          "text": "Acceptance testing, log analysis, defect diagnosis. And when a check keeps coming back, **I automate it**."
         }
       ],
       "auto": {
         "id": "accompagner",
         "name": "Support",
         "tag": "From the first workshop to hypercare",
-        "text": "I remain the teams' point of contact throughout the project, then I train users so the tool is genuinely adopted."
+        "text": "I remain **the teams' point of contact** throughout the project, then I train users so the tool is genuinely adopted."
       },
       "cats": [
         [
@@ -998,35 +1153,38 @@ window.CONTENT = {
         "commercetools": "Headless e-commerce platform connected to order flows."
       },
       "toolHint": "Click a tool to see what I use it for.",
-      "stepCount": "tools are used at this step"
+      "stepCount": "tools are used at this step",
+      "method": {
+        "kicker": "How I work",
+        "title": "My working method",
+        "text": "How an implementation project unfolds, who I work with and what I deliver at each step.",
+        "phases": [
+          [
+            "Design",
+            "workshops, specs"
+          ],
+          [
+            "Build",
+            "flows, integrations"
+          ],
+          [
+            "Testing",
+            "tests, fixes"
+          ],
+          [
+            "Hypercare",
+            "training, follow-up"
+          ]
+        ],
+        "cta": "See my method"
+      }
     },
     "work": {
       "title": "Projects",
-      "lead": "What I do, shown rather than told.",
+      "lead": "A selection of my projects. Click one to learn more.",
       "open": "Discover",
       "shows": "What it shows",
       "projects": [
-        {
-          "id": "methode",
-          "title": "How I work",
-          "kind": "Professional practice",
-          "text": "How I run an implementation project, from design to hypercare.",
-          "summary": "SaaS projects lasting 9 months to 2 years, in France and abroad. How a project unfolds, who I work with, what I deliver, and a concrete troubleshooting example.",
-          "shows": "Delivery, integration, testing, user support",
-          "tags": [
-            "Design",
-            "Build",
-            "UAT",
-            "Hypercare"
-          ],
-          "links": [
-            [
-              "methode.html",
-              "See how I work",
-              true
-            ]
-          ]
-        },
         {
           "id": "backlog",
           "title": "From need to backlog",
@@ -1107,7 +1265,8 @@ window.CONTENT = {
               "See the code",
               true
             ]
-          ]
+          ],
+          "img": "site-hero.jpg"
         }
       ]
     },
@@ -1124,28 +1283,53 @@ window.CONTENT = {
           "role": "IT Business Analyst",
           "org": "OneStock",
           "text": "Ran multiple implementation projects end to end, from design to hypercare: functional and technical specifications, integration with ERPs, CRMs, carriers and e-commerce, UAT, key-user training.",
-          "logo": "logo-onestock.png"
+          "logo": "logo-onestock.png",
+          "points": [
+            "Led **8 SaaS implementation projects end to end** for international retailers, from the first workshop to handover",
+            "**AI in my daily work**: built an **AI agent (Rovo)** for the support team and **internal tools** that automate checks",
+            "**Scoping workshops** with clients' business and IT teams, and **functional and technical specs**",
+            "**Full configuration of the solution** from my own specs, setting up APIs and data flows: ERPs, CRMs, e-commerce, carriers",
+            "**Ticket management** and **development requests** throughout the project",
+            "**Go-live** through to handover, **key-user training**",
+            "Passing client needs on to the product team (**proxy PO**, Productboard)"
+          ],
+          "tag": "AI"
         },
         {
           "when": "2023 – 2024",
           "role": "Customer Success Manager (work-study)",
           "org": "Buybox",
           "text": "Managed a portfolio of 65 B2B accounts on my own: onboarding and client integrations, performance reporting, upsell pipeline.",
-          "logo": "logo-buybox.png"
+          "logo": "logo-buybox.png",
+          "points": [
+            "**Portfolio of 65 B2B accounts** managed on my own",
+            "**Onboarding and integration** of new clients",
+            "**Performance reporting** to clients",
+            "**Business development**: building and following the upsell pipeline"
+          ]
         },
         {
           "when": "2022",
           "role": "Project Manager (internship)",
           "org": "Capgemini Engineering",
           "text": "Scoped and launched a group-wide internal training program: objectives, design, cross-team coordination.",
-          "logo": "logo-capgemini.png"
+          "logo": "logo-capgemini.png",
+          "points": [
+            "**Scoped and launched** a group-wide internal training program",
+            "Set the objectives and **designed the program**",
+            "**Cross-team coordination**"
+          ]
         },
         {
           "when": "2022",
           "role": "Business Assistant (work-study)",
           "org": "Ecotec",
           "text": "Rolled out a CRM and restructured the customer database.",
-          "mono": "EC"
+          "mono": "EC",
+          "points": [
+            "**Rolled out a CRM**",
+            "**Restructured the customer database**"
+          ]
         }
       ],
       "education": [

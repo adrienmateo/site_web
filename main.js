@@ -17,6 +17,8 @@
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   }
+  // texte avec **gras** : échappé puis converti en <strong>
+  function rich(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"); }
   function get(obj, path) {
     return path.split(".").reduce(function (o, k) { return o ? o[k] : undefined; }, obj);
   }
@@ -83,8 +85,40 @@
   }
 
   /* ---------- home: about ---------- */
+  var STAT_ICONS = {
+    exp: '<path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 13h18"/>',
+    proj: '<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/>',
+    ai: '<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8L12 3Z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8L18 15Z"/>',
+    acc: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/><path d="M16 5.2a3 3 0 0 1 0 5.6M18 14.6c1.4.6 2.3 2 2.6 4.4"/>',
+    pin: '<path d="M12 21s-6.5-5.6-6.5-11A6.5 6.5 0 0 1 18.5 10c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/>',
+    lang: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/>'
+  };
+  function renderStats(T) {
+    var el = $("hero-stats"); if (!el) return;
+    el.innerHTML = (T.hero.stats || []).map(function (s) {
+      return '<li' + (s[2] ? ' class="tbd"' : "") + '><svg viewBox="0 0 24 24" aria-hidden="true">' + (STAT_ICONS[s[0]] || "") + "</svg>" + rich(s[1]) + "</li>";
+    }).join("");
+  }
+
+  var PILLAR_ICONS = {
+    need: '<path d="M4 5h16v10H9l-5 4V5Z"/><path d="M8 9h8M8 12h5"/>',
+    config: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>',
+    adopt: '<path d="M5 13l4 4L19 7"/><path d="M3 21h18"/>',
+    ai: '<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8L12 3Z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8L18 15Z"/>'
+  };
+  function renderPillars(T) {
+    var el = $("pillars"); if (!el || !T.about.pillars) return;
+    el.innerHTML = T.about.pillars.map(function (p, i) {
+      return '<article class="pillar st' + (p.id === "ai" ? " is-ai" : "") + '" style="--i:' + i + '">' +
+        '<div class="pillar-head"><span class="pillar-ic"><svg viewBox="0 0 24 24" aria-hidden="true">' + (PILLAR_ICONS[p.id] || "") + '</svg></span><span class="pillar-n">0' + (i + 1) + "</span></div>" +
+        "<h3>" + esc(p.title) + '</h3><ul>' + p.points.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("") + "</ul></article>";
+    }).join("");
+  }
+
   function renderAbout(T) {
-    $("about-body").innerHTML = T.about.body.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("");
+    renderStats(T);
+    renderPillars(T);
+    $("about-body").innerHTML = T.about.body.map(function (p) { return "<p>" + rich(p) + "</p>"; }).join("");
     $("about-facts").innerHTML = (T.about.facts || []).map(function (f, i) {
       return '<div class="st" style="--i:' + i + '"><dt>' + esc(f[0]) + "</dt><dd>" + esc(f[1]) + "</dd></div>";
     }).join("");
@@ -101,7 +135,7 @@
     return '<button type="button" class="step' + (cls || "") + '" data-step="' + s.id + '" aria-expanded="false">' +
       '<span class="dot">' + dot + '</span><span class="step-head"><span class="step-name">' + esc(s.name) + '</span><span class="step-tag">' + esc(s.tag) + "</span></span>" +
       '<span class="chev" aria-hidden="true"></span></button>' +
-      '<div class="step-text"><div><p>' + esc(s.text) + "</p></div></div>";
+      '<div class="step-text"><div><p>' + rich(s.text) + "</p></div></div>";
   }
 
   function renderSkills(T) {
@@ -110,6 +144,18 @@
       '<div class="track" aria-hidden="true"><span class="fill" id="frise-fill"></span></div>' +
       K.steps.map(function (s, i) { return '<li class="st" style="--i:' + i + '">' + stepHTML(s, i + 1) + "</li>"; }).join("");
     $("skills-auto").innerHTML = '<div class="st" style="--i:4">' + stepHTML(K.auto, "∞", " auto") + "</div>";
+    if ($("skills-method") && K.method) {
+      var ph = K.method.phases, xs = [20, 110, 200, 290];
+      var art = '<svg class="method-art" viewBox="0 0 310 64" aria-hidden="true"><line class="m-track" x1="20" y1="20" x2="290" y2="20"/><line class="m-prog" x1="20" y1="20" x2="290" y2="20"/>' +
+        xs.map(function (x) { return '<circle class="m-node" cx="' + x + '" cy="20" r="7"/>'; }).join("") +
+        '<circle class="m-dot" cx="20" cy="20" r="3.5"/>' +
+        xs.map(function (x, i) { return '<text class="m-label" x="' + x + '" y="46">' + esc(ph[i][0]) + '</text><text class="m-sub" x="' + x + '" y="60">' + esc(ph[i][1]) + "</text>"; }).join("") + "</svg>";
+      $("skills-method").innerHTML = '<a class="method-band" href="methode.html?lang=' + lang + '">' +
+        '<span class="method-ic" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
+        '<span class="method-txt"><span class="method-kicker">' + esc(K.method.kicker) + "</span><b>" + esc(K.method.title) + "</b><span>" + esc(K.method.text) + "</span></span>" +
+        '<span class="method-art-wrap">' + art + "</span>" +
+        '<span class="method-cta">' + esc(K.method.cta) + '<span class="pj-arrow" aria-hidden="true"></span></span></a>';
+    }
 
     var n = 0;
     $("toolbox").innerHTML = K.cats.map(function (c) {
@@ -199,36 +245,12 @@
   function renderWork(T) {
     $("work-list").innerHTML = '<ol class="pj-list">' + T.work.projects.map(function (p, i) {
       return '<li class="st" style="--i:' + (i * 2) + '"><button type="button" class="pj-row" data-project="' + p.id + '">' +
-        '<span class="pj-thumb" aria-hidden="true">' + thumb(p) + '</span><span class="pj-n">0' + (i + 1) + '</span>' +
+        '<span class="pj-thumb" aria-hidden="true">' + thumb(p) + '</span>' +
         '<span class="pj-title">' + esc(p.title) + '</span><span class="pj-text">' + esc(p.text) + '</span>' +
         '<span class="pj-kind">' + esc(p.kind) + '</span><span class="pj-arrow" aria-hidden="true"></span></button></li>';
     }).join("") + "</ol>";
-    var peek = $("peek");
-    var fine = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var tx = 0, ty = 0, x = 0, y = 0, raf = null;
-    function loop() {
-      x += (tx - x) * 0.18; y += (ty - y) * 0.18;
-      peek.style.left = x + "px"; peek.style.top = y + "px";
-      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 ? requestAnimationFrame(loop) : null;
-    }
     document.querySelectorAll(".pj-row").forEach(function (b) {
-      b.addEventListener("click", function () { peek.classList.remove("on"); openProject(b.getAttribute("data-project")); });
-      if (!peek || !fine) return;
-      b.addEventListener("mouseenter", function (e) {
-        if (window.innerWidth < 900) return;
-        var p = T.work.projects.filter(function (q) { return q.id === b.getAttribute("data-project"); })[0];
-        peek.innerHTML = thumb(p);
-        tx = x = e.clientX + 170; ty = y = e.clientY;
-        peek.style.left = x + "px"; peek.style.top = y + "px";
-        peek.classList.add("on");
-      });
-      b.addEventListener("mousemove", function (e) {
-        tx = e.clientX + 170; ty = e.clientY;
-        if (calm) { x = tx; y = ty; peek.style.left = x + "px"; peek.style.top = y + "px"; }
-        else if (!raf) raf = requestAnimationFrame(loop);
-      });
-      b.addEventListener("mouseleave", function () { peek.classList.remove("on"); });
+      b.addEventListener("click", function () { openProject(b.getAttribute("data-project")); });
     });
   }
 
@@ -236,36 +258,45 @@
   function drawThread(animate) {
     var svg = $("thread"), path = $("thread-path"), last = $("name-last"), img = document.querySelector(".portrait img");
     if (!svg || !last || !img) return;
-    if (window.innerWidth < 900) { svg.style.display = "none"; return; }
     svg.style.display = "";
     var H = svg.getBoundingClientRect(), L = last.parentNode.getBoundingClientRect(), P = img.parentNode.getBoundingClientRect();
-    var sx = L.left - H.left + last.offsetWidth + 22, sy = L.top - H.top + L.height * 0.55;
-    var ex = P.left - H.left - 14, ey = P.top - H.top + P.height * 0.5;
-    var mx = (ex - sx) * 0.55;
-    path.setAttribute("d", "M" + sx + "," + sy + " C" + (sx + mx) + "," + sy + " " + (ex - mx) + "," + ey + " " + ex + "," + ey);
+    var sx = L.left - H.left + last.offsetWidth + 22, sy = L.top - H.top + L.height * 0.55, ex, ey, d;
+    if (P.left > L.left + last.offsetWidth) {
+      // deux colonnes : du nom vers la photo, à droite
+      ex = P.left - H.left - 14; ey = P.top - H.top + P.height * 0.5;
+      var mx = (ex - sx) * 0.55;
+      d = "M" + sx + "," + sy + " C" + (sx + mx) + "," + sy + " " + (ex - mx) + "," + ey + " " + ex + "," + ey;
+    } else {
+      // une colonne (photo au-dessus) : le fil part à droite du nom et remonte vers la photo
+      ex = P.right - H.left + 14; ey = P.top - H.top + P.height * 0.6;
+      var room = Math.max(60, Math.min(H.width - 12, Math.max(sx, ex) + 110));
+      d = "M" + sx + "," + sy + " C" + room + "," + sy + " " + room + "," + ey + " " + ex + "," + ey;
+    }
+    path.setAttribute("d", d);
     var n1 = svg.querySelector(".n1"), n2 = svg.querySelector(".n2");
     n1.setAttribute("cx", sx); n1.setAttribute("cy", sy); n2.setAttribute("cx", ex); n2.setAttribute("cy", ey);
     var len = path.getTotalLength();
     path.style.strokeDasharray = len; svg.style.setProperty("--len", len);
     if (animate) { path.style.strokeDashoffset = len; void path.getBoundingClientRect(); svg.classList.add("go"); }
     path.style.strokeDashoffset = 0;
-    if (!svg._pulse) startPulse(svg, path);
+    if (!svg._words) startWords(svg, path);
   }
 
-  function startPulse(svg, path) {
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var dot = svg.querySelector(".pulse"), t0 = null, DUR = 1600, GAP = 2600, START = 2200;
-    svg._pulse = true;
+  function startWords(svg, path) {
+    var tp = $("thread-text"); if (!tp) return;
+    svg._words = true;
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var SPEED = 55, START = 2100, t0 = null, cur = "";
     function tick(t) {
+      var s = (C[lang].hero.thread || []).join("   ·   ");
+      if (s !== cur) { tp.textContent = s; cur = s; }
+      if (svg.style.display === "none") { requestAnimationFrame(tick); return; }
       if (t0 === null) t0 = t + START;
-      var k = (t - t0) % (DUR + GAP);
-      if (t < t0 || k > DUR || svg.style.display === "none") { dot.style.opacity = 0; }
-      else {
-        var e = k / DUR, ease = e < .5 ? 2 * e * e : 1 - Math.pow(-2 * e + 2, 2) / 2;
-        var pt = path.getPointAtLength(ease * path.getTotalLength());
-        dot.setAttribute("cx", pt.x); dot.setAttribute("cy", pt.y);
-        dot.style.opacity = Math.min(1, Math.sin(e * Math.PI) * 2);
-      }
+      var len = path.getTotalLength(), tl = tp.getComputedTextLength();
+      if (calm) { tp.setAttribute("startOffset", Math.max(0, (len - tl) / 2)); return; }
+      if (t < t0) { tp.setAttribute("startOffset", -tl - 20); requestAnimationFrame(tick); return; }
+      var span = len + tl + 40, k = ((t - t0) / 1000 * SPEED) % span;
+      tp.setAttribute("startOffset", (k - tl - 20).toFixed(1));
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
@@ -295,7 +326,8 @@
   function renderPath(T) {
     $("timeline").innerHTML = T.path.timeline.map(function (t, i) {
       return '<li class="st" style="--i:' + i + '">' + badge(t) + '<div><span class="when">' + esc(t.when) + "</span><h4>" + esc(t.role) +
-        ' <span class="org">' + esc(t.org) + "</span></h4><p>" + esc(t.text) + "</p></div></li>";
+        ' <span class="org">' + esc(t.org) + "</span>" + (t.tag ? '<span class="tl-tag">' + esc(t.tag) + "</span>" : "") + "</h4>" +
+        (t.points ? '<ul class="tl-points">' + t.points.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("") + "</ul>" : "<p>" + rich(t.text) + "</p>") + "</div></li>";
     }).join("");
     $("education").innerHTML = T.path.education.map(function (e, i) {
       return '<li class="st" style="--i:' + (i + 2) + '">' + badge(e) + "<div><strong>" + esc(e.name) + "</strong><span>" + esc(e.text) + "</span></div></li>";

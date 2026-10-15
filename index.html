@@ -11,7 +11,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231F5E4E'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='700' font-size='14' fill='white' text-anchor='middle'%3EAS%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -38,12 +38,13 @@
 
   <main id="main">
     <section class="hero wrap" id="top">
-      <svg class="thread" id="thread" aria-hidden="true"><path id="thread-path" d=""/><circle class="node n1" r="4.5"/><circle class="node n2" r="4.5"/><circle class="pulse" r="3"/></svg>
+      <svg class="thread" id="thread" aria-hidden="true"><path id="thread-path" d=""/><text class="thread-words" dy="-9"><textPath href="#thread-path" id="thread-text"></textPath></text><circle class="node n1" r="4.5"/><circle class="node n2" r="4.5"/></svg>
       <div>
         <h1 class="hero-name"><span class="ln"><span>Adrien-Matéo</span></span><span class="ln"><span id="name-last">Soules</span></span></h1>
         <p class="role hero-in" style="--i:5" data-i18n="hero.role"></p>
         <p class="pitch hero-in" style="--i:6" data-i18n="hero.pitch"></p>
-        <div class="actions hero-in" style="--i:7">
+        <ul class="stats hero-in" style="--i:7" id="hero-stats"></ul>
+        <div class="actions hero-in" style="--i:8">
           <a class="btn primary" href="#contact" data-i18n="hero.ctaContact"></a>
           <a class="btn" data-href="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn" data-href="github" href="#" target="_blank" rel="noopener">GitHub</a>
@@ -60,7 +61,10 @@
         <h2 data-i18n="about.title"></h2>
         <dl class="about-facts" id="about-facts"></dl>
       </div>
-      <div class="about-body reveal" data-anim="right" id="about-body"></div>
+      <div class="about-main reveal" data-anim="right">
+        <div class="pillars" id="pillars"></div>
+        <div class="about-body" id="about-body"></div>
+      </div>
     </section>
 
     <section class="section wrap" id="skills">
@@ -79,6 +83,7 @@
           <p class="tool-use" id="tool-use" aria-live="polite"></p>
         </div>
       </div>
+      <div class="reveal" id="skills-method"></div>
     </section>
 
     <section class="section wrap" id="work">
@@ -117,8 +122,6 @@
       </div>
     </section>
   </main>
-
-  <div class="peek" id="peek" aria-hidden="true"></div>
 
   <dialog class="modal" id="modal" aria-labelledby="modal-title">
     <button type="button" class="modal-close" id="modal-close" data-i18n-label="ui.close" aria-label="Fermer">×</button>

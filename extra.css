@@ -318,6 +318,15 @@ html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { transition: no
 .scene-code .code-body u { width: 4px; height: 8px; }
 .scene-code .code-bar { height: 9px; padding: 0 5px; gap: 3px; } .scene-code .code-bar span { width: 3px; height: 3px; }
 
+/* vidéo : taille réelle (jamais agrandie), calée en bas à droite, bords fondus dans le ciel */
+.hero-scene .scene-video { top: 0 !important; left: 0 !important; bottom: auto !important; width: 100% !important; height: 100% !important; aspect-ratio: auto !important;
+  -webkit-mask-image: none !important; mask-image: none !important; object-fit: fill !important; object-position: 50% 50% !important; }
+.hero-scene { background: linear-gradient(180deg, #C9D1CC 0%, #C6CEC9 60%, #BFC8C2 100%) !important; }
+@media (min-width: 701px) {
+  .scene-stage { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18%), linear-gradient(180deg, transparent 0, #000 14%); -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent 0, #000 18%), linear-gradient(180deg, transparent 0, #000 14%); mask-composite: intersect; }
+}
+
 /* pied de page */
 .footer-row { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 .footer-row a { color: inherit; }

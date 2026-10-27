@@ -118,7 +118,7 @@
       var fw = fig.clientWidth, fh = fig.clientHeight; if (!fw || !fh) return;
       var mobile = getComputedStyle(fig).position === "relative", sc, x, y;
       if (mobile) { sc = Math.max(fw / W, fh / H); x = (fw - W * sc) * .5; y = (fh - H * sc) * .6; }
-      else { sc = fw / W; x = 0; y = fh - H * sc; }
+      else { sc = Math.min(1, fw * .8 / W, fh / H); x = fw - W * sc; y = fh - H * sc; }      // jamais agrandie : pas de perte de pixels
       stage.style.width = W + "px"; stage.style.height = H + "px";
       stage.style.transform = "translate(" + x + "px," + y + "px) scale(" + sc + ")";
     }

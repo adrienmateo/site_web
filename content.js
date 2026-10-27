@@ -60,11 +60,15 @@ window.CONTENT = {
         ],
         [
           "proj",
-          "**8** projets d'implémentation"
+          "**10+** projets d'implémentation"
         ],
         [
           "ai",
           "**IA** au quotidien"
+        ],
+        [
+          "pin",
+          "Basé à **Toulouse**"
         ]
       ]
     },
@@ -94,14 +98,15 @@ window.CONTENT = {
           "points": [
             "**Animation des ateliers** : 20+ personnes, profils métier et IT",
             "Écoute active et reformulation du besoin",
-            "Traduction en **specs fonctionnelles et techniques**"
+            "Traduction en **specs fonctionnelles et techniques**",
+            "Création de **l'architecture technique** du projet"
           ]
         },
         {
           "id": "config",
           "title": "Configurer et intégrer",
           "points": [
-            "**Configuration complète** de la solution à partir de mes specs",
+            "**Configuration complète** de la solution à partir des spécifications",
             "Paramétrage des **API et des flux** : ERP, CRM, e-commerce",
             "**Débogage** et rédaction des demandes de développement"
           ]
@@ -120,6 +125,7 @@ window.CONTENT = {
           "title": "Automatiser avec l'IA",
           "points": [
             "Conception d'un **agent IA** pour l'équipe support",
+            "**Outils internes** qui automatisent les vérifications",
             "**Automatisations** avec Make et n8n",
             "Usage des **LLM au quotidien**"
           ]
@@ -355,9 +361,9 @@ window.CONTENT = {
           "text": "Pilotage de multiples projets d'implémentation de bout en bout, de la conception à l'hypercare : spécifications fonctionnelles et techniques, intégration avec ERP, CRM, transporteurs et e-commerce, recette, formation des key users.",
           "logo": "logo-onestock.png",
           "points": [
-            "Pilotage **de bout en bout** de **8 projets d'implémentation** SaaS pour des retailers internationaux, de l'atelier à la passation",
+            "Pilotage **de bout en bout** de **plus de 10 projets d'implémentation** SaaS pour des retailers internationaux, de l'atelier à la passation",
             "**IA au quotidien** : conception d'un **agent IA (Rovo)** pour l'équipe support et d'**outils internes** qui automatisent les vérifications",
-            "**Ateliers de cadrage** avec les équipes métier et IT des clients, et **specs fonctionnelles et techniques**",
+            "**Ateliers de cadrage** avec les équipes métier et IT des clients, **specs fonctionnelles et techniques** et architecture technique du projet",
             "**Configuration complète de la solution** à partir de mes specs, paramétrage des API et des flux : ERP, CRM, e-commerce, transporteurs",
             "**Gestion des tickets** et rédaction des **demandes de développement** pendant le projet",
             "**Mise en production** jusqu'à la passation, **formation des key users**",
@@ -990,11 +996,15 @@ window.CONTENT = {
         ],
         [
           "proj",
-          "**8** implementation projects"
+          "**10+** implementation projects"
         ],
         [
           "ai",
           "**AI** every day"
+        ],
+        [
+          "pin",
+          "Based in **Toulouse**"
         ]
       ]
     },
@@ -1024,14 +1034,15 @@ window.CONTENT = {
           "points": [
             "**Running workshops**: 20+ people, business and IT profiles",
             "Active listening and restating the need",
-            "Turning it into **functional and technical specs**"
+            "Turning it into **functional and technical specs**",
+            "Designing the project's **technical architecture**"
           ]
         },
         {
           "id": "config",
           "title": "Configure and integrate",
           "points": [
-            "**Full configuration** of the solution from my own specs",
+            "**Full configuration** of the solution from the specifications",
             "Setting up **APIs and data flows**: ERP, CRM, e-commerce",
             "**Debugging** and writing development requests"
           ]
@@ -1050,6 +1061,7 @@ window.CONTENT = {
           "title": "Automate with AI",
           "points": [
             "Built an **AI agent** for the support team",
+            "**Internal tools** that automate checks",
             "**Automations** with Make and n8n",
             "**LLMs in my daily work**"
           ]
@@ -1285,9 +1297,9 @@ window.CONTENT = {
           "text": "Ran multiple implementation projects end to end, from design to hypercare: functional and technical specifications, integration with ERPs, CRMs, carriers and e-commerce, UAT, key-user training.",
           "logo": "logo-onestock.png",
           "points": [
-            "Led **8 SaaS implementation projects end to end** for international retailers, from the first workshop to handover",
+            "Led **10+ SaaS implementation projects end to end** for international retailers, from the first workshop to handover",
             "**AI in my daily work**: built an **AI agent (Rovo)** for the support team and **internal tools** that automate checks",
-            "**Scoping workshops** with clients' business and IT teams, and **functional and technical specs**",
+            "**Scoping workshops** with clients' business and IT teams, **functional and technical specs** and project technical architecture",
             "**Full configuration of the solution** from my own specs, setting up APIs and data flows: ERPs, CRMs, e-commerce, carriers",
             "**Ticket management** and **development requests** throughout the project",
             "**Go-live** through to handover, **key-user training**",

@@ -508,8 +508,8 @@ li:hover > .org-logo { transform: translateY(-2px) rotate(-3deg); box-shadow: va
 .plain strong { display: block; }
 .plain span { color: var(--muted); font-size: 0.95rem; }
 .plain .lang-item { grid-template-columns: 34px minmax(0, 1fr); }
-.flag { display: block; width: 33px; height: 22px; border-radius: 4px; overflow: hidden; box-shadow: 0 0 0 1px var(--line), var(--sh-1); }
-.flag svg { width: 100%; height: 100%; display: block; }
+.lang-flag { display: block; width: 33px; height: 22px; border-radius: 4px; overflow: hidden; box-shadow: 0 0 0 1px var(--line), var(--sh-1); }
+.lang-flag svg { width: 100%; height: 100%; display: block; }
 @media (max-width: 860px) {
   .path-grid { grid-template-columns: 1fr; gap: 24px; }
 }
@@ -669,3 +669,19 @@ li:hover > .org-logo { transform: translateY(-2px) rotate(-3deg); box-shadow: va
 .about-body p { font-size: 1.02rem; color: var(--muted); margin: 0; }
 .about-body p strong { color: var(--ink); }
 @media (max-width: 700px) { .pillars { grid-template-columns: 1fr; } }
+
+/* ---------- curseur « fil rouge » (ordinateur) ---------- */
+.has-cursor, .has-cursor a, .has-cursor button, .has-cursor .pj-row, .has-cursor .tool-btn, .has-cursor .step { cursor: none; }
+.has-cursor input, .has-cursor textarea { cursor: text; }
+.cursor-trail { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; opacity: 0; transition: opacity .2s; }
+.cursor-trail path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.cursor-ring { position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity .2s; }
+.cursor-ring::before { content: ""; position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); transform: translate(-50%, -50%); transition: width .3s var(--ease), height .3s var(--ease), background .3s; }
+.cursor-ring span { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); font: 700 .72rem var(--sans); color: #fff; white-space: nowrap; opacity: 0; transition: opacity .2s; }
+.cursor-ring.is-link::before { width: 28px; height: 28px; background: rgba(225, 6, 0, .08); }
+.cursor-ring.is-view::before { width: 66px; height: 66px; background: var(--accent); }
+.cursor-ring.is-view span { opacity: 1; }
+.cursor-ring.is-down::before { width: 9px; height: 9px; }
+.cursor-on .cursor-ring, .cursor-on .cursor-trail { opacity: 1; }
+/* piliers : transition douce pendant la mise en place */
+.pillar { will-change: transform; }

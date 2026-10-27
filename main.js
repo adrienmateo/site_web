@@ -258,6 +258,7 @@
   function drawThread(animate) {
     var svg = $("thread"), path = $("thread-path"), last = $("name-last"), img = document.querySelector(".portrait img");
     if (!svg || !last || !img) return;
+    if (window.innerWidth <= 860) { svg.style.display = "none"; return; }
     svg.style.display = "";
     var H = svg.getBoundingClientRect(), L = last.parentNode.getBoundingClientRect(), P = img.parentNode.getBoundingClientRect();
     var sx = L.left - H.left + last.offsetWidth + 22, sy = L.top - H.top + L.height * 0.55, ex, ey, d;
@@ -333,7 +334,7 @@
       return '<li class="st" style="--i:' + (i + 2) + '">' + badge(e) + "<div><strong>" + esc(e.name) + "</strong><span>" + esc(e.text) + "</span></div></li>";
     }).join("");
     $("languages").innerHTML = T.path.languages.map(function (l, i) {
-      return '<li class="st lang-item" style="--i:' + (i + 5) + '"><span class="flag">' + (FLAGS[l[2]] || "") + "</span><div><strong>" + esc(l[0]) + "</strong><span>" + esc(l[1]) + "</span></div></li>";
+      return '<li class="st lang-item" style="--i:' + (i + 5) + '"><span class="lang-flag">' + (FLAGS[l[2]] || "") + "</span><div><strong>" + esc(l[0]) + "</strong><span>" + esc(l[1]) + "</span></div></li>";
     }).join("");
   }
 
@@ -597,5 +598,70 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(go, 60); }); else setTimeout(go, 200);
     var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { drawThread(false); }, 120); });
   }
+  initPillarSettle();
+  initThreadCursor();
   document.documentElement.classList.add("ready");
+
+  /* ---------- piliers : se posent un à un au défilement (ordinateur et mobile) ---------- */
+  function initPillarSettle() {
+    var box = $("pillars"); if (!box) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var ticking = false;
+    function frame() {
+      ticking = false;
+      var vh = window.innerHeight;
+      box.querySelectorAll(".pillar").forEach(function (c, i) {
+        var r = c.getBoundingClientRect();
+        // 0 quand le haut de la carte entre en bas d'écran, 1 quand il atteint 70 % de la hauteur
+        var p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.3)));
+        var e = 1 - Math.pow(1 - p, 3), side = (i % 2 ? 1 : -1);
+        c.style.transform = "translate(" + (side * 26 * (1 - e)) + "px," + (34 * (1 - e)) + "px) rotate(" + (side * 3.5 * (1 - e)) + "deg)";
+        c.style.opacity = 0.35 + 0.65 * e;
+        if (e > 0.995) { c.style.transform = ""; c.style.opacity = ""; }
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    frame();
+  }
+
+  /* ---------- curseur « fil rouge » : ordinateur uniquement ---------- */
+  function initThreadCursor() {
+    if (!window.matchMedia) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var root = document.documentElement;
+    var trail = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    trail.setAttribute("class", "cursor-trail"); trail.setAttribute("aria-hidden", "true");
+    var path = document.createElementNS("http://www.w3.org/2000/svg", "path"); trail.appendChild(path);
+    var ring = document.createElement("div"); ring.className = "cursor-ring"; ring.setAttribute("aria-hidden", "true");
+    ring.innerHTML = "<span></span>";
+    document.body.appendChild(trail); document.body.appendChild(ring);
+    root.classList.add("has-cursor");
+    var mx = -100, my = -100, rx = -100, ry = -100, pts = [], visible = false;
+    var label = ring.querySelector("span");
+    document.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!visible) { visible = true; rx = mx; ry = my; root.classList.add("cursor-on"); }
+      var t = e.target.closest ? e.target : e.target.parentElement;
+      var view = t && t.closest(".pj-row, .method-band");
+      var link = !view && t && t.closest("a, button, [role='button'], .tool-btn, .step");
+      ring.classList.toggle("is-view", !!view);
+      ring.classList.toggle("is-link", !!link);
+      label.textContent = view ? (lang === "fr" ? "Voir" : "View") : "";
+    }, { passive: true });
+    document.addEventListener("mouseleave", function () { visible = false; root.classList.remove("cursor-on"); pts = []; path.setAttribute("d", ""); });
+    document.addEventListener("mousedown", function () { ring.classList.add("is-down"); });
+    document.addEventListener("mouseup", function () { ring.classList.remove("is-down"); });
+    (function loop() {
+      rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2;
+      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
+      if (visible) {
+        pts.push([rx, ry]); if (pts.length > 18) pts.shift();
+        path.setAttribute("d", pts.length > 1 ? "M" + pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" L") : "");
+      }
+      requestAnimationFrame(loop);
+    })();
+  }
 })();

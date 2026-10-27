@@ -96,7 +96,7 @@
   document.querySelectorAll(".lang button").forEach(function (b) { b.addEventListener("click", function () { setTimeout(buildTagline, 0); }); });
 
 
-  /* ---------- Accueil : décor fixe + vraie marche du robot (images de la vidéo) + écran de code net ---------- */
+  /* ---------- Accueil : vidéo de la scène + écran de code net par-dessus ---------- */
   (function () {
     var hero = document.getElementById("top"); if (!hero || hero.querySelector(".hero-scene")) return;
     var img = hero.querySelector(".portrait img");
@@ -104,46 +104,37 @@
     av.src = img ? img.getAttribute("src") : ""; av.alt = ""; av.width = 72; av.height = 72;
     var textCol = hero.querySelector(".hero-name").parentNode; textCol.insertBefore(av, textCol.firstChild);
 
-    var W = 1680, H = 944;
-    var CODE = ['<b>POST</b> /v1/orders', '<i>200 OK</i>  · 142 ms', '{', '  "order_id": "FR-10482",', '  "status": "allocated",', '  "store": "TLS-001",', '  "carrier": "colissimo"', '}', '<i>✓</i> webhook envoyé'];
+    var W = 1280, H = 720;
+    var CODE = ['<b>POST</b> /v1/orders', '<i>200 OK</i> · 142 ms', '{', ' "order_id":', '  "FR-10482",', ' "status":', '  "allocated"', '}', '<i>✓</i> webhook'];
     var fig = document.createElement("figure"); fig.className = "hero-scene hero-in"; fig.style.setProperty("--i", "9"); fig.setAttribute("aria-hidden", "true");
     fig.innerHTML = '<div class="scene-layer"><div class="scene-stage">' +
-      '<picture><source srcset="scene-bg.webp" type="image/webp"><img class="scene-bg" src="scene-bg.jpg" alt="" decoding="async"></picture>' +
-      '<i class="scene-glow g-cube1"></i><i class="scene-glow g-cube2"></i><i class="scene-glow g-cube3"></i>' +
-      '<div class="scene-code"><div class="code-bar"><span></span><span></span><span></span></div><pre class="code-body"></pre></div>' +
-      '<div class="scene-bot"><i class="bot-a"></i></div></div></div>';
+      '<video class="scene-video" muted loop playsinline autoplay preload="auto" poster="hero-scene.jpg">' +
+      '<source src="hero-scene.webm" type="video/webm"><source src="hero-scene.mp4" type="video/mp4"></video>' +
+      '<div class="scene-code"><div class="code-bar"><span></span><span></span><span></span></div><pre class="code-body"></pre></div></div></div>';
     hero.appendChild(fig);
-    var layer = fig.querySelector(".scene-layer"), stage = fig.querySelector(".scene-stage"), bot = fig.querySelector(".scene-bot");
-    var fa = bot.querySelector(".bot-a"), codeEl = fig.querySelector(".code-body");
+    var layer = fig.querySelector(".scene-layer"), stage = fig.querySelector(".scene-stage"), vid = fig.querySelector("video"), codeEl = fig.querySelector(".code-body");
 
     function place() {
       var fw = fig.clientWidth, fh = fig.clientHeight; if (!fw || !fh) return;
       var mobile = getComputedStyle(fig).position === "relative", sc, x, y;
-      if (mobile) { sc = Math.max(fw / W, fh / H); x = (fw - W * sc) * .42; y = (fh - H * sc) * .62; }
+      if (mobile) { sc = Math.max(fw / W, fh / H); x = (fw - W * sc) * .5; y = (fh - H * sc) * .6; }
       else { sc = fw / W; x = 0; y = fh - H * sc; }
       stage.style.width = W + "px"; stage.style.height = H + "px";
       stage.style.transform = "translate(" + x + "px," + y + "px) scale(" + sc + ")";
     }
     place(); window.addEventListener("resize", place);
 
-    // marche (design-to-motion) : un cycle de pas de 56 images nettes, joué image par image (sans fondu),
-    // l'avancée est calée sur les pas pour que les pieds ne glissent pas ; le robot sort de l'écran à gauche.
-    var NF = 56, COLS = 8, FW = 284, FH = 256, SC = .71, FOOT_X = 167, FOOT_Y = 214;
-    var FPS = 24, STEP = 1.5312 * 1.42;                 // avancée par image, dans le repère du décor
-    var ROUTE = [[1250, 478], [1150, 471], [1060, 463], [960, 455], [860, 452], [760, 457], [700, 463], [600, 478], [480, 494], [300, 505], [100, 514], [-260, 522]];
-    var X0 = ROUTE[0][0], X1 = ROUTE[ROUTE.length - 1][0], TOTAL = Math.ceil((X0 - X1) / STEP), GAP = 2.2 * FPS;
-    function groundY(x) { for (var i = 1; i < ROUTE.length; i++) if (x >= ROUTE[i][0]) { var A = ROUTE[i], B = ROUTE[i-1], t = (x - A[0]) / (B[0] - A[0]); return A[1] + (B[1] - A[1]) * t; } return ROUTE[ROUTE.length - 1][1]; }
-    function setFrame(el, i) { el.style.backgroundPosition = (-(i % COLS) * FW) + "px " + (-Math.floor(i / COLS) * FH) + "px"; }
+    if (calm) { vid.removeAttribute("autoplay"); vid.pause(); }
+    var playing = function (on) { if (calm) return; if (on) { var p = vid.play(); if (p && p.catch) p.catch(function () {}); } else vid.pause(); };
+
     // écran de code : les lignes s'écrivent une à une, puis repartent
     var line = 0, ch = 0, hold = 0;
     function typeTick() {
       if (calm) { codeEl.innerHTML = CODE.join("\n"); return; }
-      var txt = CODE.slice(0, line).join("\n"), cur = CODE[line] || "";
-      var plain = cur.replace(/<[^>]+>/g, "");
+      var txt = CODE.slice(0, line).join("\n"), cur = CODE[line] || "", plain = cur.replace(/<[^>]+>/g, "");
       if (line < CODE.length) {
         ch += 1;
-        var shown = ch >= plain.length ? cur : plain.slice(0, ch);
-        codeEl.innerHTML = (txt ? txt + "\n" : "") + shown + '<u></u>';
+        codeEl.innerHTML = (txt ? txt + "\n" : "") + (ch >= plain.length ? cur : plain.slice(0, ch)) + '<u></u>';
         if (ch >= plain.length) { line++; ch = 0; }
         setTimeout(typeTick, ch === 0 ? 260 : 55);
       } else if (hold++ < 1) { codeEl.innerHTML = CODE.join("\n") + '<u></u>'; setTimeout(typeTick, 4200); }
@@ -151,31 +142,15 @@
     }
     typeTick();
 
-    var clock = 0, last = 0, visible = true, mx = 0, my = 0, cx = 0, cy = 0, shown = -1;
-    function frame(now) {
-      requestAnimationFrame(frame);
-      var dt = last ? Math.min(.05, (now - last) / 1000) : 0; last = now; if (!visible) return;
-      clock = (clock + dt) % ((TOTAL + GAP) / FPS);
-      var n = Math.floor(clock * FPS);                          // image entière : pas de fondu, pas de flou
-      if (n !== shown) {
-        shown = n;
-        if (n >= TOTAL) { bot.style.opacity = "0"; }
-        else {
-          var x = X0 - n * STEP, y = groundY(x);
-          setFrame(fa, n % NF);
-          bot.style.opacity = String(Math.min(1, n / 18));      // apparition douce près des serveurs
-          bot.style.transform = "translate(" + Math.round(x - FOOT_X * SC) + "px," + Math.round(y - FOOT_Y * SC) + "px) scale(" + SC + ")";
-        }
-      }
+    var mx = 0, my = 0, cx = 0, cy = 0, visible = true;
+    (function loop() { requestAnimationFrame(loop); if (!visible || calm) return;
       cx += (mx - cx) * .05; cy += (my - cy) * .05;
-      layer.style.transform = "translate3d(" + (-cx * 12).toFixed(2) + "px," + (-cy * 7).toFixed(2) + "px,0) scale(1.03)";
-    }
-    if (calm) { setFrame(fa, 0); bot.style.transform = "translate(" + Math.round(900 - FOOT_X * SC) + "px," + Math.round(groundY(900) - FOOT_Y * SC) + "px) scale(" + SC + ")"; }
-    else requestAnimationFrame(frame);
+      layer.style.transform = "translate3d(" + (-cx * 12).toFixed(2) + "px," + (-cy * 7).toFixed(2) + "px,0) scale(1.03)"; })();
+    hero.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") root.classList.add("cursor-scene"); });
     hero.addEventListener("pointermove", function (e) { if (e.pointerType !== "mouse") return; var r = hero.getBoundingClientRect(); root.classList.add("cursor-scene");
       mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5; });
     hero.addEventListener("pointerleave", function () { mx = my = 0; root.classList.remove("cursor-scene"); });
-    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; last = 0; }).observe(fig);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; playing(visible); }).observe(fig);
   })();
 
   /* ---------- 2. Ouverture : entrer dans l'écran, qui affiche déjà le site ---------- */
@@ -205,6 +180,7 @@
       var c = n.cloneNode(true);
       c.querySelectorAll("[id]").forEach(function (e) { e.removeAttribute("id"); }); c.removeAttribute("id");
       c.querySelectorAll(".thread-words").forEach(function (e) { e.remove(); });
+      c.querySelectorAll("video").forEach(function (v2) { v2.muted = true; v2.currentTime = 0; v2.pause(); });
 
       page.appendChild(c);
     });

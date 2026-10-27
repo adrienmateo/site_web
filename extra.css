@@ -301,6 +301,23 @@ html.has-cursor.cursor-scene #top a, html.has-cursor.cursor-scene #top button { 
 .scene-bot { width: 284px !important; height: 256px !important; will-change: transform; }
 .scene-bot i { background-image: url("robot-cycle.webp") !important; background-size: 2272px 1792px !important; image-rendering: auto; }
 
+/* flèches des projets : dessinées en SVG, parfaitement centrées */
+.pj-arrow { box-sizing: border-box; display: grid; place-items: center; }
+.pj-arrow::before { position: absolute; inset: 0; left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; border-radius: 50%;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px 16px no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px 16px no-repeat; }
+.pj-arrow::after { display: none !important; }
+/* curseur rouge : disparaît instantanément sur la scène */
+html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { transition: none !important; visibility: hidden; }
+
+/* ===== Scène vidéo (Gemini) ===== */
+.hero-scene { background: #C6CEC9 !important; }
+.hero-scene .scene-video { position: absolute; inset: 0; width: 100%; height: 100%; display: block !important; object-fit: cover; }
+.scene-bot, .scene-glow, .scene-bg { display: none !important; }
+.scene-code { left: 1203px !important; top: 178px !important; width: 90px !important; height: 122px !important; border-radius: 3px 0 0 3px; }
+.scene-code .code-body { font-size: 7px; line-height: 10px; padding: 5px 6px; }
+.scene-code .code-body u { width: 4px; height: 8px; }
+.scene-code .code-bar { height: 9px; padding: 0 5px; gap: 3px; } .scene-code .code-bar span { width: 3px; height: 3px; }
+
 /* pied de page */
 .footer-row { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 .footer-row a { color: inherit; }

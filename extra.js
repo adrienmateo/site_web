@@ -234,6 +234,7 @@
   }
 
   function start() {
+    if (root.hasAttribute("data-hero-night")) { window.ntCountUp = countUp; return; } // l'arrivée est gérée par hero-intro.js
     if (calm) { countUp(); return; }
     try { history.scrollRestoration = "manual"; } catch (e) {}
     window.scrollTo({ top: 0, behavior: "instant" });

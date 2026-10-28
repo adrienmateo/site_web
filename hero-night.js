@@ -13,6 +13,7 @@
             sphere: { x: 753, y: 262, w: 144, h: 144 }, cube: { x: 1072, y: 280, w: 130, h: 142 },
             moon: [78.5, 22.9, 34],
             planet: { cx: 943.75, cy: 1686.05, r: 1152.96, depth: 210, speed: 60, bandW: 7244, tiles: 4 } };
+  window.NT_PLANET = { dir: DIR, w: V.w, h: V.h, still: V.still, band: V.band, robot: V.robot, rob: V.rob, planet: V.planet };
   var TXT = {
     fr: { f: ["Fonctionnel", "Ateliers, besoins, spécifications"], t: ["Technique", "API, intégrations, débogage"],
           fa: "Côté fonctionnel : ateliers, besoins, spécifications", ta: "Côté technique : API, intégrations, débogage" },
@@ -49,7 +50,7 @@
   function planet(cv, art) {
     if (stopPlanet) stopPlanet();
     var gl = cv.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false }); if (!gl) { cv.remove(); return; }
-    var P = V.planet, band = new Image(), ready = 0, raf = 0, alive = true, t0 = performance.now(), seen = true;
+    var P = V.planet, band = new Image(), ready = 0, raf = 0, alive = true, t0 = window.ntT0 || (window.ntT0 = performance.now()), seen = true;
     var vs = "attribute vec2 p;varying vec2 uv;void main(){uv=p*.5+.5;uv.y=1.-uv.y;gl_Position=vec4(p,0.,1.);}";
     var fs = "precision highp float;varying vec2 uv;uniform sampler2D st,bd;uniform float t;" +
       "const vec2 C=vec2(" + P.cx.toFixed(2) + "," + P.cy.toFixed(2) + ");const float R=" + P.r.toFixed(2) + ",D=" + P.depth.toFixed(1) +

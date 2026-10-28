@@ -234,7 +234,7 @@
   }
 
   function start() {
-    if (calm) { countUp(); return; }
+    if (calm || root.hasAttribute("data-hero-night")) { countUp(); return; } // accueil « nuit » : pas d'écran d'ouverture, on arrive direct sur le site
     try { history.scrollRestoration = "manual"; } catch (e) {}
     window.scrollTo({ top: 0, behavior: "instant" });
     root.classList.add("intro-on");

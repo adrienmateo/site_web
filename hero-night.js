@@ -123,6 +123,10 @@
     });
   })();
 
+  /* sur la scène : curseur normal, pas de fil rouge */
+  hero.addEventListener("pointermove", function (e) { if (e.pointerType === "mouse") document.documentElement.classList.add("cursor-scene"); });
+  hero.addEventListener("pointerleave", function () { document.documentElement.classList.remove("cursor-scene"); });
+
   build();
   (mq.addEventListener ? mq.addEventListener("change", build) : mq.addListener(build));
   new MutationObserver(lang).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });

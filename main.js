@@ -659,7 +659,7 @@
       ring.style.transform = "translate(" + rx + "px," + ry + "px)";
       if (visible) {
         if (root.classList.contains("cursor-scene")) { pts = []; path.setAttribute("d", ""); rx = mx; ry = my; } else {
-        pts.push([rx, ry]); if (pts.length > 18) pts.shift();
+        pts.push([rx, ry]); if (pts.length > 8) pts.shift();
         path.setAttribute("d", pts.length > 1 ? "M" + pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" L") : ""); }
       }
       requestAnimationFrame(loop);

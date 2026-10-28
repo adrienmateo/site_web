@@ -98,7 +98,7 @@
 
   /* ---------- Accueil : vidéo de la scène + écran de code net par-dessus ---------- */
   (function () {
-    var hero = document.getElementById("top"); if (!hero || hero.querySelector(".hero-scene")) return;
+    var hero = document.getElementById("top"); if (!hero || hero.querySelector(".hero-scene") || document.documentElement.hasAttribute("data-hero-night")) return;
     var img = hero.querySelector(".portrait img");
     var av = document.createElement("img"); av.className = "hero-avatar hero-in"; av.style.setProperty("--i", "0");
     av.src = img ? img.getAttribute("src") : ""; av.alt = ""; av.width = 72; av.height = 72;

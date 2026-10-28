@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-hero-night>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="extra.css">
-  <link rel="preload" as="image" href="hero-scene.jpg">
+  <link rel="stylesheet" href="hero-night.css">
+  <link rel="preload" as="image" href="hero-night/scene-d.webp" media="(min-width: 701px)">
+  <link rel="preload" as="image" href="hero-night/scene-m.webp" media="(max-width: 700px)">
 </head>
 <body>
   <a class="skip" href="#main" data-i18n="ui.skip">Aller au contenu</a>
@@ -144,5 +146,6 @@
   <script src="tools.js"></script>
   <script src="main.js"></script>
   <script src="extra.js"></script>
+  <script src="hero-night.js"></script>
 </body>
 </html>

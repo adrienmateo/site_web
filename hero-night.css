@@ -1,0 +1,99 @@
+/* ===== Accueil « nuit » =====
+   Chargé en dernier : remplace l'ancien accueil clair (vidéo + écran de code) par la scène illustrée.
+   Palette du site : fond #0E1116, accent #E10600, polices Bricolage Grotesque / Manrope / JetBrains Mono. */
+
+/* ---- la grande carte sombre ---- */
+html .hero.wrap {
+  margin: 12px 12px 0 !important; padding: 72px clamp(24px, 5vw, 64px) 40px !important;
+  min-height: min(860px, calc(100svh - 76px)); border-radius: 28px;
+  background: #0E1116; color: #F2F3F6;
+}
+html .hero.wrap::before { display: none !important; }
+/* grain léger, commun à toute la carte */
+html .hero.wrap::after {
+  content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- texte ---- */
+.nt-avatar { display: block; width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin: 0 0 20px;
+  box-shadow: 0 0 0 4px #0E1116, 0 0 0 5px #262C37, 0 10px 28px rgba(0, 0, 0, .5); }
+html .hero h1 { color: #F2F3F6; margin: 22px 0 18px; }
+html .hero .hero-name .ln { overflow: visible; margin-bottom: 0; padding-bottom: 0; }
+html .hero .hero-name .ln > span { transform: none; animation: none; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #F2F3F6; }
+html .hero .hero-name .ln + .ln > span { color: #9AA3B2; }
+html .hero .role { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; margin: 0 0 22px;
+  font: 600 .8rem "JetBrains Mono", ui-monospace, Menlo, monospace; letter-spacing: .04em; color: #FF6A63;
+  background: rgba(225, 6, 0, .12); border: 1px solid rgba(225, 6, 0, .35); padding: 6px 12px; }
+html .hero .role::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #E10600; box-shadow: 0 0 10px #E10600; }
+html .hero .pitch { color: #B7BECB; }
+html .hero .btn:not(.primary) { background: #171B22; color: #F2F3F6; border-color: #262C37; }
+html .hero .btn:not(.primary):hover { border-color: #3A4352; }
+html .hero .stats li, html .hero .stats li:nth-child(3) { color: #9AA3B2; border-left-color: rgba(242, 243, 246, .16); }
+html .hero .stats li strong { color: #F2F3F6; }
+
+/* ---- entrée : la scène est déjà là, le texte tombe ---- */
+html .hero .hero-in { opacity: 0; animation: nt-drop .85s cubic-bezier(.25, 1.35, .45, 1) forwards; animation-delay: calc(var(--i, 0) * 70ms + 450ms); }
+@keyframes nt-drop { 0% { opacity: 0; transform: translateY(-34px); } 35% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+.nt-ch { display: inline-block; opacity: 0; will-change: transform; animation: nt-fall .8s cubic-bezier(.3, 1.5, .5, 1) forwards; animation-delay: calc(var(--c) * 30ms + 150ms); }
+@keyframes nt-fall { 0% { opacity: 0; transform: translateY(-1.15em) rotate(calc(var(--r) * 1deg)); } 30% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+
+/* ---- scène ---- */
+html .hero > .nt-scene { position: absolute; inset: 0; z-index: -2; margin: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.nt-view { position: absolute; top: 0; right: 0; height: 100%; aspect-ratio: 1376 / 768; }
+.nt-view::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, #0E1116 0, rgba(14, 17, 22, .92) 12%, rgba(14, 17, 22, 0) 42%); }
+.nt-world { position: absolute; inset: 0; transform-origin: 78% 70%; animation: nt-settle 24s ease-in-out infinite alternate; }
+.nt-world > * { position: absolute; }
+.nt-art { inset: 0; width: 100%; height: 100%; display: block; max-width: none; }
+@keyframes nt-settle { from { transform: scale(1); } to { transform: scale(1.025); } }
+
+/* lumière de la lune et de la bulle */
+.nt-moon { transform: translate(-50%, -50%); aspect-ratio: 1; border-radius: 50%; mix-blend-mode: screen; animation: nt-breathe 9s ease-in-out infinite;
+  background: radial-gradient(closest-side, rgba(190, 205, 225, .20), rgba(190, 205, 225, .07) 55%, transparent 100%); }
+.nt-glow { transform: translate(-50%, -50%); aspect-ratio: 1; border-radius: 50%; mix-blend-mode: screen; animation: nt-pulse 5.5s ease-in-out infinite;
+  background: radial-gradient(closest-side, rgba(225, 6, 0, .30), transparent 100%); }
+@keyframes nt-breathe { 0%, 100% { opacity: 1; } 50% { opacity: .6; } }
+@keyframes nt-pulse { 0%, 100% { opacity: .9; } 50% { opacity: .35; } }
+
+/* yeux : le robot cligne de temps en temps */
+.nt-lid { transform-origin: 50% 0; transform: scaleY(0); border-radius: 1px; animation: nt-blink 6.5s ease-in-out 3.2s infinite; }
+.nt-lid::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: 42%; height: 2px; background: #2A0B06; opacity: .8; }
+@keyframes nt-blink { 0%, 93%, 100% { transform: scaleY(0); } 96% { transform: scaleY(1); } }
+
+/* bulle et cube : presque en apesanteur */
+.nt-obj { transform-origin: 50% 50%; }
+.nt-obj > img { display: block; width: 100%; height: 100%; max-width: none; }
+.nt-sphere { animation: nt-zero-a 11s ease-in-out infinite; }
+.nt-cube { animation: nt-zero-b 14s ease-in-out -4s infinite; }
+@keyframes nt-zero-a { 0%, 100% { transform: translate(0, 0) rotate(0); } 28% { transform: translate(1.6%, -2.6%) rotate(.7deg); } 55% { transform: translate(-1.2%, -3.4%) rotate(-.5deg); } 80% { transform: translate(-2%, -1%) rotate(.3deg); } }
+@keyframes nt-zero-b { 0%, 100% { transform: translate(0, 0) rotate(0); } 30% { transform: translate(-1.4%, -2.4%) rotate(-1.1deg); } 58% { transform: translate(1.6%, -3.2%) rotate(.8deg); } 82% { transform: translate(.8%, -.8%) rotate(-.4deg); } }
+
+/* survol : deux étiquettes */
+.nt-hot { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: none; padding: 0; margin: 0; border-radius: 50%; cursor: pointer; pointer-events: auto; font: inherit; color: inherit; }
+.nt-cube .nt-hot { border-radius: 8px; }
+.nt-tip { position: absolute; bottom: calc(100% + 10px); display: flex; flex-direction: column; gap: 2px; min-width: 190px; text-align: left; white-space: nowrap;
+  padding: 10px 14px; border-radius: 14px; background: rgba(23, 27, 34, .94); border: 1px solid #262C37; color: #F2F3F6;
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .7); opacity: 0; transform: translateY(-6px); transition: opacity .25s var(--ease, ease), transform .25s var(--ease, ease); pointer-events: none; }
+.nt-tip b { font: 700 .9rem var(--sans, "Manrope", sans-serif); }
+.nt-tip span { font: 500 .78rem var(--sans, "Manrope", sans-serif); color: #9AA3B2; }
+.nt-tip-l { left: 0; } .nt-tip-r { right: 0; }
+.nt-hot:hover .nt-tip, .nt-hot:focus .nt-tip { opacity: 1; transform: none; }
+html .hero .nt-hot:focus-visible { outline: 2px solid #E10600; outline-offset: 4px; }
+
+/* ---- mobile : la scène (image portrait) ouvre la carte, le texte se pose dessous ---- */
+@media (max-width: 700px) {
+  html .hero.wrap { margin: 8px 8px 0 !important; padding: 0 18px 18px !important; min-height: 0; border-radius: 22px; }
+  html .hero > .nt-scene { position: relative; inset: auto; z-index: 0; order: -1; align-self: stretch; width: calc(100% + 36px); margin: 0 -18px; aspect-ratio: 6 / 7; border-radius: 22px 22px 0 0; container-type: inline-size; }
+  .nt-view { height: auto; max-width: none; width: 167cqw; aspect-ratio: 1 / 1; right: -6.7cqw; top: -13.3cqw; }
+  .nt-view::after { background: linear-gradient(0deg, #0E1116 0, rgba(14, 17, 22, .85) 12%, rgba(14, 17, 22, 0) 40%); }
+  html .hero.wrap > div { margin-top: -34px !important; }
+  html .hero .stats li:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .nt-avatar { width: 60px; height: 60px; margin-bottom: 14px; }
+  .nt-tip { min-width: 0; font-size: .9em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html .hero .hero-in, .nt-ch { animation: none; opacity: 1; transform: none; }
+  .nt-world, .nt-moon, .nt-glow, .nt-sphere, .nt-cube, .nt-lid { animation: none; }
+}

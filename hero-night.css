@@ -111,8 +111,11 @@ html .mmenu a { color: #F2F3F6; border-color: #262C37; }
 
 
 /* ---- l'accueil sombre remonte sous la barre de navigation : plus de bande blanche en haut ---- */
-html .hero.wrap { margin: -80px 0 0 !important; padding-top: 140px !important; border-radius: 0 0 28px 28px; }
+html .hero.wrap { margin: 0 !important; padding-top: 140px !important; border-radius: 0 0 28px 28px; }
 @media (max-width: 700px) {
-  html .hero.wrap { margin: -68px 0 0 !important; padding-top: 0 !important; border-radius: 0 0 22px 22px; }
+  html .hero.wrap { margin: 0 !important; padding-top: 0 !important; border-radius: 0 0 22px 22px; }
   html .hero > .nt-scene { border-radius: 0; padding-top: 0; }
 }
+
+/* ---- la barre du haut reste en haut de la page : elle ne suit plus le défilement ---- */
+html .topbar { position: absolute !important; top: 0; left: 0; right: 0; }

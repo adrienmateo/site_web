@@ -108,9 +108,11 @@ html .topbar .lang button { color: #9AA3B2; }
 html .topbar .lang button[aria-pressed="true"] { background: #F2F3F6; color: #0E1116; }
 html .mmenu { background: rgba(14, 17, 22, .96); }
 html .mmenu a { color: #F2F3F6; border-color: #262C37; }
-html .intro { background: #0E1116; }
-html .intro .lap-base { background: linear-gradient(#3A3F47, #23272E); }
-html .intro .lap-base::before { background: #2C3138; }
-html .intro .dev { box-shadow: 0 0 0 1px #2A2D33 inset, 0 40px 80px -30px rgba(0, 0, 0, .8); }
-html .intro .dev-screen, html .intro .scr-page { background: #0E1116; }
-html .intro-skip { background: #171B22; color: #9AA3B2; border-color: #262C37; }
+
+
+/* ---- l'accueil sombre remonte sous la barre de navigation : plus de bande blanche en haut ---- */
+html .hero.wrap { margin: -80px 0 0 !important; padding-top: 140px !important; border-radius: 0 0 28px 28px; }
+@media (max-width: 700px) {
+  html .hero.wrap { margin: -68px 0 0 !important; padding-top: 0 !important; border-radius: 0 0 22px 22px; }
+  html .hero > .nt-scene { border-radius: 0; padding-top: 0; }
+}

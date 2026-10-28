@@ -97,3 +97,20 @@ html .hero .nt-hot:focus-visible { outline: 2px solid #E10600; outline-offset: 4
   html .hero .hero-in, .nt-ch { animation: none; opacity: 1; transform: none; }
   .nt-world, .nt-moon, .nt-glow, .nt-sphere, .nt-cube, .nt-lid { animation: none; }
 }
+
+/* ---- barre de navigation et ouverture accordées à la DA sombre ---- */
+html .topbar .topbar-inner { background: rgba(14, 17, 22, .72); border-color: rgba(242, 243, 246, .1); box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .7); }
+html .topbar .brand, html .topbar .icon-link, html .topbar .burger { color: #F2F3F6; }
+html .topbar .nav a { color: #9AA3B2; }
+html .topbar .nav a:hover, html .topbar .nav a.active { color: #F2F3F6; background: rgba(242, 243, 246, .06); }
+html .topbar .lang { background: rgba(242, 243, 246, .06); border-color: rgba(242, 243, 246, .1); }
+html .topbar .lang button { color: #9AA3B2; }
+html .topbar .lang button[aria-pressed="true"] { background: #F2F3F6; color: #0E1116; }
+html .mmenu { background: rgba(14, 17, 22, .96); }
+html .mmenu a { color: #F2F3F6; border-color: #262C37; }
+html .intro { background: #0E1116; }
+html .intro .lap-base { background: linear-gradient(#3A3F47, #23272E); }
+html .intro .lap-base::before { background: #2C3138; }
+html .intro .dev { box-shadow: 0 0 0 1px #2A2D33 inset, 0 40px 80px -30px rgba(0, 0, 0, .8); }
+html .intro .dev-screen, html .intro .scr-page { background: #0E1116; }
+html .intro-skip { background: #171B22; color: #9AA3B2; border-color: #262C37; }

@@ -168,7 +168,7 @@
     intro.innerHTML = '<div class="intro-stage" id="intro-stage"><div class="dev"><div class="dev-screen" id="dev-screen" style="width:' + sw + 'px;height:' + (sw / ar) + 'px">' +
       '<div class="scr-page" id="scr-page"></div><svg class="sig" id="sig" aria-hidden="true"></svg></div></div>' + (ph ? "" : '<div class="lap-base"></div>') + '</div>' +
       '<button type="button" class="intro-skip" id="intro-skip">Passer</button>' +
-      (mode === "scroll" ? '<div class="intro-hint">Faites défiler<b></b></div>' : "");
+      "";
     document.body.appendChild(intro);
     var sp = document.createElement("div"); sp.className = "intro-spacer"; sp.id = "intro-spacer";
     var main = document.getElementById("main"); main.insertBefore(sp, main.firstChild);
@@ -273,6 +273,8 @@
           };
           ["wheel", "touchstart", "touchmove", "keydown"].forEach(function (ev) { window.addEventListener(ev, onScroll, { passive: ev !== "keydown" }); });
           intro.addEventListener("click", function (e) { if (!e.target.closest(".intro-skip")) play(); });
+          // arrivée automatique : une fois la signature écrite, la transition se lance toute seule
+          setTimeout(play, 2700);
         }
       }, 150);
     });

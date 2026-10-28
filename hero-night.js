@@ -6,19 +6,11 @@
   var hero = document.getElementById("top"); if (!hero) return;
   var DIR = "hero-night/";
 
-  /* positions en pixels de l'image d'origine : l'image est découpée en calques (fond, bulle, cube) */
-  var SC = {
-    d: { w: 1376, h: 768, art: "scene-d.webp", lid: "#98240F",
-         sphere: { f: "sphere-d.webp", x: 837, y: 270, w: 165, h: 165 },
-         cube:   { f: "cube-d.webp",   x: 1149, y: 294, w: 149, h: 158 },
-         eyes: [[1026, 346, 17, 25], [1084, 345, 17, 25]],
-         moon: [80.4, 23.4, 34], glow: [66.6, 45.8, 14] },
-    m: { w: 2048, h: 2048, art: "scene-m.webp", lid: "#A71904",
-         sphere: { f: "sphere-m.webp", x: 815, y: 653, w: 385, h: 385 },
-         cube:   { f: "cube-m.webp",   x: 1532, y: 696, w: 343, h: 367 },
-         eyes: [[1257, 820, 36, 57], [1388, 819, 37, 56]],
-         moon: [70, 22.3, 46], glow: [49.1, 41.3, 20] }
-  };
+  /* scène animée : vidéo en boucle du robot qui marche (bulle, cube, lune et sol sont dans la vidéo).
+     Positions en pixels de la vidéo (1280 × 720) pour les zones de survol. */
+  var V = { w: 1280, h: 720, src: "robot-marche.mp4", src_m: "robot-marche-720.mp4", poster: "robot-marche.webp",
+            sphere: { x: 753, y: 262, w: 144, h: 144 }, cube: { x: 1072, y: 280, w: 130, h: 142 },
+            moon: [78.5, 22.9, 34] };
   var TXT = {
     fr: { f: ["Fonctionnel", "Ateliers, besoins, spécifications"], t: ["Technique", "API, intégrations, débogage"],
           fa: "Côté fonctionnel : ateliers, besoins, spécifications", ta: "Côté technique : API, intégrations, débogage" },
@@ -30,24 +22,23 @@
 
   function build() {
     var old = hero.querySelector(".nt-scene"); if (old) old.remove();
-    var S = mq.matches ? SC.m : SC.d, W = S.w, H = S.h;
+    var S = V, W = S.w, H = S.h, mob = mq.matches;
     var box = function (o) { return "left:" + pc(o.x, W) + ";top:" + pc(o.y, H) + ";width:" + pc(o.w, W) + ";aspect-ratio:" + o.w + "/" + o.h; };
-    var lids = S.eyes.map(function (e) {
-      return '<i class="nt-lid" style="left:' + pc(e[0], W) + ";top:" + pc(e[1], H) + ";width:" + pc(e[2], W) + ";height:" + pc(e[3], H) + ";background:" + S.lid + '"></i>';
-    }).join("");
-    var fig = document.createElement("figure"); fig.className = "nt-scene " + (mq.matches ? "is-m" : "is-d");
+    var fig = document.createElement("figure"); fig.className = "nt-scene is-v " + (mob ? "is-m" : "is-d");
     fig.innerHTML =
       '<div class="nt-view"><div class="nt-world">' +
-        '<img class="nt-art" src="' + DIR + S.art + '" alt="" width="' + W + '" height="' + H + '" decoding="async">' +
+        '<video class="nt-art" muted loop playsinline autoplay preload="auto" poster="' + DIR + S.poster + '" width="' + W + '" height="' + H + '">' +
+          '<source src="' + DIR + (mob ? S.src_m : S.src) + '" type="video/mp4"></video>' +
         '<i class="nt-moon" style="left:' + S.moon[0] + "%;top:" + S.moon[1] + "%;width:" + S.moon[2] + '%"></i>' +
-        '<i class="nt-glow" style="left:' + S.glow[0] + "%;top:" + S.glow[1] + "%;width:" + S.glow[2] + '%"></i>' +
-        lids +
-        '<div class="nt-obj nt-sphere" style="' + box(S.sphere) + '"><img src="' + DIR + S.sphere.f + '" alt="">' +
+        '<div class="nt-obj nt-sphere" style="' + box(S.sphere) + '">' +
           '<button class="nt-hot" type="button"><span class="nt-tip nt-tip-l"><b></b><span></span></span></button></div>' +
-        '<div class="nt-obj nt-cube" style="' + box(S.cube) + '"><img src="' + DIR + S.cube.f + '" alt="">' +
+        '<div class="nt-obj nt-cube" style="' + box(S.cube) + '">' +
           '<button class="nt-hot" type="button"><span class="nt-tip nt-tip-r"><b></b><span></span></span></button></div>' +
       "</div></div>";
     hero.appendChild(fig);
+    var vid = fig.querySelector("video");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { vid.removeAttribute("autoplay"); vid.pause(); }
+    else { var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
     lang();
   }
 

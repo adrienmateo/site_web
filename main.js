@@ -243,14 +243,16 @@
   }
 
   function renderWork(T) {
-    $("work-list").innerHTML = '<ol class="pj-list">' + T.work.projects.map(function (p, i) {
-      return '<li class="st" style="--i:' + (i * 2) + '"><button type="button" class="pj-row" data-project="' + p.id + '">' +
-        '<span class="pj-thumb" aria-hidden="true">' + thumb(p) + '</span>' +
-        '<span class="pj-title">' + esc(p.title) + '</span><span class="pj-text">' + esc(p.text) + '</span>' +
-        '<span class="pj-kind">' + esc(p.kind) + '</span><span class="pj-arrow" aria-hidden="true"></span></button></li>';
-    }).join("") + "</ol>";
-    document.querySelectorAll(".pj-row").forEach(function (b) {
-      b.addEventListener("click", function () { openProject(b.getAttribute("data-project")); });
+    $("work-list").innerHTML = T.work.projects.map(function (p, i) {
+      return '<article class="fo-card" style="--k:' + i + '" data-project="' + p.id + '">' +
+        '<div class="fo-body"><span class="fo-n" aria-hidden="true">' + (i < 9 ? "0" : "") + (i + 1) + "</span>" +
+        '<span class="fo-kind">' + esc(p.kind) + '</span><h3 class="fo-title">' + esc(p.title) + '</h3><p class="fo-text">' + esc(p.text) + "</p>" +
+        '<ul class="fo-tags">' + p.tags.slice(0, 4).map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>" +
+        '<button type="button" class="fo-open"><span>' + esc(T.work.open) + '</span><span class="pj-arrow" aria-hidden="true"></span></button></div>' +
+        '<div class="fo-img" aria-hidden="true">' + (p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : thumb(p)) + "</div></article>";
+    }).join("");
+    document.querySelectorAll(".fo-card").forEach(function (c) {
+      c.addEventListener("click", function () { openProject(c.getAttribute("data-project")); });
     });
   }
 
@@ -645,7 +647,7 @@
       mx = e.clientX; my = e.clientY;
       if (!visible) { visible = true; rx = mx; ry = my; root.classList.add("cursor-on"); }
       var t = e.target.closest ? e.target : e.target.parentElement;
-      var view = t && t.closest(".pj-row, .method-band");
+      var view = t && t.closest(".pj-row, .method-band, .fo-card");
       var link = !view && t && t.closest("a, button, [role='button'], .tool-btn, .step");
       ring.classList.toggle("is-view", !!view);
       ring.classList.toggle("is-link", !!link);

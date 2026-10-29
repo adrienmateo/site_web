@@ -524,8 +524,9 @@ window.CONTENT = {
         "Je parle aux équipes techniques sans intermédiaire.",
         "Un outil n'est livré que s'il est adopté."
       ],
-      "demoTitle": "Un exemple : diagnostiquer une anomalie",
-      "demoLead": "Un cas fictif, mais typique de la recette. Suivez l'enquête comme je la mène : des logs jusqu'à l'explication au client."
+      "demoTitle": "Un exemple concret",
+      "demoLead": "Une commande bloquée sans alerte : je mène l'enquête, des logs jusqu'à l'explication au client.",
+      "demoCta": "Suivre l'enquête"
     },
     "backlog": {
       "meta": {
@@ -976,6 +977,17 @@ window.CONTENT = {
         "description": "Une enquête pas à pas, des logs jusqu'à l'explication au client : un cas fictif mais typique de mon travail de Business Analyst IT."
       },
       "kind": "Démo interactive, cas fictif",
+      "contextTitle": "Le contexte",
+      "context": "Chez un retailer, le service client signale qu'une commande n'est jamais partie, sans aucune alerte. Mon rôle : trouver la cause, la faire corriger et l'expliquer au client, sans jargon.",
+      "provesTitle": "Les compétences mobilisées",
+      "proves": [
+        "**Lire les logs** pour retrouver l'erreur parmi des centaines de lignes.",
+        "**Comprendre les API** : relire le payload envoyé et la réponse du transporteur.",
+        "**Trouver la cause racine**, pas seulement le symptôme : toutes les commandes vers la Corse étaient touchées.",
+        "**Expliquer au client** le problème et la solution, en langage métier."
+      ],
+      "investigationTitle": "L'enquête",
+      "methodLink": "Cette enquête suit ma méthode de travail",
       "title": "Démo : une commande est bloquée",
       "lead": "Un cas fictif, mais typique. Suivez l'enquête comme je la mène : des logs jusqu'à l'explication au client.",
       "prev": "Étape précédente",
@@ -1512,8 +1524,9 @@ window.CONTENT = {
         "I talk to technical teams directly.",
         "A tool is only delivered once it's adopted."
       ],
-      "demoTitle": "An example: troubleshooting an issue",
-      "demoLead": "A fictional case, but a typical one in UAT. Follow the investigation the way I run it: from the logs to the explanation for the client."
+      "demoTitle": "A real-world example",
+      "demoLead": "An order stuck with no alert: I run the investigation, from the logs to the explanation for the client.",
+      "demoCta": "Follow the investigation"
     },
     "backlog": {
       "meta": {
@@ -1964,6 +1977,17 @@ window.CONTENT = {
         "description": "A step-by-step investigation, from the logs to the explanation for the client: a fictional but typical case from my work as an IT Business Analyst."
       },
       "kind": "Interactive demo, fictional case",
+      "contextTitle": "The context",
+      "context": "At a retailer, customer service reports that an order never shipped, with no alert at all. My role: find the cause, get it fixed and explain it to the client, without jargon.",
+      "provesTitle": "Skills involved",
+      "proves": [
+        "**Reading logs** to find the error among hundreds of lines.",
+        "**Understanding APIs**: reviewing the payload sent and the carrier's response.",
+        "**Finding the root cause**, not just the symptom: every order to Corsica was affected.",
+        "**Explaining it to the client**: the problem and the fix, in business language."
+      ],
+      "investigationTitle": "The investigation",
+      "methodLink": "This investigation follows my working method",
       "title": "Demo: an order is stuck",
       "lead": "A fictional case, but a typical one. Follow the investigation the way I run it: from the logs to the explanation to the client.",
       "prev": "Previous step",

@@ -88,6 +88,7 @@
 
     if ($("skills-frise")) { renderAbout(T); renderSkills(T); renderWork(T); renderPath(T); }
     if ($("demo-steps")) renderDemo();
+    if ($("demo-proves")) $("demo-proves").innerHTML = T.demo.proves.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("");
     if ($("f1-root")) renderF1(T);
     if ($("bl-root")) renderBacklog(T);
     if ($("me-root")) renderMethode(T);

@@ -67,7 +67,7 @@ html.intro-on body { overflow: hidden; touch-action: none; }
 
 /* sélecteur de l'aperçu */
 .pv { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 300; display: flex; gap: 4px; padding: 5px; border-radius: 999px; background: rgba(14,17,22,.92); box-shadow: 0 10px 30px rgba(0,0,0,.3); max-width: calc(100vw - 20px); }
-.pv button { font: 700 .76rem "Manrope", sans-serif; color: #C9CED8; background: transparent; border: 0; border-radius: 999px; padding: 8px 12px; cursor: pointer; white-space: nowrap; }
+.pv button { font: 700 .76rem var(--sans); color: #C9CED8; background: transparent; border: 0; border-radius: 999px; padding: 8px 12px; cursor: pointer; white-space: nowrap; }
 .pv button[aria-pressed="true"] { background: #fff; color: #0E1116; }
 
 @media (prefers-reduced-motion: reduce) { .intro { display: none; } html.intro-scroll .intro-spacer { height: 0; } }
@@ -114,7 +114,7 @@ html.intro-on body { overflow: hidden; touch-action: none; }
 .menu-open, .menu-open body { overflow: hidden; }
 .mmenu a { font: 600 1.875rem/2.25rem var(--display); color: var(--ink); text-decoration: none; padding: 12px 0; border-bottom: 1px solid var(--line);
   opacity: 0; transform: translateY(24px); transition: opacity .5s var(--ease), transform .5s var(--ease); }
-.mmenu a span { font: 600 .75rem var(--mono); color: var(--accent); margin-right: 12px; vertical-align: middle; }
+.mmenu a span { font: 700 .75rem var(--sans); color: var(--accent); margin-right: 12px; vertical-align: middle; }
 .menu-open .mmenu a { opacity: 1; transform: none; transition-delay: calc(var(--k) * 60ms); }
 
 /* 1. La phrase qui s'allume mot par mot */
@@ -294,7 +294,7 @@ html.has-cursor.cursor-scene #top a, html.has-cursor.cursor-scene #top button { 
   box-shadow: 0 0 0 2px #1D2A30, 0 0 18px rgba(80, 210, 255, .25); overflow: hidden; }
 .code-bar { height: 13px; display: flex; gap: 4px; align-items: center; padding: 0 7px; background: #13222A; }
 .code-bar span { width: 5px; height: 5px; border-radius: 50%; background: #2C4651; }
-.code-body { margin: 0; padding: 7px 9px; font: 500 9.5px/13px "JetBrains Mono", ui-monospace, monospace; color: #8FE3F5; white-space: pre; letter-spacing: 0; text-shadow: 0 0 6px rgba(110, 220, 255, .45); }
+.code-body { margin: 0; padding: 7px 9px; font: 500 9.5px/13px var(--mono); color: #8FE3F5; white-space: pre; letter-spacing: 0; text-shadow: 0 0 6px rgba(110, 220, 255, .45); }
 .code-body b { color: #FF6B62; font-weight: 700; } .code-body i { color: #7EF0B2; font-style: normal; }
 .code-body u { display: inline-block; width: 5px; height: 10px; margin-left: 1px; vertical-align: -1px; background: #8FE3F5; text-decoration: none; animation: code-caret 1s steps(1) infinite; }
 @keyframes code-caret { 50% { opacity: 0; } }

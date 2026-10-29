@@ -161,7 +161,7 @@
         xs.map(function (x, i) { return '<text class="m-label" x="' + x + '" y="46">' + esc(ph[i][0]) + '</text><text class="m-sub" x="' + x + '" y="60">' + esc(ph[i][1]) + "</text>"; }).join("") + "</svg>";
       $("skills-method").innerHTML = '<a class="method-band" href="methode.html?lang=' + lang + '">' +
         '<span class="method-ic" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' +
-        '<span class="method-txt"><span class="method-kicker">' + esc(K.method.kicker) + "</span><b>" + esc(K.method.title) + "</b><span>" + esc(K.method.text) + "</span></span>" +
+        '<span class="method-txt"><b>' + esc(K.method.title) + "</b><span>" + esc(K.method.text) + "</span></span>" +
         '<span class="method-art-wrap">' + art + "</span>" +
         '<span class="method-cta">' + esc(K.method.cta) + '<span class="pj-arrow" aria-hidden="true"></span></span></a>';
     }
@@ -195,6 +195,17 @@
   }
 
   function allSteps(K) { return K.steps.concat([K.auto]); }
+
+  // sur mobile, la boîte à outils est repliée par défaut et s'ouvre d'un geste
+  function initToolsToggle() {
+    var b = $("tools-toggle"), card = b && b.closest(".skills-tools");
+    if (!b) return;
+    var small = window.matchMedia("(max-width: 600px)");
+    function set(open) { card.classList.toggle("tools-closed", !open); b.setAttribute("aria-expanded", String(open)); }
+    set(!small.matches);
+    b.addEventListener("click", function () { if (small.matches) set(card.classList.contains("tools-closed")); });
+    small.addEventListener("change", function (e) { set(!e.matches); });
+  }
 
   function toolName(t) { return (lang === "en" && t.nameEn) || t.name; }
 
@@ -718,6 +729,7 @@
   }
   setLang(initialLang());
   initChrome();
+  initToolsToggle();
   if ($("thread")) {
     var go = function () { drawThread(true); };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(go, 60); }); else setTimeout(go, 200);

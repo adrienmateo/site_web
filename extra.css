@@ -406,3 +406,34 @@ html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { transition: no
 .thumb-logs em { font-style: normal; color: #FF6A63; font-weight: 700; }
 /* À propos : trois paragraphes courts, bien séparés */
 .about-body { display: grid; gap: 14px; }
+
+/* ---------- boîte à outils : titre-bouton, repliée par défaut sur mobile ---------- */
+.toolbox-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 0; border: 0; background: none;
+  font: inherit; color: inherit; text-align: left; cursor: default; }
+.toolbox-toggle .chev { display: none; }
+@media (max-width: 600px) {
+  .toolbox-title { margin: 0; }
+  .toolbox-toggle { min-height: 44px; cursor: pointer; }
+  .toolbox-toggle .chev { display: block; }
+  .toolbox-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+  .tools-panel { margin-top: 10px; }
+  .tools-closed .tools-panel { display: none; }
+  .tools-closed .toolbox-toggle .chev { transform: rotate(45deg) translate(-2px, -2px); }
+  .skills-tools:not(.tools-closed) .toolbox-toggle .chev { transform: rotate(-135deg) translate(-2px, -2px); }
+}
+
+/* ---------- projets sur mobile : liens empilés et bien séparés ---------- */
+@media (max-width: 700px) {
+  .fo-links { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .fo-open { gap: 14px; }
+}
+/* vignette de la démo : le texte s'adapte à la largeur de la vignette, jamais au bord */
+.thumb-logs { container-type: inline-size; padding: 5% 6%; overflow: hidden; }
+.thumb-logs code { font-size: clamp(.5rem, 3.4cqw, .82rem); line-height: 1.85; }
+
+/* ---------- mobile : texte plus aéré ---------- */
+@media (max-width: 700px) {
+  .about-body { gap: 20px; }
+  .about-body p { line-height: 1.7; }
+  html .hero .pitch { line-height: 1.6; margin-bottom: 26px; }
+}

@@ -117,9 +117,8 @@ html .hero.wrap { margin: 0 !important; padding-top: 140px !important; border-ra
   html .hero > .nt-scene { border-radius: 0; padding-top: 0; }
 }
 
-/* ---- la barre du haut flotte sur l'accueil, puis reste visible pendant le défilement ---- */
-html .topbar { position: fixed !important; top: 0; left: 0; right: 0; }
-html .topbar.scrolled .topbar-inner { background: rgba(14, 17, 22, .9); }
+/* ---- la barre du haut reste en haut de la page : elle ne suit pas le défilement ---- */
+html .topbar { position: absolute !important; top: 0; left: 0; right: 0; }
 
 /* ---- CV : action principale, toujours à portée ---- */
 .tb-cv { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 10px; background: #E10600; color: #fff;
@@ -133,8 +132,6 @@ html .topbar.scrolled .topbar-inner { background: rgba(14, 17, 22, .9); }
 @media (max-width: 480px) { .topbar .brand-first { display: none; } }
 /* menu mobile ouvert : le CV est dans la liste, pas besoin du bouton de la barre */
 .menu-open .topbar .tb-cv { visibility: hidden; }
-html .hero .btn.quiet { background: transparent; border-color: transparent; color: #B7BECB; }
-html .hero .btn.quiet:hover { color: #F2F3F6; border-color: #262C37; box-shadow: none; }
 html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }
 
 /* ---- mobile : scène plus courte, le nom et le CV arrivent dans le premier écran ---- */

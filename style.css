@@ -725,7 +725,9 @@ li:hover > .org-logo { transform: translateY(-2px) rotate(-3deg); box-shadow: va
 
 /* ===== Wireframes : dossier d'archives ===== */
 /* Éventail : trois écrans sortent du dossier, plus larges que lui. L'espace au-dessus est réservé (--r) pour ne jamais recouvrir le texte. */
-.afd { --fw: 340px; --pw: 280px; --ph: 204px; --ct: 31px; --sh: 187px; --sp: 207px; --r: 140px; --hid: 57px; display: flex; flex-direction: column; align-items: center; }
+.afd { --fw: 425px; --pw: 350px; --ph: 255px; --ct: 39px; --sh: 234px; --sp: 259px; --r: 175px; --hid: 71px; display: flex; flex-direction: column; align-items: center; }
+/* écran moyen : l'éventail garde sa taille d'origine pour ne pas déborder */
+@media (min-width: 601px) and (max-width: 1000px) { .afd { --fw: 340px; --pw: 280px; --ph: 204px; --ct: 31px; --sh: 187px; --sp: 207px; --r: 140px; --hid: 57px; } }
 .afd-stage { position: relative; width: 100%; height: calc(var(--r) + var(--sh)); margin-top: 8px; }
 .afd-shell { position: absolute; left: 50%; bottom: 0; width: var(--fw); height: var(--sh); margin-left: calc(var(--fw) / -2); container-type: inline-size; }
 .afd-back { position: absolute; inset: 0; background: #0E1116; border-radius: 3px 7px 7px 7px; box-shadow: 0 22px 40px -18px rgba(14, 17, 22, .5); }

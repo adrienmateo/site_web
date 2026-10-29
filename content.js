@@ -40,6 +40,7 @@ window.CONTENT = {
       "work": "Projets",
       "path": "Parcours",
       "contact": "Contact",
+      "method": "Ma méthode",
       "cv": "Mon CV"
     },
     "hero": {
@@ -270,30 +271,6 @@ window.CONTENT = {
       "shows": "Ce que ça montre",
       "projects": [
         {
-          "id": "demo",
-          "title": "Démo : une commande bloquée",
-          "kind": "Démo interactive, cas fictif",
-          "text": "Un cas fictif mais typique de mon travail chez OneStock : des logs au payload, jusqu'à l'explication au client.",
-          "tags": [
-            "Logs",
-            "API REST",
-            "Postman",
-            "Diagnostic"
-          ],
-          "links": [
-            [
-              "methode.html#demo",
-              "Suivre l'enquête",
-              true
-            ],
-            [
-              "methode.html",
-              "Voir ma méthode",
-              false
-            ]
-          ]
-        },
-        {
           "id": "backlog",
           "title": "Du besoin au backlog",
           "kind": "Étude de cas",
@@ -375,6 +352,25 @@ window.CONTENT = {
             ]
           ],
           "img": "site-hero.jpg"
+        },
+        {
+          "id": "demo",
+          "title": "Démo : une commande bloquée",
+          "kind": "Démo interactive, cas fictif",
+          "text": "Un cas fictif mais typique de mon travail chez OneStock : des logs au payload, jusqu'à l'explication au client.",
+          "tags": [
+            "Logs",
+            "API REST",
+            "Postman",
+            "Diagnostic"
+          ],
+          "links": [
+            [
+              "demo.html",
+              "Suivre l'enquête",
+              true
+            ]
+          ]
         }
       ]
     },
@@ -975,6 +971,11 @@ window.CONTENT = {
       }
     },
     "demo": {
+      "meta": {
+        "title": "Démo : une commande bloquée — Adrien-Matéo Soules",
+        "description": "Une enquête pas à pas, des logs jusqu'à l'explication au client : un cas fictif mais typique de mon travail de Business Analyst IT."
+      },
+      "kind": "Démo interactive, cas fictif",
       "title": "Démo : une commande est bloquée",
       "lead": "Un cas fictif, mais typique. Suivez l'enquête comme je la mène : des logs jusqu'à l'explication au client.",
       "prev": "Étape précédente",
@@ -1027,6 +1028,7 @@ window.CONTENT = {
       "work": "Projects",
       "path": "Background",
       "contact": "Contact",
+      "method": "My method",
       "cv": "Resume"
     },
     "hero": {
@@ -1257,30 +1259,6 @@ window.CONTENT = {
       "shows": "What it shows",
       "projects": [
         {
-          "id": "demo",
-          "title": "Demo: a stuck order",
-          "kind": "Interactive demo, fictional case",
-          "text": "A fictional but typical case from my work at OneStock: from the logs to the payload, all the way to the explanation for the client.",
-          "tags": [
-            "Logs",
-            "REST API",
-            "Postman",
-            "Diagnosis"
-          ],
-          "links": [
-            [
-              "methode.html#demo",
-              "Follow the investigation",
-              true
-            ],
-            [
-              "methode.html",
-              "See my method",
-              false
-            ]
-          ]
-        },
-        {
           "id": "backlog",
           "title": "From need to backlog",
           "kind": "Case study",
@@ -1362,6 +1340,25 @@ window.CONTENT = {
             ]
           ],
           "img": "site-hero.jpg"
+        },
+        {
+          "id": "demo",
+          "title": "Demo: a stuck order",
+          "kind": "Interactive demo, fictional case",
+          "text": "A fictional but typical case from my work at OneStock: from the logs to the payload, all the way to the explanation for the client.",
+          "tags": [
+            "Logs",
+            "REST API",
+            "Postman",
+            "Diagnosis"
+          ],
+          "links": [
+            [
+              "demo.html",
+              "Follow the investigation",
+              true
+            ]
+          ]
         }
       ]
     },
@@ -1962,6 +1959,11 @@ window.CONTENT = {
       }
     },
     "demo": {
+      "meta": {
+        "title": "Demo: a stuck order — Adrien-Matéo Soules",
+        "description": "A step-by-step investigation, from the logs to the explanation for the client: a fictional but typical case from my work as an IT Business Analyst."
+      },
+      "kind": "Interactive demo, fictional case",
       "title": "Demo: an order is stuck",
       "lead": "A fictional case, but a typical one. Follow the investigation the way I run it: from the logs to the explanation to the client.",
       "prev": "Previous step",

@@ -395,10 +395,15 @@
         '<span class="st-titles"><span class="st-name">' + esc(p[0]) + '</span><span class="st-sub">' + esc(p[3]) + "</span></span></button>" +
         '<div class="st-body" id="st-body-' + i + '"><div><dl class="st-inner">' +
         M.cols.map(function (c, k) { return "<dt>" + esc(c) + "</dt><dd>" + esc(p[k + 1]) + "</dd>"; }).join("") + "</dl>" +
-        (i < M.phases.length - 1 ? '<button type="button" class="st-next">' + esc(M.nextPhase) + "</button>" : "") + "</div></div></li>";
+        '<button type="button" class="st-next' + (i < M.phases.length - 1 ? "" : " st-close") + '">' + esc(i < M.phases.length - 1 ? M.nextPhase : M.closePhase) + "</button>" + "</div></div></li>";
     }).join("");
+    var note = $("me-closed");
+    if (!note) { note = document.createElement("p"); note.id = "me-closed"; note.className = "st-closed"; note.setAttribute("role", "status"); list.parentNode.insertBefore(note, list.nextSibling); }
     function openPhase(i) {
       phase = i;
+      var fin = i >= M.phases.length;
+      note.hidden = !fin;
+      note.innerHTML = fin ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg><span>' + esc(M.closed) + '</span><button type="button" class="st-reopen">' + esc(M.reopen) + "</button>" : "";
       list.querySelectorAll(".st-item").forEach(function (li, k) {
         li.classList.toggle("is-active", k === i);
         li.classList.toggle("is-done", k < i);
@@ -412,10 +417,12 @@
       list.addEventListener("click", function (e) {
         var li = e.target.closest(".st-item"); if (!li) return;
         var i = +li.getAttribute("data-i");
-        if (e.target.closest(".st-next")) { openPhase(i + 1); list.querySelectorAll(".st-head")[i + 1].focus({ preventScroll: true }); }
+        if (e.target.closest(".st-close")) { openPhase(M.phases.length); note.querySelector(".st-reopen").focus({ preventScroll: true }); }
+        else if (e.target.closest(".st-next")) { openPhase(i + 1); list.querySelectorAll(".st-head")[i + 1].focus({ preventScroll: true }); }
         else if (e.target.closest(".st-head")) openPhase(i);
       });
     }
+    if (!note._wired) { note._wired = true; note.addEventListener("click", function (e) { if (e.target.closest(".st-reopen")) { openPhase(0); list.querySelector(".st-head").focus({ preventScroll: true }); } }); }
     openPhase(phase);
     // le mot-clé de chaque principe (entre **) est mis en avant
     $("me-principles").innerHTML = M.principles.map(function (p) { return "<li>" + esc(p).replace(/\*\*(.+?)\*\*/g, "<mark>$1</mark>") + "</li>"; }).join("");

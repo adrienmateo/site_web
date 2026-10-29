@@ -487,6 +487,9 @@ window.CONTENT = {
       "lead": "Des projets d'implémentation SaaS de 9 mois à 2 ans, avec des clients en France et à l'international. Je suis l'interface entre les équipes métier du client, les équipes techniques et le produit.",
       "phasesTitle": "Le déroulé d'un projet",
       "nextPhase": "Phase suivante",
+      "closePhase": "Valider et clôturer",
+      "closed": "Projet validé et clôturé : la passation est faite.",
+      "reopen": "Revoir le déroulé",
       "cols": [
         "Ce que je fais",
         "Avec qui",
@@ -1488,6 +1491,9 @@ window.CONTENT = {
       "lead": "SaaS implementation projects lasting 9 months to 2 years, with clients in France and abroad. I'm the link between the client's business teams, the technical teams and the product team.",
       "phasesTitle": "How a project unfolds",
       "nextPhase": "Next phase",
+      "closePhase": "Validate and close",
+      "closed": "Project validated and closed: handover done.",
+      "reopen": "Review the steps",
       "cols": [
         "What I do",
         "Who with",

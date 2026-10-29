@@ -562,11 +562,33 @@ li:hover > .org-logo { transform: translateY(-2px) rotate(-3deg); box-shadow: va
 .scope-cols .muted { color: var(--muted); }
 @media (max-width: 560px) { .scope-cols { grid-template-columns: 1fr; } }
 
-.approach { list-style: none; counter-reset: step; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 40px; }
-.approach li { counter-increment: step; border-top: 1px solid var(--line); padding-top: 14px; }
-.approach h3::before { content: counter(step); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.8rem; margin-right: 10px; vertical-align: 2px; }
-.approach p { margin: 0; }
-@media (max-width: 860px) { .approach { grid-template-columns: 1fr; gap: 18px; } }
+.ap { position: relative; margin-top: 28px; }
+.ap-trk { position: absolute; left: 11px; width: 2px; background: var(--line); border-radius: 2px; }
+.ap-fil { width: 2px; height: 0; background: var(--accent); border-radius: 2px; }
+.approach { list-style: none; margin: 0; padding: 0; }
+.ap-row { position: relative; display: grid; grid-template-columns: 24px 190px minmax(0, 1fr) auto; gap: 0 28px; align-items: start; padding-bottom: 40px; }
+.ap-row:last-child { padding-bottom: 0; }
+.ap.live .ap-row { opacity: .42; transition: opacity .35s var(--ease); }
+.ap.live .ap-row.on { opacity: 1; }
+.ap-dot { width: 24px; height: 24px; border-radius: 50%; box-sizing: border-box; border: 2px solid #C9CED6; background: var(--bg); color: var(--muted); font-size: .78rem; font-weight: 600; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; transition: background .3s, border-color .3s, color .3s; }
+.ap-row.on .ap-dot { background: var(--accent); border-color: var(--accent); color: #fff; }
+.ap-fig { font-family: var(--display); font-size: 2.6rem; line-height: 1; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.ap-fig small { font-size: 1rem; font-weight: 500; color: var(--muted); margin-left: 3px; letter-spacing: 0; }
+.ap-fig.ap-chip { align-self: start; justify-self: start; font-family: var(--sans); font-size: 1.05rem; letter-spacing: 0; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); line-height: 1.2; }
+.ap-body h3 { margin: 0 0 6px; font-size: 1.3rem; }
+.ap-body p { margin: 0; color: var(--muted); max-width: 44ch; }
+.ap-go { align-self: center; font-size: .92rem; font-weight: 600; color: var(--accent-2); text-decoration: none; border-bottom: 1px solid rgba(184, 5, 0, .35); white-space: nowrap; transition: border-color .2s; }
+.ap-go:hover, .ap-go:focus-visible { border-color: var(--accent-2); }
+@media (max-width: 860px) {
+  .ap-row { grid-template-columns: 24px minmax(0, 1fr); gap: 0 14px; padding-bottom: 30px; }
+  .ap-row > :not(.ap-dot) { grid-column: 2; }
+  .ap-fig { font-size: 1.9rem; }
+  .ap-fig.ap-chip { font-size: .95rem; }
+  .ap-body { margin-top: 8px; }
+  .ap-body h3 { font-size: 1.1rem; }
+  .ap-go { margin-top: 8px; justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) { .ap.live .ap-row, .ap-dot { transition: none; } }
 
 .bl-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; }
 @media (max-width: 860px) { .bl-grid { grid-template-columns: 1fr; gap: 40px; } }

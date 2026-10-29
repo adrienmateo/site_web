@@ -438,15 +438,57 @@
     var B = T.backlog;
     document.querySelectorAll(".notion-link").forEach(function (a) { a.setAttribute("href", S.notionBacklog); });
     $("bl-problem").innerHTML = list(B.problem);
-    $("bl-approach").innerHTML = B.approach.map(function (a) {
-      return "<li><h3>" + esc(a[0]) + "</h3><p>" + esc(a[1]) + "</p></li>";
+    $("bl-approach").innerHTML = B.approach.map(function (a, i) {
+      var f = a[2] || {}, k = a[4] ? (a[4].charAt(0) === "#" ? { href: a[4], ext: false } : link(a[4])) : null;
+      var fig = f.count !== undefined
+        ? '<span class="ap-fig"><span class="num" data-to="' + f.count + '">' + f.count + "</span>" + (f.unit ? "<small>" + esc(f.unit) + "</small>" : "") + "</span>"
+        : '<span class="ap-fig ap-chip">' + esc(f.chip || "") + "</span>";
+      return '<li class="ap-row"><span class="ap-dot" aria-hidden="true">' + (i + 1) + "</span>" + fig +
+        '<div class="ap-body"><h3>' + esc(a[0]) + "</h3><p>" + esc(a[1]) + "</p></div>" +
+        (k ? '<a class="ap-go" href="' + esc(k.href) + '"' + (k.ext ? ' target="_blank" rel="noopener"' : "") + ">" + esc(a[3]) + (k.ext ? " ↗" : " →") + "</a>" : "") + "</li>";
     }).join("");
+    approachLive();
     $("bl-sprint").innerHTML = "<thead><tr><th>" + esc(B.sprintCols[0]) + "</th><th></th><th>" + esc(B.sprintCols[1]) + '</th><th class="num">' + esc(B.sprintCols[2]) + "</th></tr></thead><tbody>" +
       B.sprint.map(function (r) {
         return '<tr><td class="code-id">' + esc(r[0]) + "</td><td>" + esc(r[1]) + "</td><td>" + esc(r[2]) + '</td><td class="num">' + r[3] + "</td></tr>";
       }).join("") + '</tbody><tfoot><tr><td colspan="3">' + esc(B.sprintTotal) + '</td><td class="num">' + esc(B.sprintCapacity) + "</td></tr></tfoot>";
     renderWireframes(B);
   }
+
+  /* démarche : le fil rouge se remplit au scroll, les étapes s'allument une à une */
+  var apBound = false;
+  function approachLive() {
+    var box = $("bl-ap"); if (!box) return;
+    var rows = [].slice.call(box.querySelectorAll(".ap-row")); if (!rows.length) return;
+    var trk = box.querySelector(".ap-trk"), fil = box.querySelector(".ap-fil");
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function ease(p) { return 1 - Math.pow(1 - p, 3); }
+    function count(el) {
+      var to = +el.getAttribute("data-to"), t0 = null; el.textContent = "0";
+      requestAnimationFrame(function f(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / 900); el.textContent = Math.round(to * ease(p)); if (p < 1) requestAnimationFrame(f); });
+    }
+    function update() {
+      var b = $("bl-ap"); if (!b) return;
+      var rs = b.querySelectorAll(".ap-row"), br = b.getBoundingClientRect();
+      var c = [].map.call(rs, function (r) { var d = r.querySelector(".ap-dot").getBoundingClientRect(); return d.top + d.height / 2 - br.top; });
+      var a = c[0], z = c[c.length - 1], line = window.innerHeight * 0.6 - br.top;
+      trk.style.top = a + "px"; trk.style.height = Math.max(0, z - a) + "px";
+      fil.style.height = (calm ? z - a : Math.max(0, Math.min(z - a, line - a))) + "px";
+      [].forEach.call(rs, function (r, i) {
+        var on = calm || c[i] <= line;
+        r.classList.toggle("on", on);
+        if (on && !r.getAttribute("data-seen")) { r.setAttribute("data-seen", "1"); var n = r.querySelector(".num"); if (n && !calm) count(n); }
+      });
+    }
+    box.classList.add("live");
+    approachUpdate = update; update();
+    if (!apBound) {
+      apBound = true;
+      window.addEventListener("scroll", function () { if (approachUpdate) requestAnimationFrame(approachUpdate); }, { passive: true });
+      window.addEventListener("resize", function () { if (approachUpdate) approachUpdate(); });
+    }
+  }
+  var approachUpdate = null;
 
   /* wireframes : dossier d'archives qui s'ouvre sur 3 tirages */
   function wfFigure(w) {

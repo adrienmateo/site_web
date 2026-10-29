@@ -9,6 +9,7 @@
   var activeStep = null;
   var activeTool = null;
   var toolsOpen = false;
+  var phase = 0;
   var KEY_TOOLS = ["postman", "mongodb", "elasticsearch", "datadog", "kafka", "make", "claude", "api", "webhooks", "jira", "sap", "shopify"];
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -386,11 +387,38 @@
   /* ---------- method page ---------- */
   function renderMethode(T) {
     var M = T.methode;
-    $("me-phases").innerHTML = M.phases.map(function (p, i) {
-      return '<li class="phase reveal in" style="--i:' + i + '"><span class="phase-n">' + (i + 1) + "</span><h3>" + esc(p[0]) + "</h3><dl>" +
-        "<dt>" + esc(M.cols[0]) + "</dt><dd>" + esc(p[1]) + "</dd><dt>" + esc(M.cols[1]) + "</dt><dd>" + esc(p[2]) + "</dd><dt>" + esc(M.cols[2]) + "</dt><dd>" + esc(p[3]) + "</dd></dl></li>";
+    // déroulé : une phase ouverte à la fois ; « Phase suivante » valide la phase et ouvre la suivante
+    var list = $("me-phases");
+    list.innerHTML = M.phases.map(function (p, i) {
+      return '<li class="st-item" data-i="' + i + '"><button type="button" class="st-head" aria-expanded="false" aria-controls="st-body-' + i + '">' +
+        '<span class="st-dot"><span class="st-num">' + (i + 1) + '</span><svg viewBox="0 0 16 16" aria-hidden="true" hidden><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>' +
+        '<span class="st-titles"><span class="st-name">' + esc(p[0]) + '</span><span class="st-sub">' + esc(p[3]) + "</span></span></button>" +
+        '<div class="st-body" id="st-body-' + i + '"><div><dl class="st-inner">' +
+        M.cols.map(function (c, k) { return "<dt>" + esc(c) + "</dt><dd>" + esc(p[k + 1]) + "</dd>"; }).join("") + "</dl>" +
+        (i < M.phases.length - 1 ? '<button type="button" class="st-next">' + esc(M.nextPhase) + "</button>" : "") + "</div></div></li>";
     }).join("");
-    $("me-principles").innerHTML = M.principles.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("");
+    function openPhase(i) {
+      phase = i;
+      list.querySelectorAll(".st-item").forEach(function (li, k) {
+        li.classList.toggle("is-active", k === i);
+        li.classList.toggle("is-done", k < i);
+        li.querySelector(".st-head").setAttribute("aria-expanded", String(k === i));
+        li.querySelector(".st-num").hidden = k < i;
+        li.querySelector("svg").hidden = k >= i;
+      });
+    }
+    if (!list._wired) {
+      list._wired = true;
+      list.addEventListener("click", function (e) {
+        var li = e.target.closest(".st-item"); if (!li) return;
+        var i = +li.getAttribute("data-i");
+        if (e.target.closest(".st-next")) { openPhase(i + 1); list.querySelectorAll(".st-head")[i + 1].focus({ preventScroll: true }); }
+        else if (e.target.closest(".st-head")) openPhase(i);
+      });
+    }
+    openPhase(phase);
+    // le mot-clé de chaque principe (entre **) est mis en avant
+    $("me-principles").innerHTML = M.principles.map(function (p) { return "<li>" + esc(p).replace(/\*\*(.+?)\*\*/g, "<mark>$1</mark>") + "</li>"; }).join("");
   }
 
   /* ---------- F1 project page ---------- */

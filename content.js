@@ -486,6 +486,7 @@ window.CONTENT = {
       "title": "Ma méthode de travail",
       "lead": "Des projets d'implémentation SaaS de 9 mois à 2 ans, avec des clients en France et à l'international. Je suis l'interface entre les équipes métier du client, les équipes techniques et le produit.",
       "phasesTitle": "Le déroulé d'un projet",
+      "nextPhase": "Phase suivante",
       "cols": [
         "Ce que je fais",
         "Avec qui",
@@ -519,10 +520,10 @@ window.CONTENT = {
       ],
       "principlesTitle": "Mes principes",
       "principles": [
-        "Je reformule le besoin avant de le spécifier.",
-        "Je vais chercher le détail pour que rien ne casse en production.",
-        "Je parle aux équipes techniques sans intermédiaire.",
-        "Un outil n'est livré que s'il est adopté."
+        "Je **reformule** le besoin avant de le spécifier.",
+        "Je vais chercher **le détail** pour que rien ne casse en production.",
+        "Je parle aux équipes techniques **sans intermédiaire**.",
+        "Un outil n'est livré que s'il est **adopté**."
       ],
       "demoTitle": "Un exemple concret",
       "demoLead": "Une commande bloquée sans alerte : je mène l'enquête, des logs jusqu'à l'explication au client.",
@@ -1486,6 +1487,7 @@ window.CONTENT = {
       "title": "How I work",
       "lead": "SaaS implementation projects lasting 9 months to 2 years, with clients in France and abroad. I'm the link between the client's business teams, the technical teams and the product team.",
       "phasesTitle": "How a project unfolds",
+      "nextPhase": "Next phase",
       "cols": [
         "What I do",
         "Who with",
@@ -1519,10 +1521,10 @@ window.CONTENT = {
       ],
       "principlesTitle": "My principles",
       "principles": [
-        "I restate the need before specifying it.",
-        "I go after the details so nothing breaks in production.",
-        "I talk to technical teams directly.",
-        "A tool is only delivered once it's adopted."
+        "I **restate** the need before specifying it.",
+        "I go after **the details** so nothing breaks in production.",
+        "I talk to technical teams **directly**.",
+        "A tool is only delivered once it's **adopted**."
       ],
       "demoTitle": "A real-world example",
       "demoLead": "An order stuck with no alert: I run the investigation, from the logs to the explanation for the client.",

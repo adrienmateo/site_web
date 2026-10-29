@@ -544,27 +544,45 @@ window.CONTENT = {
       "approach": [
         [
           "Découper",
-          "38 user stories, regroupées en 6 parcours à partir des écrans et du workflow."
+          "38 user stories, regroupées en 6 parcours à partir des écrans et du workflow.",
+          { "count": 38 },
+          "Backlog complet sur Notion",
+          "@notion"
         ],
         [
           "Estimer",
-          "Chaque story est chiffrée en points, sur l'échelle de Fibonacci."
+          "Chaque story est chiffrée en points, sur l'échelle de Fibonacci.",
+          { "chip": "Fibonacci" },
+          "Backlog complet sur Notion",
+          "@notion"
         ],
         [
           "Prioriser",
-          "Le Sprint 1 couvre ce sans quoi rien ne fonctionne : se connecter, déclarer un retour, le voir côté SAV."
+          "Le Sprint 1 couvre ce sans quoi rien ne fonctionne : se connecter, déclarer un retour, le voir côté SAV.",
+          { "chip": "Sprint 1" },
+          "Voir le Sprint 1",
+          "#sprint"
         ],
         [
           "Calibrer",
-          "29 points engagés pour une capacité de 30, avec deux stories en réserve si le rythme le permet."
+          "29 points engagés pour une capacité de 30, avec deux stories en réserve si le rythme le permet.",
+          { "count": 29, "unit": "/30" },
+          "Voir le Sprint 1",
+          "#sprint"
         ],
         [
           "Spécifier",
-          "Chaque story du Sprint 1 a ses critères d'acceptance en Gherkin, cas d'erreur compris."
+          "Chaque story du Sprint 1 a ses critères d'acceptance en Gherkin, cas d'erreur compris.",
+          { "chip": "Gherkin" },
+          "Critères Gherkin sur Notion",
+          "@notion"
         ],
         [
           "Anticiper",
-          "Les risques et les questions ouvertes sont posés avant le Refinement, pas découverts pendant."
+          "Les risques et les questions ouvertes sont posés avant le Refinement, pas découverts pendant.",
+          { "chip": "Risques" },
+          "Risques sur Notion",
+          "@notion"
         ]
       ],
       "backlogTitle": "Le backlog",
@@ -1483,27 +1501,45 @@ window.CONTENT = {
       "approach": [
         [
           "Break down",
-          "38 user stories, grouped into 6 journeys from the screens and the workflow."
+          "38 user stories, grouped into 6 journeys from the screens and the workflow.",
+          { "count": 38 },
+          "Full backlog on Notion",
+          "@notion"
         ],
         [
           "Estimate",
-          "Each story is sized in points on the Fibonacci scale."
+          "Each story is sized in points on the Fibonacci scale.",
+          { "chip": "Fibonacci" },
+          "Full backlog on Notion",
+          "@notion"
         ],
         [
           "Prioritize",
-          "Sprint 1 covers what nothing works without: log in, declare a return, see it on the support side."
+          "Sprint 1 covers what nothing works without: log in, declare a return, see it on the support side.",
+          { "chip": "Sprint 1" },
+          "See Sprint 1",
+          "#sprint"
         ],
         [
           "Calibrate",
-          "29 points committed against a capacity of 30, with two stories in reserve if pace allows."
+          "29 points committed against a capacity of 30, with two stories in reserve if pace allows.",
+          { "count": 29, "unit": "/30" },
+          "See Sprint 1",
+          "#sprint"
         ],
         [
           "Specify",
-          "Each Sprint 1 story has Gherkin acceptance criteria, error cases included."
+          "Each Sprint 1 story has Gherkin acceptance criteria, error cases included.",
+          { "chip": "Gherkin" },
+          "Gherkin criteria on Notion",
+          "@notion"
         ],
         [
           "Anticipate",
-          "Risks and open questions are raised before Refinement, not discovered during it."
+          "Risks and open questions are raised before Refinement, not discovered during it.",
+          { "chip": "Risks" },
+          "Risks on Notion",
+          "@notion"
         ]
       ],
       "backlogTitle": "The backlog",

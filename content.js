@@ -544,43 +544,43 @@ window.CONTENT = {
       "approach": [
         [
           "Découper",
-          "38 user stories, regroupées en 6 parcours à partir des écrans et du workflow.",
-          { "count": 38 },
+          "38 user stories (une fonctionnalité décrite du point de vue d'un utilisateur), regroupées en 6 parcours à partir des écrans et du workflow.",
+          { "n": 38, "label": "user stories" },
           "Backlog complet sur Notion",
           "@notion"
         ],
         [
           "Estimer",
-          "Chaque story est chiffrée en points, sur l'échelle de Fibonacci.",
-          { "chip": "Fibonacci" },
+          "Chaque story est chiffrée en points sur l'échelle de Fibonacci (1, 2, 3, 5, 8, 13…) : plus le chiffre est élevé, plus la story est complexe.",
+          { "n": 13, "unit": "pts", "label": "ex. : déclarer un retour (US-03)" },
           "Backlog complet sur Notion",
           "@notion"
         ],
         [
           "Prioriser",
           "Le Sprint 1 couvre ce sans quoi rien ne fonctionne : se connecter, déclarer un retour, le voir côté SAV.",
-          { "chip": "Sprint 1" },
+          { "n": 4, "label": "stories retenues sur 38 pour le Sprint 1" },
           "Voir le Sprint 1",
           "#sprint"
         ],
         [
           "Calibrer",
           "29 points engagés pour une capacité de 30, avec deux stories en réserve si le rythme le permet.",
-          { "count": 29, "unit": "/30" },
+          { "n": 29, "unit": "/30", "label": "points engagés / capacité du sprint" },
           "Voir le Sprint 1",
           "#sprint"
         ],
         [
           "Spécifier",
-          "Chaque story du Sprint 1 a ses critères d'acceptance en Gherkin, cas d'erreur compris.",
-          { "chip": "Gherkin" },
+          "Chaque story du Sprint 1 a ses critères d'acceptance, écrits en Gherkin (Given / When / Then), cas d'erreur compris.",
+          { "code": ["Given", "When", "Then"], "label": "critères d'acceptance" },
           "Critères Gherkin sur Notion",
           "@notion"
         ],
         [
           "Anticiper",
           "Les risques et les questions ouvertes sont posés avant le Refinement, pas découverts pendant.",
-          { "chip": "Risques" },
+          { "n": 3, "label": "risques posés avant le Refinement" },
           "Risques sur Notion",
           "@notion"
         ]
@@ -655,6 +655,9 @@ window.CONTENT = {
       "wfFolder": "Wireframes · Sprint 1",
       "wfOpen": "Ouvrir le dossier",
       "wfClose": "Refermer le dossier",
+      "wfTip": "Cliquez sur un écran pour l'agrandir.",
+      "wfPrev": "Écran précédent",
+      "wfNext": "Écran suivant",
       "wf": [
         {
           "img": "wf-retour.jpg",
@@ -1501,43 +1504,43 @@ window.CONTENT = {
       "approach": [
         [
           "Break down",
-          "38 user stories, grouped into 6 journeys from the screens and the workflow.",
-          { "count": 38 },
+          "38 user stories (a feature described from a user's point of view), grouped into 6 journeys from the screens and the workflow.",
+          { "n": 38, "label": "user stories" },
           "Full backlog on Notion",
           "@notion"
         ],
         [
           "Estimate",
-          "Each story is sized in points on the Fibonacci scale.",
-          { "chip": "Fibonacci" },
+          "Each story is sized in points on the Fibonacci scale (1, 2, 3, 5, 8, 13…): the higher the number, the more complex the story.",
+          { "n": 13, "unit": "pts", "label": "e.g. declare a return (US-03)" },
           "Full backlog on Notion",
           "@notion"
         ],
         [
           "Prioritize",
           "Sprint 1 covers what nothing works without: log in, declare a return, see it on the support side.",
-          { "chip": "Sprint 1" },
+          { "n": 4, "label": "stories picked out of 38 for Sprint 1" },
           "See Sprint 1",
           "#sprint"
         ],
         [
           "Calibrate",
           "29 points committed against a capacity of 30, with two stories in reserve if pace allows.",
-          { "count": 29, "unit": "/30" },
+          { "n": 29, "unit": "/30", "label": "points committed / sprint capacity" },
           "See Sprint 1",
           "#sprint"
         ],
         [
           "Specify",
-          "Each Sprint 1 story has Gherkin acceptance criteria, error cases included.",
-          { "chip": "Gherkin" },
+          "Each Sprint 1 story has acceptance criteria written in Gherkin (Given / When / Then), error cases included.",
+          { "code": ["Given", "When", "Then"], "label": "acceptance criteria" },
           "Gherkin criteria on Notion",
           "@notion"
         ],
         [
           "Anticipate",
           "Risks and open questions are raised before Refinement, not discovered during it.",
-          { "chip": "Risks" },
+          { "n": 3, "label": "risks raised before Refinement" },
           "Risks on Notion",
           "@notion"
         ]
@@ -1612,6 +1615,9 @@ window.CONTENT = {
       "wfFolder": "Wireframes · Sprint 1",
       "wfOpen": "Open the folder",
       "wfClose": "Close the folder",
+      "wfTip": "Click a screen to enlarge it.",
+      "wfPrev": "Previous screen",
+      "wfNext": "Next screen",
       "wf": [
         {
           "img": "wf-retour.jpg",

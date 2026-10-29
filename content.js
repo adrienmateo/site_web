@@ -651,7 +651,6 @@ window.CONTENT = {
       "wfFolder": "Wireframes · Sprint 1",
       "wfOpen": "Ouvrir le dossier",
       "wfClose": "Refermer le dossier",
-      "wfTip": "Cliquez sur un écran pour l'agrandir.",
       "wfPrev": "Écran précédent",
       "wfNext": "Écran suivant",
       "wf": [
@@ -1607,7 +1606,6 @@ window.CONTENT = {
       "wfFolder": "Wireframes · Sprint 1",
       "wfOpen": "Open the folder",
       "wfClose": "Close the folder",
-      "wfTip": "Click a screen to enlarge it.",
       "wfPrev": "Previous screen",
       "wfNext": "Next screen",
       "wf": [

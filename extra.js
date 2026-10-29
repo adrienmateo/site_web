@@ -44,6 +44,35 @@
   }
   // buildCarousel();  (carrousel retiré de cet aperçu)
 
+  /* ---------- Projets : la pile de cartes se tasse au scroll ---------- */
+  (function () {
+    if (calm) return;
+    var ticking = false;
+    function stack() {
+      ticking = false;
+      var cards = document.querySelectorAll(".fo-card"); if (cards.length < 2) return;
+      var p = [];
+      for (var i = 0; i < cards.length - 1; i++) {
+        var r = cards[i].getBoundingClientRect(), n = cards[i + 1].getBoundingClientRect();
+        var step = parseFloat(getComputedStyle(cards[i + 1]).top) - parseFloat(getComputedStyle(cards[i]).top);
+        var full = cards[i].offsetHeight + 28 - step;
+        p[i] = full > 0 ? Math.max(0, Math.min(1, 1 - (n.top - r.top - step) / full)) : 0;
+      }
+      p[cards.length - 1] = 0;
+      for (var k = 0; k < cards.length; k++) {
+        var sum = 0; for (var j = k; j < cards.length; j++) sum += p[j];
+        cards[k].style.transform = sum ? "scale(" + (1 - 0.04 * sum).toFixed(4) + ")" : "";
+        cards[k].style.setProperty("--d", Math.min(0.6, 0.28 * sum).toFixed(3));
+      }
+    }
+    function req() { if (!ticking) { ticking = true; requestAnimationFrame(stack); } }
+    window.addEventListener("scroll", req, { passive: true });
+    window.addEventListener("resize", req);
+    var list = document.getElementById("work-list");
+    if (list && "MutationObserver" in window) new MutationObserver(req).observe(list, { childList: true });
+    req();
+  })();
+
   /* ---------- chiffres animés ---------- */
   function countUp() {
     document.querySelectorAll(".hero .stats strong, .scr-page .stats strong").forEach(function (el) {

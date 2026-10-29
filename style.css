@@ -671,7 +671,7 @@ li:hover > .org-logo { transform: translateY(-2px) rotate(-3deg); box-shadow: va
 @media (max-width: 700px) { .pillars { grid-template-columns: 1fr; } }
 
 /* ---------- curseur « fil rouge » (ordinateur) ---------- */
-.has-cursor, .has-cursor a, .has-cursor button, .has-cursor .pj-row, .has-cursor .tool-btn, .has-cursor .step { cursor: none; }
+.has-cursor, .has-cursor a, .has-cursor button, .has-cursor .pj-row, .has-cursor .fo-card, .has-cursor .tool-btn, .has-cursor .step { cursor: none; }
 .has-cursor input, .has-cursor textarea { cursor: text; }
 .cursor-trail { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; opacity: 0; transition: opacity .2s; }
 .cursor-trail path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }

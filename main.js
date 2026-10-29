@@ -287,7 +287,7 @@
       var main = p.links.filter(function (l) { return l[2]; })[0] || p.links[0];
       var k = link(main[0]);
       return '<article class="fo-card" style="--k:' + i + '" data-project="' + p.id + '">' +
-        '<div class="fo-body"><h3 class="fo-title">' + esc(p.title) + '</h3><p class="fo-meta">' + esc(p.kind) + '</p><p class="fo-text">' + esc(p.text) + "</p>" +
+        '<div class="fo-body"><h3 class="fo-title">' + (k.ext ? esc(p.title) : '<a href="' + esc(k.href) + '">' + esc(p.title) + '</a>') + '</h3><p class="fo-meta">' + esc(p.kind) + '</p><p class="fo-text">' + esc(p.text) + "</p>" +
         '<ul class="fo-tags">' + p.tags.slice(0, 4).map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>" +
         '<div class="fo-links"><a class="fo-open" href="' + esc(k.href) + '"' + (k.ext ? ' target="_blank" rel="noopener"' : "") + "><span>" + esc(main[1]) + '</span><span class="pj-arrow" aria-hidden="true"></span></a>' +
         p.links.filter(function (l) { return l !== main; }).map(function (l) {
@@ -774,20 +774,15 @@
     trail.setAttribute("class", "cursor-trail"); trail.setAttribute("aria-hidden", "true");
     var path = document.createElementNS("http://www.w3.org/2000/svg", "path"); trail.appendChild(path);
     var ring = document.createElement("div"); ring.className = "cursor-ring"; ring.setAttribute("aria-hidden", "true");
-    ring.innerHTML = "<span></span>";
     document.body.appendChild(trail); document.body.appendChild(ring);
     root.classList.add("has-cursor");
     var mx = -100, my = -100, rx = -100, ry = -100, pts = [], visible = false;
-    var label = ring.querySelector("span");
     document.addEventListener("mousemove", function (e) {
       mx = e.clientX; my = e.clientY;
       if (!visible) { visible = true; rx = mx; ry = my; root.classList.add("cursor-on"); }
       var t = e.target.closest ? e.target : e.target.parentElement;
-      var view = t && t.closest(".pj-row, .method-band, .fo-card");
-      var link = !view && t && t.closest("a, button, [role='button'], .tool-btn, .step");
-      ring.classList.toggle("is-view", !!view);
+      var link = t && t.closest("a, button, [role='button'], .tool-btn, .step");
       ring.classList.toggle("is-link", !!link);
-      label.textContent = view ? (lang === "fr" ? "Voir" : "View") : "";
     }, { passive: true });
     document.addEventListener("mouseleave", function () { visible = false; root.classList.remove("cursor-on"); pts = []; path.setAttribute("d", ""); });
     document.addEventListener("mousedown", function () { ring.classList.add("is-down"); });

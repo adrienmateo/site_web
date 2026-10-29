@@ -437,3 +437,14 @@ html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { transition: no
   .about-body p { line-height: 1.7; }
   html .hero .pitch { line-height: 1.6; margin-bottom: 26px; }
 }
+
+/* ---------- projets : titre cliquable sans soulignement ---------- */
+.fo-title a { color: inherit; text-decoration: none; }
+.fo-title a:hover { color: #fff; }
+.fo-title a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+
+/* bandeau « Ma méthode » sur mobile : seulement le nom des phases (Design, Build…) */
+@media (max-width: 700px) {
+  .method-art .m-sub { display: none; }
+  .method-art .m-label { font-size: 12px; }
+}

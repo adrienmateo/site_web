@@ -677,9 +677,9 @@ li:hover > .org-logo { transform: translateY(-2px) rotate(-3deg); box-shadow: va
 .cursor-trail path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .cursor-ring { position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity .2s; }
 .cursor-ring::before { content: ""; position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); transform: translate(-50%, -50%); transition: width .3s var(--ease), height .3s var(--ease), background .3s; }
-.cursor-ring span { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); font: 700 .72rem var(--sans); color: #fff; white-space: nowrap; opacity: 0; transition: opacity .2s; }
+.cursor-ring span { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); font: 700 .64rem var(--sans); color: #fff; white-space: nowrap; opacity: 0; transition: opacity .2s; }
 .cursor-ring.is-link::before { width: 28px; height: 28px; background: rgba(225, 6, 0, .08); }
-.cursor-ring.is-view::before { width: 66px; height: 66px; background: var(--accent); }
+.cursor-ring.is-view::before { width: 44px; height: 44px; background: var(--accent); }
 .cursor-ring.is-view span { opacity: 1; }
 .cursor-ring.is-down::before { width: 9px; height: 9px; }
 .cursor-on .cursor-ring, .cursor-on .cursor-trail { opacity: 1; }
@@ -709,3 +709,7 @@ li:hover > .org-logo { transform: translateY(-2px) rotate(-3deg); box-shadow: va
 .afd-view .wf { animation: afd-in .45s var(--ease); }
 @keyframes afd-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .afd-print, .afd-cover { transition: none; } .afd-view .wf { animation: none; } }
+
+/* modale projet : le curseur personnalisé passe sous la modale, on rend le pointeur normal */
+html.has-cursor dialog.modal[open], html.has-cursor dialog.modal[open] * { cursor: auto !important; }
+html.has-cursor dialog.modal[open] a, html.has-cursor dialog.modal[open] button { cursor: pointer !important; }

@@ -440,12 +440,11 @@
     $("bl-problem").innerHTML = list(B.problem);
     $("bl-approach").innerHTML = B.approach.map(function (a, i) {
       var f = a[2] || {}, k = a[4] ? (a[4].charAt(0) === "#" ? { href: a[4], ext: false } : link(a[4])) : null;
-      var fig = f.code
-        ? '<span class="ap-fig ap-code">' + f.code.map(function (c) { return "<span>" + esc(c) + "</span>"; }).join("") + "</span>"
-        : '<span class="ap-fig"><span class="num" data-to="' + f.n + '">' + f.n + "</span>" + (f.unit ? "<small>" + esc(f.unit) + "</small>" : "") + "</span>";
       return '<li class="ap-row"><span class="ap-dot" aria-hidden="true">' + (i + 1) + "</span>" +
-        '<div class="ap-stat">' + fig + (f.label ? '<span class="ap-cap">' + esc(f.label) + "</span>" : "") + "</div>" +
-        '<div class="ap-body"><h3>' + esc(a[0]) + "</h3><p>" + esc(a[1]) + "</p></div>" +
+        '<h3 class="ap-t">' + esc(a[0]) + "</h3>" +
+        '<div class="ap-stat"><span class="ap-fig"><span class="num" data-to="' + f.n + '">' + f.n + "</span>" + (f.unit ? "<small>" + esc(f.unit) + "</small>" : "") + "</span>" +
+        (f.label ? '<span class="ap-cap">' + esc(f.label) + "</span>" : "") + "</div>" +
+        '<p class="ap-p">' + esc(a[1]) + "</p>" +
         (k ? '<a class="ap-go" href="' + esc(k.href) + '"' + (k.ext ? ' target="_blank" rel="noopener"' : "") + ">" + esc(a[3]) + (k.ext ? " ↗" : " →") + "</a>" : "") + "</li>";
     }).join("");
     approachLive();

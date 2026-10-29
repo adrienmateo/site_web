@@ -520,27 +520,34 @@
     });
     d.addEventListener("close", function () { if (wfOpener && wfOpener.focus) wfOpener.focus(); });
   }
+  var ZOOM = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.2-4.2M11 8.5v5M8.5 11h5"/></svg>';
   function renderWireframes(B) {
     var root = $("bl-wf"); if (!root) return;
     wfData = B; wfBind();
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     root.innerHTML = '<div class="afd" data-open="false"><div class="afd-shell"><div class="afd-back"></div>' +
+      B.wf.map(function (w, i) { return '<span class="afd-sheet" style="--i:' + i + '" aria-hidden="true"></span>'; }).join("") +
+      '<button type="button" class="afd-cover" aria-expanded="false" aria-controls="afd-tray"><span class="afd-label">' + esc(B.wfFolder) + '</span><span class="afd-hint">' + esc(B.wfOpen) + "</span></button></div>" +
+      '<div class="afd-tray" id="afd-tray" inert><div class="afd-tray-in"><ul class="afd-cards">' +
       B.wf.map(function (w, i) {
-        return '<button type="button" class="afd-print" style="--i:' + i + '" tabindex="-1" aria-haspopup="dialog" aria-label="' + esc(w.title) + '">' +
-          '<img src="' + esc(w.img) + '" alt="" loading="lazy"><span>' + esc(w.title.replace(/\s*\(US-\d+\)\s*$/, "")) + "</span></button>";
-      }).join("") +
-      '<button type="button" class="afd-cover" aria-expanded="false"><span class="afd-label">' + esc(B.wfFolder) + '</span><span class="afd-hint">' + esc(B.wfOpen) + "</span></button></div>" +
-      '<p class="afd-tip" aria-live="polite">' + esc(B.wfTip) + "</p></div>";
-    var box = root.querySelector(".afd"), cover = root.querySelector(".afd-cover"), hint = root.querySelector(".afd-hint"), prints = root.querySelectorAll(".afd-print");
+        return '<li><button type="button" class="afd-card" style="--i:' + i + '" aria-haspopup="dialog"><span class="afd-ph"><img src="' + esc(w.img) + '" alt="" decoding="async">' +
+          '<span class="afd-zoom" aria-hidden="true">' + ZOOM + '</span></span><span class="afd-cap">' + esc(w.title) + "</span></button></li>";
+      }).join("") + "</ul></div></div></div>";
+    var box = root.querySelector(".afd"), cover = root.querySelector(".afd-cover"), hint = root.querySelector(".afd-hint"), tray = root.querySelector(".afd-tray");
+    function reveal() {
+      var r = tray.getBoundingClientRect(), c = cover.getBoundingClientRect(), need = r.bottom - window.innerHeight + 24, room = c.top - 90;
+      if (need > 0 && room > 0) window.scrollBy({ top: Math.min(need, room), behavior: calm ? "instant" : "smooth" });
+    }
     function toggle() {
       var open = box.getAttribute("data-open") !== "true";
       box.setAttribute("data-open", String(open));
       cover.setAttribute("aria-expanded", String(open));
       hint.textContent = open ? B.wfClose : B.wfOpen;
-      prints.forEach(function (p) { p.setAttribute("tabindex", open ? "0" : "-1"); });
+      if (open) { tray.removeAttribute("inert"); setTimeout(reveal, calm ? 0 : 480); } else tray.setAttribute("inert", "");
     }
     cover.addEventListener("click", toggle);
-    prints.forEach(function (p, i) { p.addEventListener("click", function () { if (box.getAttribute("data-open") === "true") wfOpen(i, p); }); });
-    root.addEventListener("keydown", function (e) { if (e.key === "Escape" && box.getAttribute("data-open") === "true") { toggle(); cover.focus(); } });
+    root.querySelectorAll(".afd-card").forEach(function (b, i) { b.addEventListener("click", function () { wfOpen(i, b); }); });
+    root.addEventListener("keydown", function (e) { if (e.key === "Escape" && box.getAttribute("data-open") === "true" && !$("wf-modal").open) { toggle(); cover.focus(); } });
     var d = $("wf-modal"); if (d && d.open) wfShow(wfIdx);
   }
 

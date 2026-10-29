@@ -66,8 +66,10 @@
       b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === l));
     });
 
-    var cv = $("cv-link");
-    if (cv) { if (S.cv[l]) { cv.setAttribute("href", S.cv[l]); cv.hidden = false; } else { cv.hidden = true; } }
+    // tous les liens CV (accueil, barre du haut, contact, menu mobile)
+    document.querySelectorAll("[data-cv]").forEach(function (cv) {
+      if (S.cv[l]) { cv.setAttribute("href", S.cv[l]); cv.hidden = false; } else { cv.hidden = true; }
+    });
     document.querySelectorAll("[data-href]").forEach(function (a) {
       var k = a.getAttribute("data-href");
       var v = k === "mail" ? "mailto:" + S.email : S[k];
@@ -658,7 +660,7 @@
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-      }, { threshold: 0.12 });
+      }, { threshold: 0, rootMargin: "0px 0px 15% 0px" }); // déclenché avant l'entrée à l'écran : pas de section vide en défilement rapide
       document.querySelectorAll(".reveal:not(.in)").forEach(function (el) { io.observe(el); });
 
       var links = document.querySelectorAll(".nav a[href^='#']");
@@ -669,6 +671,8 @@
           });
         }, { rootMargin: "-45% 0px -50% 0px" });
         links.forEach(function (a) { var s = document.querySelector(a.getAttribute("href")); if (s) spy.observe(s); });
+        // sur l'accueil, aucun lien n'est actif
+        if ($("top")) spy.observe($("top"));
       }
     } else {
       document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });

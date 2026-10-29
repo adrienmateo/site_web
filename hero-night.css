@@ -117,8 +117,28 @@ html .hero.wrap { margin: 0 !important; padding-top: 140px !important; border-ra
   html .hero > .nt-scene { border-radius: 0; padding-top: 0; }
 }
 
-/* ---- la barre du haut reste en haut de la page : elle ne suit plus le défilement ---- */
-html .topbar { position: absolute !important; top: 0; left: 0; right: 0; }
+/* ---- la barre du haut flotte sur l'accueil, puis reste visible pendant le défilement ---- */
+html .topbar { position: fixed !important; top: 0; left: 0; right: 0; }
+html .topbar.scrolled .topbar-inner { background: rgba(14, 17, 22, .9); }
+
+/* ---- CV : action principale, toujours à portée ---- */
+.tb-cv { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 10px; background: #E10600; color: #fff;
+  font: 700 .85rem var(--sans, "Manrope", sans-serif); text-decoration: none; transition: background .2s; }
+.tb-cv:hover { background: var(--accent-2, #B80500); }
+.tb-cv:focus-visible { outline: 2px solid #F2F3F6; outline-offset: 2px; }
+.tb-cv[hidden] { display: none; }
+@media (max-width: 880px) { .topbar .tb-cv { margin-left: auto; } .topbar .tb-cv:not([hidden]) ~ .lang { margin-left: 0; } }
+/* petit écran : le nom est déjà en grand dans l'accueil, la barre garde le CV, la langue et le menu */
+@media (max-width: 480px) { .topbar .brand { display: none; } }
+html .hero .btn.quiet { background: transparent; border-color: transparent; color: #B7BECB; }
+html .hero .btn.quiet:hover { color: #F2F3F6; border-color: #262C37; box-shadow: none; }
+html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }
+
+/* ---- mobile : scène plus courte, le nom et le CV arrivent dans le premier écran ---- */
+@media (max-width: 700px) {
+  html .hero > .nt-scene { aspect-ratio: auto; height: clamp(220px, 38svh, 320px); }
+  html .hero .hero-in { animation-delay: calc(var(--i, 0) * 50ms + 150ms); }
+}
 
 /* ---- scène en vidéo : le robot marche sur sa planète ---- */
 .nt-scene.is-v .nt-view { aspect-ratio: 16 / 9; }

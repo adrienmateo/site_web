@@ -113,7 +113,10 @@
     b.innerHTML = "<i></i><i></i>"; inner.appendChild(b);
     var m = document.createElement("nav"); m.className = "mmenu"; m.setAttribute("aria-label", "Menu");
     function fill() { m.innerHTML = [].slice.call(document.querySelectorAll("body > header .nav a")).map(function (a, k) {
-      return '<a href="' + a.getAttribute("href") + '" style="--k:' + Math.min(k, 6) + '"><span>0' + (k + 1) + "</span>" + a.textContent + "</a>"; }).join(""); }
+      return '<a href="' + a.getAttribute("href") + '" style="--k:' + Math.min(k, 6) + '"><span>0' + (k + 1) + "</span>" + a.textContent + "</a>"; }).join("");
+      // le CV en dernier, mis en avant
+      var cv = document.querySelector(".topbar .tb-cv");
+      if (cv && !cv.hidden) m.insertAdjacentHTML("beforeend", '<a class="mm-cv" href="' + cv.getAttribute("href") + '" download style="--k:6">' + cv.textContent + "</a>"); }
     fill(); document.body.appendChild(m);
     function set(o) { root.classList.toggle("menu-open", o); b.setAttribute("aria-expanded", String(o)); }
     b.addEventListener("click", function () { fill(); set(!root.classList.contains("menu-open")); });

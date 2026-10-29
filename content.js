@@ -8,8 +8,8 @@ window.SITE = {
   "email": "adrienmateo.soules@gmail.com",
   "linkedin": "https://www.linkedin.com/in/adrien-mat%C3%A9o-soules/",
   "cv": {
-    "fr": "",
-    "en": ""
+    "fr": "CV_Adrien-Mateo_Soules_FR.pdf",
+    "en": "CV_Adrien-Mateo_Soules_EN.pdf"
   },
   "notionBacklog": "https://glitter-rail-fdd.notion.site/Altea-Outdoor-Portail-de-retours-V1-3eda32b763b9814a9231f3080bdc7843",
   "github": "https://github.com/adrienmateo",
@@ -34,7 +34,8 @@ window.CONTENT = {
       "skills": "Compétences",
       "work": "Projets",
       "path": "Parcours",
-      "contact": "Contact"
+      "contact": "Contact",
+      "cv": "Mon CV"
     },
     "hero": {
       "role": "Consultant technico-fonctionnel",
@@ -989,7 +990,8 @@ window.CONTENT = {
       "skills": "Skills",
       "work": "Projects",
       "path": "Background",
-      "contact": "Contact"
+      "contact": "Contact",
+      "cv": "Resume"
     },
     "hero": {
       "role": "Functional & technical consultant",

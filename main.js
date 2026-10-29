@@ -440,10 +440,11 @@
     $("bl-problem").innerHTML = list(B.problem);
     $("bl-approach").innerHTML = B.approach.map(function (a, i) {
       var f = a[2] || {}, k = a[4] ? (a[4].charAt(0) === "#" ? { href: a[4], ext: false } : link(a[4])) : null;
-      var fig = f.count !== undefined
-        ? '<span class="ap-fig"><span class="num" data-to="' + f.count + '">' + f.count + "</span>" + (f.unit ? "<small>" + esc(f.unit) + "</small>" : "") + "</span>"
-        : '<span class="ap-fig ap-chip">' + esc(f.chip || "") + "</span>";
-      return '<li class="ap-row"><span class="ap-dot" aria-hidden="true">' + (i + 1) + "</span>" + fig +
+      var fig = f.code
+        ? '<span class="ap-fig ap-code">' + f.code.map(function (c) { return "<span>" + esc(c) + "</span>"; }).join("") + "</span>"
+        : '<span class="ap-fig"><span class="num" data-to="' + f.n + '">' + f.n + "</span>" + (f.unit ? "<small>" + esc(f.unit) + "</small>" : "") + "</span>";
+      return '<li class="ap-row"><span class="ap-dot" aria-hidden="true">' + (i + 1) + "</span>" +
+        '<div class="ap-stat">' + fig + (f.label ? '<span class="ap-cap">' + esc(f.label) + "</span>" : "") + "</div>" +
         '<div class="ap-body"><h3>' + esc(a[0]) + "</h3><p>" + esc(a[1]) + "</p></div>" +
         (k ? '<a class="ap-go" href="' + esc(k.href) + '"' + (k.ext ? ' target="_blank" rel="noopener"' : "") + ">" + esc(a[3]) + (k.ext ? " ↗" : " →") + "</a>" : "") + "</li>";
     }).join("");
@@ -490,37 +491,58 @@
   }
   var approachUpdate = null;
 
-  /* wireframes : dossier d'archives qui s'ouvre sur 3 tirages */
-  function wfFigure(w) {
-    return '<figure class="wf"><a href="' + esc(w.img) + '" target="_blank" rel="noopener"><img src="' + esc(w.img) + '" alt="' + esc(w.title) + '" loading="lazy"></a>' +
-      "<figcaption><h3>" + esc(w.title) + '</h3><ol class="markers">' + list(w.notes) + "</ol></figcaption></figure>";
+  /* wireframes : dossier d'archives ; chaque tirage s'ouvre dans une fenêtre */
+  var wfData = null, wfIdx = 0, wfOpener = null, wfBound = false;
+  var CH_L = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>', CH_R = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+  function wfShow(i) {
+    var B = wfData, n = B.wf.length, w;
+    wfIdx = (i + n) % n; w = B.wf[wfIdx];
+    $("wf-body").innerHTML = '<figure class="wf"><img src="' + esc(w.img) + '" alt="' + esc(w.title) + '">' +
+      '<figcaption><h3 id="wf-title">' + esc(w.title) + '</h3><ol class="markers">' + list(w.notes) + "</ol>" +
+      '<div class="wf-nav"><button type="button" class="wf-prev" aria-label="' + esc(B.wfPrev) + '">' + CH_L + '</button><span class="wf-count">' + (wfIdx + 1) + " / " + n +
+      '</span><button type="button" class="wf-next" aria-label="' + esc(B.wfNext) + '">' + CH_R + "</button></div></figcaption></figure>";
+  }
+  function wfOpen(i, opener) {
+    var d = $("wf-modal"); if (!d) return;
+    wfOpener = opener || null; wfShow(i);
+    if (typeof d.showModal === "function") d.showModal(); else d.setAttribute("open", "");
+  }
+  function wfBind() {
+    var d = $("wf-modal"); if (!d || wfBound) return; wfBound = true;
+    function close() { if (d.close) d.close(); else d.removeAttribute("open"); }
+    $("wf-close").addEventListener("click", close);
+    d.addEventListener("click", function (e) {
+      if (e.target === d) return close();
+      if (e.target.closest(".wf-prev")) wfShow(wfIdx - 1);
+      else if (e.target.closest(".wf-next")) wfShow(wfIdx + 1);
+    });
+    d.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") { wfShow(wfIdx - 1); } else if (e.key === "ArrowRight") { wfShow(wfIdx + 1); }
+    });
+    d.addEventListener("close", function () { if (wfOpener && wfOpener.focus) wfOpener.focus(); });
   }
   function renderWireframes(B) {
     var root = $("bl-wf"); if (!root) return;
+    wfData = B; wfBind();
     root.innerHTML = '<div class="afd" data-open="false"><div class="afd-shell"><div class="afd-back"></div>' +
       B.wf.map(function (w, i) {
-        return '<button type="button" class="afd-print" style="--i:' + i + '" tabindex="-1" aria-pressed="false" aria-label="' + esc(w.title) + '">' +
-          '<img src="' + esc(w.img) + '" alt="" loading="lazy"><span>' + esc(w.title) + "</span></button>";
+        return '<button type="button" class="afd-print" style="--i:' + i + '" tabindex="-1" aria-haspopup="dialog" aria-label="' + esc(w.title) + '">' +
+          '<img src="' + esc(w.img) + '" alt="" loading="lazy"><span>' + esc(w.title.replace(/\s*\(US-\d+\)\s*$/, "")) + "</span></button>";
       }).join("") +
       '<button type="button" class="afd-cover" aria-expanded="false"><span class="afd-label">' + esc(B.wfFolder) + '</span><span class="afd-hint">' + esc(B.wfOpen) + "</span></button></div>" +
-      '<div class="afd-view" aria-live="polite"></div></div>';
-    var box = root.querySelector(".afd"), cover = root.querySelector(".afd-cover"), hint = root.querySelector(".afd-hint"),
-        prints = root.querySelectorAll(".afd-print"), view = root.querySelector(".afd-view");
-    function pick(i) {
-      prints.forEach(function (p, k) { p.setAttribute("aria-pressed", String(k === i)); });
-      view.innerHTML = i === null ? "" : wfFigure(B.wf[i]);
-    }
+      '<p class="afd-tip" aria-live="polite">' + esc(B.wfTip) + "</p></div>";
+    var box = root.querySelector(".afd"), cover = root.querySelector(".afd-cover"), hint = root.querySelector(".afd-hint"), prints = root.querySelectorAll(".afd-print");
     function toggle() {
       var open = box.getAttribute("data-open") !== "true";
       box.setAttribute("data-open", String(open));
       cover.setAttribute("aria-expanded", String(open));
       hint.textContent = open ? B.wfClose : B.wfOpen;
       prints.forEach(function (p) { p.setAttribute("tabindex", open ? "0" : "-1"); });
-      pick(open ? 0 : null);
     }
     cover.addEventListener("click", toggle);
-    prints.forEach(function (p, i) { p.addEventListener("click", function () { if (box.getAttribute("data-open") === "true") pick(i); }); });
+    prints.forEach(function (p, i) { p.addEventListener("click", function () { if (box.getAttribute("data-open") === "true") wfOpen(i, p); }); });
     root.addEventListener("keydown", function (e) { if (e.key === "Escape" && box.getAttribute("data-open") === "true") { toggle(); cover.focus(); } });
+    var d = $("wf-modal"); if (d && d.open) wfShow(wfIdx);
   }
 
   /* ---------- demo: stuck order investigation ---------- */

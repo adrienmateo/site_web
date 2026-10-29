@@ -325,7 +325,7 @@ window.CONTENT = {
           "id": "site",
           "title": "Ce site",
           "kind": "Projet personnel",
-          "text": "Conçu et codé de A à Z, bilingue, hébergé sur GitHub Pages avec mon propre domaine.",
+          "text": "Conçu de A à Z, bilingue, hébergé sur GitHub Pages avec mon propre domaine.",
           "summary": "Un site statique en HTML, CSS et JavaScript, sans framework. Contenu bilingue géré dans un seul fichier, déploiement automatique depuis GitHub et nom de domaine configuré chez OVH.",
           "shows": "Autonomie technique, sens du détail",
           "tags": [
@@ -448,7 +448,7 @@ window.CONTENT = {
       "lead": "Un poste, un projet ou une question ? Écrivez-moi, je réponds rapidement.",
       "mail": "M'écrire"
     },
-    "footer": "Conçu et codé par mes soins, hébergé sur GitHub Pages.",
+    "footer": "Conçu par mes soins, hébergé sur GitHub Pages.",
     "methode": {
       "meta": {
         "title": "Ma méthode de travail — Adrien-Matéo Soules",
@@ -634,6 +634,9 @@ window.CONTENT = {
       "reserve": "En réserve : US-11 (scanner un colis à réception) et US-33 (liste des colis attendus).",
       "wfTitle": "Les wireframes",
       "wfLead": "Les 3 écrans du Sprint 1, en basse fidélité. Chaque repère bleu renvoie à une story et à un scénario.",
+      "wfFolder": "Wireframes · Sprint 1",
+      "wfOpen": "Ouvrir le dossier",
+      "wfClose": "Refermer le dossier",
       "wf": [
         {
           "img": "wf-retour.jpg",
@@ -1261,7 +1264,7 @@ window.CONTENT = {
           "id": "site",
           "title": "This site",
           "kind": "Personal project",
-          "text": "Designed and coded from scratch, bilingual, hosted on GitHub Pages with my own domain.",
+          "text": "Designed from scratch, bilingual, hosted on GitHub Pages with my own domain.",
           "summary": "A static site in HTML, CSS and JavaScript, no framework. Bilingual content managed in a single file, automatic deployment from GitHub and a domain set up with OVH.",
           "shows": "Technical autonomy, attention to detail",
           "tags": [
@@ -1384,7 +1387,7 @@ window.CONTENT = {
       "lead": "A role, a project or a question? Write to me, I reply quickly.",
       "mail": "Email me"
     },
-    "footer": "Designed and built by me, hosted on GitHub Pages.",
+    "footer": "Designed by me, hosted on GitHub Pages.",
     "methode": {
       "meta": {
         "title": "How I work — Adrien-Matéo Soules",
@@ -1570,6 +1573,9 @@ window.CONTENT = {
       "reserve": "In reserve: US-11 (scan a parcel on receipt) and US-33 (list of expected parcels).",
       "wfTitle": "Wireframes",
       "wfLead": "The 3 Sprint 1 screens, low fidelity. Each blue marker points to a story and a scenario.",
+      "wfFolder": "Wireframes · Sprint 1",
+      "wfOpen": "Open the folder",
+      "wfClose": "Close the folder",
       "wf": [
         {
           "img": "wf-retour.jpg",

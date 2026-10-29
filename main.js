@@ -445,10 +445,40 @@
       B.sprint.map(function (r) {
         return '<tr><td class="code-id">' + esc(r[0]) + "</td><td>" + esc(r[1]) + "</td><td>" + esc(r[2]) + '</td><td class="num">' + r[3] + "</td></tr>";
       }).join("") + '</tbody><tfoot><tr><td colspan="3">' + esc(B.sprintTotal) + '</td><td class="num">' + esc(B.sprintCapacity) + "</td></tr></tfoot>";
-    $("bl-wf").innerHTML = B.wf.map(function (w) {
-      return '<figure class="wf"><a href="' + esc(w.img) + '" target="_blank" rel="noopener"><img src="' + esc(w.img) + '" alt="' + esc(w.title) + '" loading="lazy"></a>' +
-        "<figcaption><h3>" + esc(w.title) + '</h3><ol class="markers">' + list(w.notes) + "</ol></figcaption></figure>";
-    }).join("");
+    renderWireframes(B);
+  }
+
+  /* wireframes : dossier d'archives qui s'ouvre sur 3 tirages */
+  function wfFigure(w) {
+    return '<figure class="wf"><a href="' + esc(w.img) + '" target="_blank" rel="noopener"><img src="' + esc(w.img) + '" alt="' + esc(w.title) + '" loading="lazy"></a>' +
+      "<figcaption><h3>" + esc(w.title) + '</h3><ol class="markers">' + list(w.notes) + "</ol></figcaption></figure>";
+  }
+  function renderWireframes(B) {
+    var root = $("bl-wf"); if (!root) return;
+    root.innerHTML = '<div class="afd" data-open="false"><div class="afd-shell"><div class="afd-back"></div>' +
+      B.wf.map(function (w, i) {
+        return '<button type="button" class="afd-print" style="--i:' + i + '" tabindex="-1" aria-pressed="false" aria-label="' + esc(w.title) + '">' +
+          '<img src="' + esc(w.img) + '" alt="" loading="lazy"><span>' + esc(w.title) + "</span></button>";
+      }).join("") +
+      '<button type="button" class="afd-cover" aria-expanded="false"><span class="afd-label">' + esc(B.wfFolder) + '</span><span class="afd-hint">' + esc(B.wfOpen) + "</span></button></div>" +
+      '<div class="afd-view" aria-live="polite"></div></div>';
+    var box = root.querySelector(".afd"), cover = root.querySelector(".afd-cover"), hint = root.querySelector(".afd-hint"),
+        prints = root.querySelectorAll(".afd-print"), view = root.querySelector(".afd-view");
+    function pick(i) {
+      prints.forEach(function (p, k) { p.setAttribute("aria-pressed", String(k === i)); });
+      view.innerHTML = i === null ? "" : wfFigure(B.wf[i]);
+    }
+    function toggle() {
+      var open = box.getAttribute("data-open") !== "true";
+      box.setAttribute("data-open", String(open));
+      cover.setAttribute("aria-expanded", String(open));
+      hint.textContent = open ? B.wfClose : B.wfOpen;
+      prints.forEach(function (p) { p.setAttribute("tabindex", open ? "0" : "-1"); });
+      pick(open ? 0 : null);
+    }
+    cover.addEventListener("click", toggle);
+    prints.forEach(function (p, i) { p.addEventListener("click", function () { if (box.getAttribute("data-open") === "true") pick(i); }); });
+    root.addEventListener("keydown", function (e) { if (e.key === "Escape" && box.getAttribute("data-open") === "true") { toggle(); cover.focus(); } });
   }
 
   /* ---------- demo: stuck order investigation ---------- */

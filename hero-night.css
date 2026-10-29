@@ -23,9 +23,9 @@ html .hero .hero-name .ln { overflow: visible; margin-bottom: 0; padding-bottom:
 html .hero .hero-name .ln > span { transform: none; animation: none; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #F2F3F6; }
 html .hero .hero-name .ln + .ln > span { color: #9AA3B2; }
 html .hero .role { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; margin: 0 0 22px;
-  font: 600 .8rem "JetBrains Mono", ui-monospace, Menlo, monospace; letter-spacing: .04em; color: #FF6A63;
+  font: 700 .9rem var(--sans, "Manrope", sans-serif); letter-spacing: .01em; color: #FF6A63;
   background: rgba(225, 6, 0, .12); border: 1px solid rgba(225, 6, 0, .35); padding: 6px 12px; }
-html .hero .role::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #E10600; box-shadow: 0 0 10px #E10600; }
+html .hero .role::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #E10600; }
 html .hero .pitch { color: #B7BECB; }
 html .hero .btn:not(.primary) { background: #171B22; color: #F2F3F6; border-color: #262C37; }
 html .hero .btn:not(.primary):hover { border-color: #3A4352; }
@@ -33,9 +33,9 @@ html .hero .stats li, html .hero .stats li:nth-child(3) { color: #9AA3B2; border
 html .hero .stats li strong { color: #F2F3F6; }
 
 /* ---- entrée : la scène est déjà là, le texte tombe ---- */
-html .hero .hero-in { opacity: 0; animation: nt-drop .85s cubic-bezier(.25, 1.35, .45, 1) forwards; animation-delay: calc(var(--i, 0) * 70ms + 450ms); }
+html .hero .hero-in { opacity: 0; animation: nt-drop .8s cubic-bezier(.16, 1, .3, 1) forwards; animation-delay: calc(var(--i, 0) * 70ms + 450ms); }
 @keyframes nt-drop { 0% { opacity: 0; transform: translateY(-34px); } 35% { opacity: 1; } 100% { opacity: 1; transform: none; } }
-.nt-ch { display: inline-block; opacity: 0; will-change: transform; animation: nt-fall .8s cubic-bezier(.3, 1.5, .5, 1) forwards; animation-delay: calc(var(--c) * 30ms + 150ms); }
+.nt-ch { display: inline-block; opacity: 0; will-change: transform; animation: nt-fall .8s cubic-bezier(.16, 1, .3, 1) forwards; animation-delay: calc(var(--c) * 30ms + 150ms); }
 @keyframes nt-fall { 0% { opacity: 0; transform: translateY(-1.15em) rotate(calc(var(--r) * 1deg)); } 30% { opacity: 1; } 100% { opacity: 1; transform: none; } }
 
 /* ---- scène ---- */
@@ -127,16 +127,19 @@ html .topbar.scrolled .topbar-inner { background: rgba(14, 17, 22, .9); }
 .tb-cv:hover { background: var(--accent-2, #B80500); }
 .tb-cv:focus-visible { outline: 2px solid #F2F3F6; outline-offset: 2px; }
 .tb-cv[hidden] { display: none; }
+@media (pointer: coarse) { .tb-cv { height: 44px; } }
 @media (max-width: 880px) { .topbar .tb-cv { margin-left: auto; } .topbar .tb-cv:not([hidden]) ~ .lang { margin-left: 0; } }
 /* petit écran : le nom est déjà en grand dans l'accueil, la barre garde le CV, la langue et le menu */
-@media (max-width: 480px) { .topbar .brand { display: none; } }
+@media (max-width: 480px) { .topbar .brand-first { display: none; } }
+/* menu mobile ouvert : le CV est dans la liste, pas besoin du bouton de la barre */
+.menu-open .topbar .tb-cv { visibility: hidden; }
 html .hero .btn.quiet { background: transparent; border-color: transparent; color: #B7BECB; }
 html .hero .btn.quiet:hover { color: #F2F3F6; border-color: #262C37; box-shadow: none; }
 html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }
 
 /* ---- mobile : scène plus courte, le nom et le CV arrivent dans le premier écran ---- */
 @media (max-width: 700px) {
-  html .hero > .nt-scene { aspect-ratio: auto; height: clamp(220px, 38svh, 320px); }
+  html .hero > .nt-scene { aspect-ratio: auto; height: clamp(170px, 26svh, 230px); }
   html .hero .hero-in { animation-delay: calc(var(--i, 0) * 50ms + 150ms); }
 }
 

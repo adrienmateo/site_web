@@ -192,8 +192,8 @@ img { max-width: 100%; }
 .open > .step-text { grid-template-rows: 1fr; }
 .open > .step-text p { opacity: 1; transform: none; transition-delay: .12s; }
 .auto-row { margin-top: 10px; }
-.auto-row > div { border: 1.5px dashed var(--violet-line); background: var(--violet-soft); }
-.auto-row > div.open { border-style: solid; }
+.auto-row > div { border: 1.5px dashed var(--violet-line); background: transparent; }
+.auto-row > div.open { border-style: solid; background: var(--violet-soft); }
 .step.auto .dot { color: var(--violet); border-color: var(--violet-line); font-size: 1.25rem; }
 .step.auto:hover .dot { border-color: var(--violet); color: var(--violet); }
 .step.auto.on .dot { background: var(--violet); border-color: var(--violet); color: #fff; box-shadow: 0 8px 20px -6px rgba(122, 46, 224, .45); }

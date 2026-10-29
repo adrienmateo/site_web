@@ -8,6 +8,8 @@
   var step = 0;
   var activeStep = null;
   var activeTool = null;
+  var toolsOpen = false;
+  var KEY_TOOLS = ["postman", "mongodb", "elasticsearch", "datadog", "kafka", "make", "claude", "api", "webhooks", "jira", "sap", "shopify"];
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- helpers ---------- */
@@ -25,7 +27,8 @@
   function link(target) {
     var map = { "@notion": S.notionBacklog, "@dashboard": S.dashboardF1, "@repoF1": S.repoF1, "@repoSite": S.repoSite };
     if (map[target]) return { href: map[target], ext: true };
-    return { href: target + "?lang=" + lang, ext: false };
+    var h = target.split("#");
+    return { href: h[0] + "?lang=" + lang + (h[1] ? "#" + h[1] : ""), ext: false };
   }
 
   /* ---------- language ---------- */
@@ -61,6 +64,10 @@
     document.querySelectorAll("[data-i18n-label]").forEach(function (el) {
       var v = get(T, el.getAttribute("data-i18n-label"));
       if (typeof v === "string") el.setAttribute("aria-label", v);
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (el) {
+      var v = get(T, el.getAttribute("data-i18n-alt"));
+      if (typeof v === "string") el.setAttribute("alt", v);
     });
     document.querySelectorAll(".lang button").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === l));
@@ -159,15 +166,22 @@
         '<span class="method-cta">' + esc(K.method.cta) + '<span class="pj-arrow" aria-hidden="true"></span></span></a>';
     }
 
-    var n = 0;
+    // les outils qui prouvent la profondeur technique restent visibles, les autres sont derrière un bouton
+    var n = 0, more = TOOLS.filter(function (t) { return KEY_TOOLS.indexOf(t.id) < 0; }).length;
     $("toolbox").innerHTML = K.cats.map(function (c) {
       return '<div class="tool-cat"><h4>' + esc(c[1]) + '</h4><ul class="tool-grid">' +
         TOOLS.filter(function (t) { return t.cat === c[0]; }).map(function (t) {
           n++;
-          return '<li class="st" style="--i:' + Math.min(n * 0.6, 14).toFixed(1) + '"><button type="button" class="tool-btn" data-tool="' + t.id + '" style="--brand:' + t.color + '" aria-pressed="false">' +
-            '<span class="tool-logo">' + toolIcon(t) + '</span><span class="tool-name">' + esc(t.name) + "</span></button></li>";
+          return '<li class="st' + (KEY_TOOLS.indexOf(t.id) < 0 ? " extra-tool" : "") + '" style="--i:' + Math.min(n * 0.6, 14).toFixed(1) + '"><button type="button" class="tool-btn" data-tool="' + t.id + '" style="--brand:' + t.color + '" aria-pressed="false">' +
+            '<span class="tool-logo">' + toolIcon(t) + '</span><span class="tool-name">' + esc(toolName(t)) + "</span></button></li>";
         }).join("") + "</ul></div>";
-    }).join("");
+    }).join("") +
+      '<button type="button" class="tools-more" id="tools-more" aria-expanded="false" aria-controls="toolbox">' + esc(T.ui.moreTools.replace("{n}", more)) + "</button>";
+    var box = $("toolbox");
+    box.classList.toggle("all", !!toolsOpen);
+    $("tools-more").setAttribute("aria-expanded", String(!!toolsOpen));
+    if (toolsOpen) $("tools-more").textContent = T.ui.lessTools;
+    $("tools-more").addEventListener("click", function () { showAllTools(!box.classList.contains("all")); });
 
     document.querySelectorAll("#skills .step").forEach(function (b) {
       b.addEventListener("click", function () { selectStep(b.getAttribute("data-step")); });
@@ -181,6 +195,16 @@
   }
 
   function allSteps(K) { return K.steps.concat([K.auto]); }
+
+  function toolName(t) { return (lang === "en" && t.nameEn) || t.name; }
+
+  function showAllTools(on) {
+    toolsOpen = on;
+    $("toolbox").classList.toggle("all", on);
+    var b = $("tools-more");
+    b.setAttribute("aria-expanded", String(on));
+    b.textContent = on ? C[lang].ui.lessTools : C[lang].ui.moreTools.replace("{n}", document.querySelectorAll(".extra-tool").length);
+  }
 
   function setUse(html) {
     var u = $("tool-use");
@@ -234,28 +258,32 @@
       b.setAttribute("aria-pressed", String(me));
     });
     var names = allSteps(K).filter(function (s) { return tool.steps.indexOf(s.id) >= 0; }).map(function (s) { return '<span class="use-step">' + esc(s.name) + "</span>"; }).join("");
-    setUse("<b>" + esc(tool.name) + "</b> · " + esc(K.uses[id] || "") + ' <span class="use-steps">' + names + "</span>");
+    setUse("<b>" + esc(toolName(tool)) + "</b> · " + esc(K.uses[id] || "") + ' <span class="use-steps">' + names + "</span>");
   }
 
   /* ---------- home: projects + modal ---------- */
   function thumb(p) {
     if (p.img) return '<span class="thumb"><img src="' + esc(p.img) + '" alt=""></span>';
+    if (p.id === "demo") return '<span class="thumb thumb-logs" aria-hidden="true"><code><i>14:02:11</i> POST /shipments <b>201</b>\n<i>14:02:12</i> GET /orders/FR-48207 <b>200</b>\n<i>14:02:14</i> POST /shipments <em>422</em>\n<i>14:02:14</i> order FR-48213 <em>blocked</em>\n<i>14:02:19</i> POST /shipments <b>201</b></code></span>';
     if (p.id === "methode") return '<span class="thumb thumb-phases" aria-hidden="true">' + p.tags.map(function (t, i) { return '<span style="--i:' + i + '">' + esc(t) + "</span>"; }).join("") + "</span>";
     return '<span class="thumb thumb-browser" aria-hidden="true"><span class="bar"><i></i><i></i><i></i><b>adrienmateo-soules.com</b></span><span class="page"><span class="l1"></span><span class="l2"></span><span class="l3"></span><span class="ph"></span></span></span>';
   }
 
+  // carte projet : le lien principal mène directement à la page du projet, sans passer par une fenêtre
   function renderWork(T) {
     $("work-list").innerHTML = T.work.projects.map(function (p, i) {
+      var main = p.links.filter(function (l) { return l[2]; })[0] || p.links[0];
+      var k = link(main[0]);
       return '<article class="fo-card" style="--k:' + i + '" data-project="' + p.id + '">' +
-        '<div class="fo-body"><span class="fo-n" aria-hidden="true">' + (i < 9 ? "0" : "") + (i + 1) + "</span>" +
-        '<span class="fo-kind">' + esc(p.kind) + '</span><h3 class="fo-title">' + esc(p.title) + '</h3><p class="fo-text">' + esc(p.text) + "</p>" +
+        '<div class="fo-body"><h3 class="fo-title">' + esc(p.title) + '</h3><p class="fo-meta">' + esc(p.kind) + '</p><p class="fo-text">' + esc(p.text) + "</p>" +
         '<ul class="fo-tags">' + p.tags.slice(0, 4).map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>" +
-        '<button type="button" class="fo-open"><span>' + esc(T.work.open) + '</span><span class="pj-arrow" aria-hidden="true"></span></button></div>' +
+        '<div class="fo-links"><a class="fo-open" href="' + esc(k.href) + '"' + (k.ext ? ' target="_blank" rel="noopener"' : "") + "><span>" + esc(main[1]) + '</span><span class="pj-arrow" aria-hidden="true"></span></a>' +
+        p.links.filter(function (l) { return l !== main; }).map(function (l) {
+          var x = link(l[0]);
+          return '<a class="fo-link" href="' + esc(x.href) + '"' + (x.ext ? ' target="_blank" rel="noopener"' : "") + ">" + esc(l[1]) + "</a>";
+        }).join("") + "</div></div>" +
         '<div class="fo-img" aria-hidden="true">' + (p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : thumb(p)) + "</div></article>";
     }).join("");
-    document.querySelectorAll(".fo-card").forEach(function (c) {
-      c.addEventListener("click", function () { openProject(c.getAttribute("data-project")); });
-    });
   }
 
   /* ---------- hero: fil rouge entre le nom et la photo ---------- */
@@ -331,7 +359,7 @@
   function renderPath(T) {
     $("timeline").innerHTML = T.path.timeline.map(function (t, i) {
       return '<li class="st" style="--i:' + i + '">' + badge(t) + '<div><span class="when">' + esc(t.when) + "</span><h4>" + esc(t.role) +
-        ' <span class="org">' + esc(t.org) + "</span>" + (t.tag ? '<span class="tl-tag">' + esc(t.tag) + "</span>" : "") + "</h4>" +
+        ' <span class="org">' + esc(t.org) + "</span>" + (t.tag ? ' <span class="tl-tag">' + esc(t.tag) + "</span>" : "") + "</h4>" +
         (t.points ? '<ul class="tl-points">' + t.points.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("") + "</ul>" : "<p>" + rich(t.text) + "</p>") + "</div></li>";
     }).join("");
     $("education").innerHTML = T.path.education.map(function (e, i) {

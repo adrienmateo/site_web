@@ -131,6 +131,7 @@ window.TOOLS = [
  {
   "id": "api",
   "name": "API REST",
+  "nameEn": "REST API",
   "cat": "fmt",
   "steps": [
    "concevoir",
@@ -183,6 +184,7 @@ window.TOOLS = [
  {
   "id": "logfeeds",
   "name": "Feeds de logs",
+  "nameEn": "Log feeds",
   "cat": "fmt",
   "steps": [
    "tester"

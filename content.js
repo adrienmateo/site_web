@@ -27,7 +27,12 @@ window.CONTENT = {
     "ui": {
       "skip": "Aller au contenu",
       "close": "Fermer",
-      "back": "Retour au portfolio"
+      "back": "Retour au portfolio",
+      "nav": "Navigation principale",
+      "legal": "Mentions légales",
+      "portrait": "Portrait d'Adrien-Matéo Soules",
+      "moreTools": "Voir les {n} autres outils",
+      "lessTools": "Voir moins d'outils"
     },
     "nav": {
       "about": "À propos",
@@ -38,8 +43,8 @@ window.CONTENT = {
       "cv": "Mon CV"
     },
     "hero": {
-      "role": "Consultant technico-fonctionnel",
-      "pitch": "Comprendre le besoin, configurer la solution, la faire adopter : j'anime les ateliers, je paramètre, j'intègre et je débogue.",
+      "role": "Business Analyst IT · OneStock",
+      "pitch": "J'anime les ateliers, je paramètre, j'intègre et je débogue.",
       "ctaContact": "Me contacter",
       "ctaCv": "Télécharger mon CV",
       "thread": [
@@ -74,9 +79,11 @@ window.CONTENT = {
       ]
     },
     "about": {
-      "title": "Ce que j'apporte",
+      "title": "À propos",
       "body": [
-        "Ce qui me caractérise, c'est **la curiosité** : je fouille jusqu'à comprendre comment les choses fonctionnent vraiment, pour que rien ne casse une fois en production."
+        "Je suis **Business Analyst IT chez OneStock**, éditeur d'une solution SaaS de gestion des commandes pour des retailers internationaux. Depuis 2024, j'ai mené **plus de 10 projets d'implémentation**, du premier atelier jusqu'à la formation des utilisateurs.",
+        "Mon profil est **double** : côté métier, j'anime des ateliers de plus de 20 personnes et je traduis le besoin en spécifications ; côté technique, je configure moi-même la solution, ses API et ses flux, et je débogue dans les logs jusqu'à trouver la cause.",
+        "Ce qui me caractérise, c'est **la curiosité** : je fouille jusqu'à comprendre comment les choses fonctionnent vraiment, pour que rien ne casse une fois en production. Et quand une vérification se répète, je l'automatise, souvent avec l'IA."
       ],
       "facts": [
         [
@@ -262,6 +269,30 @@ window.CONTENT = {
       "open": "Découvrir",
       "shows": "Ce que ça montre",
       "projects": [
+        {
+          "id": "demo",
+          "title": "Démo : une commande bloquée",
+          "kind": "Démo interactive, cas fictif",
+          "text": "Un cas fictif mais typique de mon travail chez OneStock : des logs au payload, jusqu'à l'explication au client.",
+          "tags": [
+            "Logs",
+            "API REST",
+            "Postman",
+            "Diagnostic"
+          ],
+          "links": [
+            [
+              "methode.html#demo",
+              "Suivre l'enquête",
+              true
+            ],
+            [
+              "methode.html",
+              "Voir ma méthode",
+              false
+            ]
+          ]
+        },
         {
           "id": "backlog",
           "title": "Du besoin au backlog",
@@ -983,7 +1014,12 @@ window.CONTENT = {
     "ui": {
       "skip": "Skip to content",
       "close": "Close",
-      "back": "Back to portfolio"
+      "back": "Back to portfolio",
+      "nav": "Main navigation",
+      "legal": "Legal notice",
+      "portrait": "Portrait of Adrien-Matéo Soules",
+      "moreTools": "Show {n} more tools",
+      "lessTools": "Show fewer tools"
     },
     "nav": {
       "about": "About",
@@ -994,8 +1030,8 @@ window.CONTENT = {
       "cv": "Resume"
     },
     "hero": {
-      "role": "Functional & technical consultant",
-      "pitch": "Understand the need, configure the solution, get it adopted: I run the workshops, configure, integrate and debug.",
+      "role": "IT Business Analyst · OneStock",
+      "pitch": "I run the workshops, configure, integrate and debug.",
       "ctaContact": "Get in touch",
       "ctaCv": "Download my resume",
       "thread": [
@@ -1030,9 +1066,11 @@ window.CONTENT = {
       ]
     },
     "about": {
-      "title": "What I bring",
+      "title": "About",
       "body": [
-        "What defines me is **curiosity**: I dig until I understand how things really work, so nothing breaks once in production."
+        "I am an **IT Business Analyst at OneStock**, a SaaS order management software vendor serving international retailers. Since 2024 I have led **10+ implementation projects**, from the first workshop to user training.",
+        "My profile is **twofold**: on the business side, I run workshops with 20+ people and turn the need into specifications; on the technical side, I configure the solution, its APIs and data flows myself, and I debug through the logs until I find the root cause.",
+        "What defines me is **curiosity**: I dig until I understand how things really work, so nothing breaks once in production. And when a check keeps coming back, I automate it, often with AI."
       ],
       "facts": [
         [
@@ -1218,6 +1256,30 @@ window.CONTENT = {
       "open": "Discover",
       "shows": "What it shows",
       "projects": [
+        {
+          "id": "demo",
+          "title": "Demo: a stuck order",
+          "kind": "Interactive demo, fictional case",
+          "text": "A fictional but typical case from my work at OneStock: from the logs to the payload, all the way to the explanation for the client.",
+          "tags": [
+            "Logs",
+            "REST API",
+            "Postman",
+            "Diagnosis"
+          ],
+          "links": [
+            [
+              "methode.html#demo",
+              "Follow the investigation",
+              true
+            ],
+            [
+              "methode.html",
+              "See my method",
+              false
+            ]
+          ]
+        },
         {
           "id": "backlog",
           "title": "From need to backlog",

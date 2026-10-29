@@ -834,6 +834,13 @@ html.has-cursor dialog.modal[open] a, html.has-cursor dialog.modal[open] button 
 .st-next:hover { background: var(--accent-2); }
 .st-next:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 @media (max-width: 600px) { .st-body > div { padding-left: 18px; } }
+.st-close { background: var(--ink); }
+.st-close:hover { background: var(--accent); }
+.st-closed { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; max-width: 820px; margin: 14px 0 0; padding: 14px 18px; border: 1px solid var(--accent); border-radius: 14px; background: var(--surface); font-weight: 600; }
+.st-closed[hidden] { display: none; }
+.st-closed svg { width: 18px; height: 18px; fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.st-reopen { margin-left: auto; min-height: 40px; padding: 0 12px; border: 0; background: none; color: var(--muted); font: 600 .88rem var(--sans); text-decoration: underline; cursor: pointer; }
+.st-reopen:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   .st-body, .st-item, .st-dot { transition: none; }
   .st-dot svg path { stroke-dashoffset: 0; animation: none !important; }

@@ -1,6 +1,6 @@
 /* Accueil « nuit » : scène illustrée à droite, texte à gauche.
    Construit la scène (image + bulle + cube + yeux) selon la taille d'écran, fait tomber le nom lettre par lettre,
-   et gère les deux étiquettes (Fonctionnel / Technique) au survol, en FR et en EN. */
+   et gère les deux étiquettes (Fonctionnel / Technique), visibles d'office et cliquables, en FR et en EN. */
 (function () {
   "use strict";
   var hero = document.getElementById("top"); if (!hero) return;
@@ -36,6 +36,11 @@
           '<button class="nt-hot" type="button"><span class="nt-tip nt-tip-r"><b></b><span></span></span></button></div>' +
       "</div></div>";
     hero.appendChild(fig);
+    /* les étiquettes s'affichent d'elles-mêmes une fois le nom posé ; un clic mène à la partie concernée */
+    setTimeout(function () { fig.classList.add("tips-on"); }, 1600);
+    var go = function (sel) { return function () { var t = document.querySelector(sel); if (t) t.scrollIntoView({ behavior: "smooth", block: "start" }); }; };
+    fig.querySelector(".nt-sphere .nt-hot").addEventListener("click", go("#skills"));
+    fig.querySelector(".nt-cube .nt-hot").addEventListener("click", go(".skills-tools"));
     var vid = fig.querySelector("video");
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { vid.removeAttribute("autoplay"); vid.pause(); }
     else { var p = vid.play(); if (p && p.catch) p.catch(function () {}); }

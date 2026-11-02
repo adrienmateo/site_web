@@ -45,7 +45,7 @@ window.CONTENT = {
     },
     "hero": {
       "role": "Business Analyst IT · OneStock",
-      "pitch": "J'anime les ateliers, je paramètre, j'intègre et je débogue.",
+      "pitch": "Je traduis les besoins métier en solutions qui tournent : de l'atelier au paramétrage, jusqu'à la mise en production.",
       "ctaContact": "Me contacter",
       "ctaCv": "Télécharger mon CV",
       "thread": [
@@ -1049,7 +1049,7 @@ window.CONTENT = {
     },
     "hero": {
       "role": "IT Business Analyst · OneStock",
-      "pitch": "I run the workshops, configure, integrate and debug.",
+      "pitch": "I turn business needs into solutions that actually run: from the first workshop to configuration, all the way to go-live.",
       "ctaContact": "Get in touch",
       "ctaCv": "Download my resume",
       "thread": [

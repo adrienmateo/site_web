@@ -160,11 +160,27 @@ html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }
   html .hero h1 { font-size: clamp(2.9rem, 14.8vw, 4.2rem) !important; line-height: .95; margin: 14px 0 18px; text-shadow: 0 2px 18px rgba(14, 17, 22, .6); }
   html .hero .role { font-size: .95rem; padding: 7px 12px; margin-bottom: 18px; }
   html .hero .pitch { font-size: 1.2rem; line-height: 1.45; margin-bottom: 26px; }
-  html .hero .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 8px; margin-bottom: 0; }
-  html .hero .actions .btn { justify-content: center; min-height: 50px; font-size: .95rem; padding-inline: 6px; white-space: nowrap; }
-  html .hero .actions .btn.primary { grid-column: 1 / -1; min-height: 56px; font-size: 1.05rem; }
+  html .hero .actions { gap: 10px 8px; margin-bottom: 0; }
+  html .hero .actions .btn { justify-content: center; min-height: 52px; font-size: 1rem; }
+  html .hero .actions .btn.primary { flex: 1 0 100%; min-height: 56px; font-size: 1.05rem; }
+  html .hero .actions .btn:not(.primary):not(.btn-ico) { flex: 1; }
+  html .hero .actions .btn-ico { width: 52px; }
   html .hero .stats { order: 9; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 0 !important; margin: 0 !important; padding-top: 30px; }
   html .hero .stats li, html .hero .stats li:nth-child(3) { padding: 0 0 0 16px; border-left: 1px solid rgba(242, 243, 246, .16); font-size: .88rem; }
   html .hero .stats li:nth-child(odd) { padding-left: 0; border-left: 0; }
   html .hero .stats li strong { font-size: 2rem; }
 }
+
+/* ---- étiquettes du robot : visibles d'office, une petite flèche dit qu'on peut cliquer ---- */
+.nt-scene.tips-on .nt-tip { opacity: 1; transform: none; }
+.nt-tip b::after { content: " ↓"; color: #FF6A63; }
+.nt-hot:hover .nt-tip { border-color: #3A4352; }
+@media (max-width: 700px) {
+  .nt-tip { padding: 7px 10px; border-radius: 10px; bottom: calc(100% + 6px); }
+  .nt-tip > span { display: none; }
+  .nt-tip-r { right: 14px; }
+}
+
+/* ---- LinkedIn et GitHub en icônes, à côté des deux actions principales ---- */
+html .hero .btn-ico { width: 48px; padding: 0; justify-content: center; }
+html .hero .btn-ico svg { width: 20px; height: 20px; fill: currentColor; }

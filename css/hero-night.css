@@ -148,3 +148,23 @@ html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }
   .nt-scene.is-v .nt-view { top: 0; height: 100%; width: auto; aspect-ratio: 16 / 9; right: -2.7cqw; }
   .nt-scene.is-v .nt-view::after { background: linear-gradient(0deg, #0E1116 0, rgba(14, 17, 22, .8) 8%, rgba(14, 17, 22, 0) 22%); }
 }
+
+/* ---- mobile : comme sur ordi, la scène est le fond de toute la carte et le texte se pose dessus ---- */
+@media (max-width: 700px) {
+  html .hero.wrap { padding: calc(min(64svh, 150vw) - 128px) 18px 28px !important; }
+  html .hero > .nt-scene { position: absolute; inset: 0; z-index: -2; order: 0; width: auto; height: auto; margin: 0; aspect-ratio: auto; border-radius: inherit; }
+  .nt-scene.is-v .nt-view { top: 0; height: min(64svh, 150vw); right: -14cqw; }
+  .nt-scene.is-v .nt-view::after { background: linear-gradient(0deg, #0E1116 0, rgba(14, 17, 22, .9) 14%, rgba(14, 17, 22, .35) 34%, rgba(14, 17, 22, 0) 50%); }
+  html .hero.wrap > div { margin-top: 0 !important; position: relative; z-index: 1; }
+  .nt-avatar { width: 64px; height: 64px; margin-bottom: 10px; }
+  html .hero h1 { font-size: clamp(2.9rem, 14.8vw, 4.2rem) !important; line-height: .95; margin: 14px 0 18px; text-shadow: 0 2px 18px rgba(14, 17, 22, .6); }
+  html .hero .role { font-size: .95rem; padding: 7px 12px; margin-bottom: 18px; }
+  html .hero .pitch { font-size: 1.2rem; line-height: 1.45; margin-bottom: 26px; }
+  html .hero .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 8px; margin-bottom: 0; }
+  html .hero .actions .btn { justify-content: center; min-height: 50px; font-size: .95rem; padding-inline: 6px; white-space: nowrap; }
+  html .hero .actions .btn.primary { grid-column: 1 / -1; min-height: 56px; font-size: 1.05rem; }
+  html .hero .stats { order: 9; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 0 !important; margin: 0 !important; padding-top: 30px; }
+  html .hero .stats li, html .hero .stats li:nth-child(3) { padding: 0 0 0 16px; border-left: 1px solid rgba(242, 243, 246, .16); font-size: .88rem; }
+  html .hero .stats li:nth-child(odd) { padding-left: 0; border-left: 0; }
+  html .hero .stats li strong { font-size: 2rem; }
+}

@@ -134,9 +134,8 @@ html .topbar { position: absolute !important; top: 0; left: 0; right: 0; }
 .menu-open .topbar .tb-cv { visibility: hidden; }
 html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }
 
-/* ---- mobile : scène plus courte, le nom et le CV arrivent dans le premier écran ---- */
+/* ---- mobile : le texte de l'accueil arrive un peu plus vite ---- */
 @media (max-width: 700px) {
-  html .hero > .nt-scene { aspect-ratio: auto; height: clamp(170px, 26svh, 230px); }
   html .hero .hero-in { animation-delay: calc(var(--i, 0) * 50ms + 150ms); }
 }
 

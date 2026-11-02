@@ -38,8 +38,8 @@ A rare double profile, business **and** technical, built on real implementation 
 ## Capabilities and Constraints
 
 - Static site in HTML, CSS and vanilla JavaScript, no framework. Hosted on GitHub Pages under the domain `adrienmateo-soules.com` (DNS at OVH).
-- **Bilingual FR/EN**: all copy lives in `content.js` (`window.CONTENT.fr` / `.en`); this is the single source for text. Every copy change must exist in both languages.
-- Site links and URLs live in `window.SITE` (`content.js`).
+- **Bilingual FR/EN**: all copy lives in `js/content.js` (`window.CONTENT.fr` / `.en`); this is the single source for text. Every copy change must exist in both languages.
+- Site links and URLs live in `window.SITE` (`js/content.js`).
 - **Open:** the CV link (`SITE.cv.fr` / `SITE.cv.en`) is empty, even though downloading the CV is the main goal. A CV file (FR and EN) still has to be provided.
 - **Open:** certifications are announced but not yet listed ("Certifications to add").
 
@@ -47,14 +47,14 @@ A rare double profile, business **and** technical, built on real implementation 
 
 - Name: Adrien-Matéo Soules. Title: "Consultant technico-fonctionnel" / "Business Analyst IT".
 - Voice: first person, direct, concrete, and factual (figures, tools, deliverables), with no superlatives.
-- Existing assets: `photo.jpg`, `og-image.jpg`, school and employer logos (`logo-*.png`), hero video and image (`hero-scene.*`, `hero-night.*`), project captures (`f1-*.jpg`, `wf-*.jpg`, `site-hero.jpg`).
+- Existing assets: `images/photo.jpg`, `images/og-image.jpg`, school and employer logos (`images/logo-*.png`), hero video and image (`images/hero-scene.*`, `images/hero-night.*`), project captures (`images/f1-*.jpg`, `images/wf-*.jpg`, `images/site-hero.jpg`).
 
 ## Evidence on Hand
 
 - Background: OneStock (IT Business Analyst, 2024 to present, 10+ implementation projects), Buybox (CSM, 65 B2B accounts), Capgemini Engineering (project lead, internship), Ecotec (CRM).
 - Education: Toulouse Business School (Grande École programme, Mention Bien, Consulting certificate of excellence), Université de Bordeaux, IUT de Rodez.
 - Projects: backlog case study (fictional, 38 user stories, wireframes, Notion), F1 rhythm duel (public site and repo, GitHub Actions, Make, Claude), this site (public repo), log-investigation demo (fictional case).
-- **Do not invent:** testimonials, client names under NDA, figures that are not in `content.js`, or certifications that have not been provided.
+- **Do not invent:** testimonials, client names under NDA, figures that are not in `js/content.js`, or certifications that have not been provided.
 
 ## Product Principles
 

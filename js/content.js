@@ -8,8 +8,8 @@ window.SITE = {
   "email": "adrienmateo.soules@gmail.com",
   "linkedin": "https://www.linkedin.com/in/adrien-mat%C3%A9o-soules/",
   "cv": {
-    "fr": "CV_Adrien-Mateo_Soules_FR.pdf",
-    "en": "CV_Adrien-Mateo_Soules_EN.pdf"
+    "fr": "docs/CV_Adrien-Mateo_Soules_FR.pdf",
+    "en": "docs/CV_Adrien-Mateo_Soules_EN.pdf"
   },
   "notionBacklog": "https://glitter-rail-fdd.notion.site/Altea-Outdoor-Portail-de-retours-V1-3eda32b763b9814a9231f3080bdc7843",
   "github": "https://github.com/adrienmateo",
@@ -283,7 +283,7 @@ window.CONTENT = {
             "Gherkin",
             "Wireframes"
           ],
-          "img": "wf-retour.jpg",
+          "img": "images/wf-retour.jpg",
           "links": [
             [
               "backlog.html",
@@ -311,7 +311,7 @@ window.CONTENT = {
             "Claude",
             "ECharts"
           ],
-          "img": "f1-gp.jpg",
+          "img": "images/f1-gp.jpg",
           "links": [
             [
               "f1.html",
@@ -351,7 +351,7 @@ window.CONTENT = {
               true
             ]
           ],
-          "img": "site-hero.jpg"
+          "img": "images/site-hero.jpg"
         },
         {
           "id": "demo",
@@ -387,7 +387,7 @@ window.CONTENT = {
           "role": "Business Analyst IT",
           "org": "OneStock",
           "text": "Pilotage de multiples projets d'implémentation de bout en bout, de la conception à l'hypercare : spécifications fonctionnelles et techniques, intégration avec ERP, CRM, transporteurs et e-commerce, recette, formation des key users.",
-          "logo": "logo-onestock.png",
+          "logo": "images/logo-onestock.png",
           "points": [
             "Pilotage **de bout en bout** de **plus de 10 projets d'implémentation** SaaS pour des retailers internationaux, de l'atelier à la passation",
             "**IA au quotidien** : conception d'un **agent IA (Rovo)** pour l'équipe support et d'**outils internes** qui automatisent les vérifications",
@@ -404,7 +404,7 @@ window.CONTENT = {
           "role": "Customer Success Manager (alternance)",
           "org": "Buybox",
           "text": "Portefeuille de 65 comptes B2B piloté en autonomie : onboarding et intégrations clients, reporting de performance, pipeline d'upsell.",
-          "logo": "logo-buybox.png",
+          "logo": "images/logo-buybox.png",
           "points": [
             "**Portefeuille de 65 comptes B2B** piloté en autonomie",
             "**Onboarding et intégration** des nouveaux clients",
@@ -417,7 +417,7 @@ window.CONTENT = {
           "role": "Chef de projet (stage)",
           "org": "Capgemini Engineering",
           "text": "Cadrage et lancement d'un programme de formation interne à l'échelle du groupe : objectifs, conception, coordination inter-équipes.",
-          "logo": "logo-capgemini.png",
+          "logo": "images/logo-capgemini.png",
           "points": [
             "**Cadrage et lancement** d'un programme de formation interne à l'échelle du groupe",
             "Définition des objectifs et **conception du programme**",
@@ -440,17 +440,17 @@ window.CONTENT = {
         {
           "name": "Toulouse Business School",
           "text": "2021 – 2024 · Programme Grande École, Strategic Innovation Management. Mention Bien, Certificat d'excellence Consulting.",
-          "logo": "logo-tbs.png"
+          "logo": "images/logo-tbs.png"
         },
         {
           "name": "Université de Bordeaux",
           "text": "2020 – 2021 · Licence Économie-Gestion, Mention Bien",
-          "logo": "logo-bordeaux.png"
+          "logo": "images/logo-bordeaux.png"
         },
         {
           "name": "IUT de Rodez",
           "text": "2018 – 2020 · DUT Gestion des Entreprises et des Administrations",
-          "logo": "logo-iut-rodez.png"
+          "logo": "images/logo-iut-rodez.png"
         }
       ],
       "languages": [
@@ -688,7 +688,7 @@ window.CONTENT = {
       "wfNext": "Écran suivant",
       "wf": [
         {
-          "img": "wf-retour.jpg",
+          "img": "images/wf-retour.jpg",
           "title": "Déclarer un retour (US-03)",
           "notes": [
             "Sélection des articles et de la quantité",
@@ -699,7 +699,7 @@ window.CONTENT = {
           ]
         },
         {
-          "img": "wf-connexion.jpg",
+          "img": "images/wf-connexion.jpg",
           "title": "Connexion (US-01)",
           "notes": [
             "Un seul écran pour les 4 rôles",
@@ -708,7 +708,7 @@ window.CONTENT = {
           ]
         },
         {
-          "img": "wf-liste-sav.jpg",
+          "img": "images/wf-liste-sav.jpg",
           "title": "Demandes de retour, côté SAV (US-02)",
           "notes": [
             "Navigation semaine par semaine",
@@ -781,17 +781,17 @@ window.CONTENT = {
       "galleryTitle": "En images",
       "gallery": [
         {
-          "img": "f1-moments.jpg",
+          "img": "images/f1-moments.jpg",
           "title": "Les moments qui ont fait la course",
           "text": "Repérés par des règles fixes, puis rejoués avec les voitures concernées."
         },
         {
-          "img": "f1-duels.jpg",
+          "img": "images/f1-duels.jpg",
           "title": "Qui a dominé son coéquipier ?",
           "text": "Un écart de rythme par écurie, sur une échelle commune."
         },
         {
-          "img": "f1-explorer.jpg",
+          "img": "images/f1-explorer.jpg",
           "title": "L'Explorer",
           "text": "Jusqu'à 4 pilotes comparés tour par tour, avec le contexte de course."
         }
@@ -1287,7 +1287,7 @@ window.CONTENT = {
             "Gherkin",
             "Wireframes"
           ],
-          "img": "wf-retour.jpg",
+          "img": "images/wf-retour.jpg",
           "links": [
             [
               "backlog.html",
@@ -1315,7 +1315,7 @@ window.CONTENT = {
             "Claude",
             "ECharts"
           ],
-          "img": "f1-gp.jpg",
+          "img": "images/f1-gp.jpg",
           "links": [
             [
               "f1.html",
@@ -1355,7 +1355,7 @@ window.CONTENT = {
               true
             ]
           ],
-          "img": "site-hero.jpg"
+          "img": "images/site-hero.jpg"
         },
         {
           "id": "demo",
@@ -1391,7 +1391,7 @@ window.CONTENT = {
           "role": "IT Business Analyst",
           "org": "OneStock",
           "text": "Ran multiple implementation projects end to end, from design to hypercare: functional and technical specifications, integration with ERPs, CRMs, carriers and e-commerce, UAT, key-user training.",
-          "logo": "logo-onestock.png",
+          "logo": "images/logo-onestock.png",
           "points": [
             "Led **10+ SaaS implementation projects end to end** for international retailers, from the first workshop to handover",
             "**AI in my daily work**: built an **AI agent (Rovo)** for the support team and **internal tools** that automate checks",
@@ -1408,7 +1408,7 @@ window.CONTENT = {
           "role": "Customer Success Manager (work-study)",
           "org": "Buybox",
           "text": "Managed a portfolio of 65 B2B accounts on my own: onboarding and client integrations, performance reporting, upsell pipeline.",
-          "logo": "logo-buybox.png",
+          "logo": "images/logo-buybox.png",
           "points": [
             "**Portfolio of 65 B2B accounts** managed on my own",
             "**Onboarding and integration** of new clients",
@@ -1421,7 +1421,7 @@ window.CONTENT = {
           "role": "Project Manager (internship)",
           "org": "Capgemini Engineering",
           "text": "Scoped and launched a group-wide internal training program: objectives, design, cross-team coordination.",
-          "logo": "logo-capgemini.png",
+          "logo": "images/logo-capgemini.png",
           "points": [
             "**Scoped and launched** a group-wide internal training program",
             "Set the objectives and **designed the program**",
@@ -1444,17 +1444,17 @@ window.CONTENT = {
         {
           "name": "Toulouse Business School",
           "text": "2021 – 2024 · Master in Management (Grande École), Strategic Innovation Management. Graduated with honors, Certificate of Excellence in Consulting.",
-          "logo": "logo-tbs.png"
+          "logo": "images/logo-tbs.png"
         },
         {
           "name": "University of Bordeaux",
           "text": "2020 – 2021 · Bachelor's in Economics and Management, with honors",
-          "logo": "logo-bordeaux.png"
+          "logo": "images/logo-bordeaux.png"
         },
         {
           "name": "IUT de Rodez",
           "text": "2018 – 2020 · Two-year degree in Business and Administration (DUT GEA)",
-          "logo": "logo-iut-rodez.png"
+          "logo": "images/logo-iut-rodez.png"
         }
       ],
       "languages": [
@@ -1692,7 +1692,7 @@ window.CONTENT = {
       "wfNext": "Next screen",
       "wf": [
         {
-          "img": "wf-retour.jpg",
+          "img": "images/wf-retour.jpg",
           "title": "Declare a return (US-03)",
           "notes": [
             "Select items and quantity",
@@ -1703,7 +1703,7 @@ window.CONTENT = {
           ]
         },
         {
-          "img": "wf-connexion.jpg",
+          "img": "images/wf-connexion.jpg",
           "title": "Login (US-01)",
           "notes": [
             "One screen for all 4 roles",
@@ -1712,7 +1712,7 @@ window.CONTENT = {
           ]
         },
         {
-          "img": "wf-liste-sav.jpg",
+          "img": "images/wf-liste-sav.jpg",
           "title": "Return requests, support side (US-02)",
           "notes": [
             "Week-by-week navigation",
@@ -1785,17 +1785,17 @@ window.CONTENT = {
       "galleryTitle": "Screenshots",
       "gallery": [
         {
-          "img": "f1-moments.jpg",
+          "img": "images/f1-moments.jpg",
           "title": "The moments that made the race",
           "text": "Spotted with fixed rules, then replayed with the cars involved."
         },
         {
-          "img": "f1-duels.jpg",
+          "img": "images/f1-duels.jpg",
           "title": "Who beat their teammate?",
           "text": "A pace gap per team, on a shared scale."
         },
         {
-          "img": "f1-explorer.jpg",
+          "img": "images/f1-explorer.jpg",
           "title": "The Explorer",
           "text": "Up to 4 drivers compared lap by lap, with race context."
         }

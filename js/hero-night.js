@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   var hero = document.getElementById("top"); if (!hero) return;
-  var DIR = "hero-night/";
+  var DIR = "images/hero-night/";
 
   /* scène animée : vidéo en boucle du robot qui marche (bulle, cube, lune et sol sont dans la vidéo).
      Positions en pixels de la vidéo (1280 × 720) pour les zones de survol. */
@@ -57,7 +57,7 @@
     if (hero.querySelector(".nt-avatar")) return;
     var img = hero.querySelector(".portrait img"), col = hero.querySelector(".hero-name"); if (!col) return; col = col.parentNode;
     var av = document.createElement("img"); av.className = "nt-avatar hero-in"; av.style.setProperty("--i", "0");
-    av.src = img ? img.getAttribute("src") : "photo.jpg"; av.alt = ""; av.width = 72; av.height = 72;
+    av.src = img ? img.getAttribute("src") : "images/photo.jpg"; av.alt = ""; av.width = 72; av.height = 72;
     col.insertBefore(av, col.firstChild);
   })();
 

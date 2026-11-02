@@ -4,14 +4,14 @@
 
   /* ---------- 3. Carrousel d'images ---------- */
   var SLIDES = [
-    ["f1-gp.jpg", "f1", "Duel de rythme F1", "Le Grand Prix en un coup d'œil", "The Grand Prix at a glance"],
-    ["f1-duels.jpg", "f1", "Duel de rythme F1", "Duels de pilotes", "Driver duels"],
-    ["f1-moments.jpg", "f1", "Duel de rythme F1", "Moments clés de la course", "Key race moments"],
-    ["make-f1.png", "f1", "Duel de rythme F1", "Scénario Make du compte rendu", "Make scenario for the recap"],
-    ["wf-retour.jpg", "backlog", "Du besoin au backlog", "Wireframe : créer un retour", "Wireframe: create a return"],
-    ["wf-connexion.jpg", "backlog", "Du besoin au backlog", "Wireframe : connexion", "Wireframe: sign-in"],
-    ["wf-liste-sav.jpg", "backlog", "Du besoin au backlog", "Wireframe : liste SAV", "Wireframe: support list"],
-    ["site-hero.jpg", "site", "Ce site", "Page d'accueil", "Home page"]
+    ["images/f1-gp.jpg", "f1", "Duel de rythme F1", "Le Grand Prix en un coup d'œil", "The Grand Prix at a glance"],
+    ["images/f1-duels.jpg", "f1", "Duel de rythme F1", "Duels de pilotes", "Driver duels"],
+    ["images/f1-moments.jpg", "f1", "Duel de rythme F1", "Moments clés de la course", "Key race moments"],
+    ["images/make-f1.png", "f1", "Duel de rythme F1", "Scénario Make du compte rendu", "Make scenario for the recap"],
+    ["images/wf-retour.jpg", "backlog", "Du besoin au backlog", "Wireframe : créer un retour", "Wireframe: create a return"],
+    ["images/wf-connexion.jpg", "backlog", "Du besoin au backlog", "Wireframe : connexion", "Wireframe: sign-in"],
+    ["images/wf-liste-sav.jpg", "backlog", "Du besoin au backlog", "Wireframe : liste SAV", "Wireframe: support list"],
+    ["images/site-hero.jpg", "site", "Ce site", "Page d'accueil", "Home page"]
   ];
   function buildCarousel() {
     var list = document.getElementById("work-list"); if (!list || document.getElementById("carousel")) return;
@@ -140,8 +140,8 @@
     var CODE = ['<b>POST</b> /v1/orders', '<i>200 OK</i> · 142 ms', '{', ' "order_id":', '  "FR-10482",', ' "status":', '  "allocated"', '}', '<i>✓</i> webhook'];
     var fig = document.createElement("figure"); fig.className = "hero-scene hero-in"; fig.style.setProperty("--i", "9"); fig.setAttribute("aria-hidden", "true");
     fig.innerHTML = '<div class="scene-layer"><div class="scene-stage">' +
-      '<video class="scene-video" muted loop playsinline autoplay preload="auto" poster="hero-scene.jpg">' +
-      '<source src="hero-scene.webm" type="video/webm"><source src="hero-scene.mp4" type="video/mp4"></video>' +
+      '<video class="scene-video" muted loop playsinline autoplay preload="auto" poster="images/hero-scene.jpg">' +
+      '<source src="images/hero-scene.webm" type="video/webm"><source src="images/hero-scene.mp4" type="video/mp4"></video>' +
       '<div class="scene-code"><div class="code-bar"><span></span><span></span><span></span></div><pre class="code-body"></pre></div></div></div>';
     hero.appendChild(fig);
     var layer = fig.querySelector(".scene-layer"), stage = fig.querySelector(".scene-stage"), vid = fig.querySelector("video"), codeEl = fig.querySelector(".code-body");

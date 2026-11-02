@@ -155,7 +155,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
 .hero > div { max-width: 760px; }
 .hero-avatar { display: block; width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin: 0 0 20px; box-shadow: 0 0 0 4px #FFFFFF, 0 0 0 5px var(--line), var(--sh-2); }
 .hero .pitch { max-width: 680px; }
-.hero-scene { margin: 0; position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 1280 / 552; background: #E9ECEF url("hero-scene.jpg") center / cover; box-shadow: var(--sh-3); }
+.hero-scene { margin: 0; position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 1280 / 552; background: #E9ECEF url("../images/hero-scene.jpg") center / cover; box-shadow: var(--sh-3); }
 .hero-scene video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero-scene::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(14, 17, 22, .06); pointer-events: none; }
 @media (max-width: 700px) {

@@ -48,6 +48,16 @@ window.CONTENT = {
       "pitch": "Je traduis les besoins métier en solutions qui tournent : de l'atelier au paramétrage, jusqu'à la mise en production.",
       "ctaContact": "Me contacter",
       "ctaCv": "Télécharger mon CV",
+      "words": [
+        "Curiosité",
+        "Cadrage",
+        "Conception",
+        "Intégration",
+        "Recette",
+        "Automatisation et IA",
+        "Accompagnement",
+        "Métier et technique"
+      ],
       "thread": [
         "besoin métier",
         "cadrage",
@@ -1052,6 +1062,16 @@ window.CONTENT = {
       "pitch": "I turn business needs into solutions that actually run: from the first workshop to configuration, all the way to go-live.",
       "ctaContact": "Get in touch",
       "ctaCv": "Download my resume",
+      "words": [
+        "Curiosity",
+        "Scoping",
+        "Design",
+        "Integration",
+        "Testing",
+        "Automation and AI",
+        "Support",
+        "Business and tech"
+      ],
       "thread": [
         "business need",
         "scoping",

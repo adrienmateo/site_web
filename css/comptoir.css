@@ -6,28 +6,29 @@
   background: linear-gradient(180deg, #F4CDB3 0%, #F9E6D6 58%, var(--surface-2) 100%); }
 .comptoir-stage { position: absolute; inset: 0; }
 .comptoir-stage canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
-/* bords légèrement assombris et grain fin, comme une image de film */
-.comptoir-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .9;
-  background: radial-gradient(ellipse 75% 70% at 62% 48%, rgba(90, 48, 28, 0) 55%, rgba(90, 48, 28, .22) 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-  background-blend-mode: normal, multiply; }
+/* bords très légèrement assombris ; pas de grain : l'image reste nette */
+.comptoir-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply;
+  background: radial-gradient(ellipse 75% 70% at 62% 48%, rgba(90, 48, 28, 0) 60%, rgba(90, 48, 28, .14) 100%); }
+/* voile crème sous le texte : la scène reste visible à droite, le texte reste lisible à gauche */
+.comptoir-veil { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(252, 248, 243, .9) 0, rgba(252, 248, 243, .78) 26%, rgba(252, 248, 243, .3) 36%, rgba(252, 248, 243, 0) 45%); }
 /* le bas de la scène se fond dans la section « À propos » */
 .comptoir-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 14%; pointer-events: none;
   background: linear-gradient(180deg, rgba(247, 239, 230, 0), var(--surface-2)); }
 
 .comptoir-copy { position: absolute; left: max(16px, 5vw); top: 50%; transform: translateY(-46%); width: min(460px, 38vw); z-index: 2; }
-.comptoir-copy .role { font-size: .88rem; font-weight: 700; color: var(--muted); margin: 0 0 14px; }
+.comptoir-copy .role { font-size: .88rem; font-weight: 700; color: #5A4038; margin: 0 0 14px; }
 .comptoir-copy .role::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: middle; }
 .comptoir-name { font-family: var(--display); font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: .95; letter-spacing: -.035em; margin: 0 0 18px; color: var(--ink); text-wrap: balance; }
 .comptoir-name span { display: block; color: #8C5A43; }
-.comptoir-copy .pitch { color: var(--muted); font-size: 1.05rem; line-height: 1.55; margin: 0 0 22px; max-width: 46ch; }
+.comptoir-copy .pitch { color: #5A4038; font-size: 1.05rem; line-height: 1.55; margin: 0 0 22px; max-width: 46ch; }
 .comptoir-copy .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .comptoir-copy .btn:not(.primary) { background: rgba(252, 248, 243, .78); }
 .comptoir-copy .btn-ico { width: 48px; min-height: 46px; padding: 0; justify-content: center; }
 .comptoir-copy .btn-ico svg { width: 20px; height: 20px; fill: currentColor; }
 /* chiffres clés : en ligne, ils passent proprement à la ligne quand la place manque */
 .comptoir-copy .stats { margin: 28px 0 0; gap: 12px 28px; flex-wrap: wrap; }
-.comptoir-copy .stats li { flex-direction: column; align-items: flex-start; gap: 2px; font-size: .78rem; color: var(--muted); white-space: nowrap; }
+.comptoir-copy .stats li { flex-direction: column; align-items: flex-start; gap: 2px; font-size: .78rem; color: #5A4038; white-space: nowrap; }
 .comptoir-copy .stats svg { display: none; }
 .comptoir-copy .stats strong { order: -1; font: 600 1.5rem/1.1 var(--display); color: var(--ink); letter-spacing: -.02em; }
 .comptoir.no-webgl .comptoir-stage { display: none; }
@@ -37,6 +38,6 @@
   /* la barre du haut flotte au-dessus : la scène commence juste dessous */
   .comptoir { height: auto; min-height: 0; max-height: none; overflow: visible; padding-top: 68px; }
   .comptoir-stage { position: relative; height: 46vh; min-height: 300px; }
-  .comptoir-fade { display: none; }
+  .comptoir-fade, .comptoir-veil { display: none; }
   .comptoir-copy { position: static; transform: none; width: auto; margin: 18px 16px 0; padding-bottom: 32px; }
 }

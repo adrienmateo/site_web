@@ -598,9 +598,13 @@ async function shelve(b) {
   carried = null;
   gsap.to(arms.map(a => a.rotation), { x: upper ? -2.6 : -1.9, duration: .2 });
   { let r = -b.rotation.y; r = Math.atan2(Math.sin(r), Math.cos(r)); gsap.to(b.rotation, { x: 0, y: b.rotation.y + r, z: 0, duration: .3 }); } /* déjà face à la salle : pas de demi-tour */
-  await tw(b.position, { x: slot.x, y: slot.y + .04, z: slot.z, duration: .38, ease: "power2.inOut" });
-  gsap.to(b.position, { y: slot.y, duration: .12, ease: "power2.in" });
-  gsap.fromTo(b.scale, { x: 1.12, y: 1.12, z: 1.12 }, { x: 1, y: 1, z: 1, duration: .45, ease: "elastic.out(1, .5)", delay: .1 });
+  /* 1) il la monte devant l'étagère, à hauteur de la planche ; 2) il la glisse à plat dedans.
+     Jamais en diagonale : elle traverserait le bord de la planche. Marge sous la planche du dessus : ~2 cm, donc pas de grossissement. */
+  const front = SHELF_Z + .25 + BOX.d / 2 + .03;
+  await tw(b.position, { x: slot.x, y: slot.y + .012, z: Math.max(b.position.z, front), duration: .3, ease: "power2.out" });
+  await tw(b.position, { z: slot.z, duration: .3, ease: "power2.inOut" });
+  gsap.to(b.position, { y: slot.y, duration: .1, ease: "power2.in" });
+  gsap.fromTo(b.scale, { x: 1.05, y: .95, z: 1 }, { x: 1, y: 1, z: 1, duration: .4, ease: "elastic.out(1, .5)", delay: .08 });
   gsap.delayedCall(.1, () => burst(slot, COLORS[b.userData.i], { n: 14, spread: .5, rise: .55, size: .6, y: .25 }));
   gsap.to(arms.map(a => a.rotation), { x: 0, duration: .25, delay: .05, overwrite: "auto" });
   gsap.timeline({ delay: .1 }).to(head.rotation, { z: .18, duration: .1 }).to(head.rotation, { z: -.12, duration: .12 }).to(head.rotation, { z: 0, duration: .15 });

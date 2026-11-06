@@ -309,8 +309,8 @@ const boxes = WORDS.map((word, i) => {
   m.userData = { i, tex: face, texs: [face, side, lid] };
   return m;
 });
-/* où il tient la boîte (repère du robot) : assez bas et en avant pour ne pas traverser sa tête */
-const HOLD = new THREE.Vector3(0, .78, .82);
+/* où il tient la boîte (repère du robot) : contre lui, entre ses mains, sous sa tête ; étiquette tournée vers lui */
+const HOLD = new THREE.Vector3(0, .6, .44), CARRY_ARM = -1.2;
 const slotPos = n => new THREE.Vector3(SLOT_X[n % 4], BOARDS[n < 4 ? 0 : 1] + BOX.h / 2, SHELF_Z);
 
 /* ---------- le robot artisan : terre cuite, visière à yeux lumineux, articulations, antenne ---------- */
@@ -580,16 +580,16 @@ async function shelve(b) {
   await walkTo(WAIT.x, WAIT.z);
   await turnTo(Math.atan2(PAD.x - robot.position.x, PAD.z - robot.position.z));
   /* il plie les genoux, attrape la boîte, se redresse */
-  gsap.to(arms.map(a => a.rotation), { x: -1.45, duration: .18, overwrite: "auto" });
+  gsap.to(arms.map(a => a.rotation), { x: CARRY_ARM, duration: .18, overwrite: "auto" });
   await tw(body.position, { y: -.08, duration: .12, ease: "power2.out" });
   gsap.to(body.position, { y: 0, duration: .25, ease: "back.out(3)" });
   robot.updateMatrixWorld();
   /* la boîte vient se placer dans ses mains en tournant doucement vers lui (pas de saut) */
   const hold = robot.localToWorld(HOLD.clone());
-  let dy = robot.rotation.y - b.rotation.y; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
+  let dy = robot.rotation.y + Math.PI - b.rotation.y; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
   gsap.to(b.rotation, { x: 0, y: b.rotation.y + dy, z: 0, duration: .3, ease: "power2.out" });
   await tw(b.position, { x: hold.x, y: hold.y, z: hold.z, duration: .3, ease: "power2.out" });
-  b.rotation.y = robot.rotation.y;
+  b.rotation.y = robot.rotation.y + Math.PI;
   carried = b; lookTarget = null;
   /* il la porte jusqu'à l'étagère */
   const slot = slotPos(n), upper = n >= 4;
@@ -597,7 +597,7 @@ async function shelve(b) {
   await turnTo(Math.PI);
   carried = null;
   gsap.to(arms.map(a => a.rotation), { x: upper ? -2.6 : -1.9, duration: .2 });
-  gsap.to(b.rotation, { x: 0, y: 0, z: 0, duration: .3 });
+  { let r = -b.rotation.y; r = Math.atan2(Math.sin(r), Math.cos(r)); gsap.to(b.rotation, { x: 0, y: b.rotation.y + r, z: 0, duration: .3 }); } /* déjà face à la salle : pas de demi-tour */
   await tw(b.position, { x: slot.x, y: slot.y + .04, z: slot.z, duration: .38, ease: "power2.inOut" });
   gsap.to(b.position, { y: slot.y, duration: .12, ease: "power2.in" });
   gsap.fromTo(b.scale, { x: 1.12, y: 1.12, z: 1.12 }, { x: 1, y: 1, z: 1, duration: .45, ease: "elastic.out(1, .5)", delay: .1 });
@@ -730,7 +730,7 @@ function frame() {
   if (carried) {
     robot.updateMatrixWorld();
     carried.position.copy(robot.localToWorld(tmp.copy(HOLD))).y += Math.sin(t * 12) * .008;
-    carried.rotation.set(0, robot.rotation.y, 0);
+    carried.rotation.set(0, robot.rotation.y + Math.PI, 0);
   }
   if (!RM) {
     if (!gsap.isTweening(head.rotation)) head.rotation.z = Math.sin(t * 1.1) * .03;

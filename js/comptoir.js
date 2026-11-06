@@ -705,8 +705,12 @@ renderer.domElement.addEventListener("click", e => {
   if (!h) { if (!RM && ray.intersectObject(f1, true).length) f1Lap(); return; }
   /* la boîte du comptoir : il la range tout de suite ; une boîte déjà rangée : elle sautille */
   if (h === waiting && state === "idle") { clearTimeout(waitTimer); shelve(h); return; }
-  if (!gsap.isTweening(h.position) && h !== carried) {
-    const y = h.position.y; gsap.timeline().to(h.position, { y: y + .12, duration: .12, ease: "power2.out" }).to(h.position, { y, duration: .3, ease: "bounce.out" });
+  if (!gsap.isTweening(h.position) && !gsap.isTweening(h.rotation) && h !== carried) {
+    /* rangée : peu de place sous la planche du dessus, donc pas de saut ; elle sort un peu vers nous et se dandine */
+    const z = h.position.z, r = h.rotation.y;
+    gsap.timeline().to(h.position, { z: z + .14, duration: .16, ease: "power2.out" })
+      .to(h.rotation, { y: r + .12, duration: .08, ease: "sine.inOut", yoyo: true, repeat: 3 }, "<")
+      .to(h.position, { z, duration: .35, ease: "back.out(2)" });
     live.textContent = WORDS[h.userData.i];
   }
 });

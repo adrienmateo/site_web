@@ -309,6 +309,8 @@ const boxes = WORDS.map((word, i) => {
   m.userData = { i, tex: face, texs: [face, side, lid] };
   return m;
 });
+/* où il tient la boîte (repère du robot) : assez bas et en avant pour ne pas traverser sa tête */
+const HOLD = new THREE.Vector3(0, .78, .82);
 const slotPos = n => new THREE.Vector3(SLOT_X[n % 4], BOARDS[n < 4 ? 0 : 1] + BOX.h / 2, SHELF_Z);
 
 /* ---------- le robot artisan : terre cuite, visière à yeux lumineux, articulations, antenne ---------- */
@@ -582,8 +584,12 @@ async function shelve(b) {
   await tw(body.position, { y: -.08, duration: .12, ease: "power2.out" });
   gsap.to(body.position, { y: 0, duration: .25, ease: "back.out(3)" });
   robot.updateMatrixWorld();
-  const hold = robot.localToWorld(new THREE.Vector3(0, .95, .62));
-  await tw(b.position, { x: hold.x, y: hold.y, z: hold.z, duration: .22, ease: "power2.out" });
+  /* la boîte vient se placer dans ses mains en tournant doucement vers lui (pas de saut) */
+  const hold = robot.localToWorld(HOLD.clone());
+  let dy = robot.rotation.y - b.rotation.y; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
+  gsap.to(b.rotation, { x: 0, y: b.rotation.y + dy, z: 0, duration: .3, ease: "power2.out" });
+  await tw(b.position, { x: hold.x, y: hold.y, z: hold.z, duration: .3, ease: "power2.out" });
+  b.rotation.y = robot.rotation.y;
   carried = b; lookTarget = null;
   /* il la porte jusqu'à l'étagère */
   const slot = slotPos(n), upper = n >= 4;
@@ -723,7 +729,7 @@ function frame() {
   const t = clock.getElapsedTime();
   if (carried) {
     robot.updateMatrixWorld();
-    carried.position.copy(robot.localToWorld(tmp.set(0, .95 + Math.sin(t * 12) * .01, .62)));
+    carried.position.copy(robot.localToWorld(tmp.copy(HOLD))).y += Math.sin(t * 12) * .008;
     carried.rotation.set(0, robot.rotation.y, 0);
   }
   if (!RM) {

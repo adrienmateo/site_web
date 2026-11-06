@@ -382,7 +382,7 @@ dialog.modal[open] { animation: modal-in .4s var(--ease) both; }
 /* ---------- path / contact / footer ---------- */
 .path-grid { margin-top: 32px; }
 .contact-card { background: var(--ink); color: #fff; border-radius: 28px; padding: 56px; box-shadow: var(--sh-3); position: relative; overflow: hidden; }
-.contact-card::after { content: ""; position: absolute; right: -80px; top: -80px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(122, 46, 224, .50), transparent 70%); }
+.contact-card::after { content: ""; position: absolute; right: -80px; top: -80px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(224, 162, 59, .32), transparent 70%); }
 .contact-card h2 { color: #fff; }
 .contact-card .lead { color: #CDB6A2; margin-bottom: 28px; }
 .contact-card .btn:not(.primary) { background: rgba(255, 255, 255, .08); color: #fff; border-color: rgba(255, 255, 255, .15); box-shadow: none; }

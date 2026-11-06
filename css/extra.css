@@ -342,9 +342,9 @@ html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { transition: no
   background: var(--fo-bg, #4A372D); border: 1px solid var(--line); box-shadow: var(--sh-2);
   transform-origin: 50% 0; will-change: transform; cursor: pointer; isolation: isolate;
 }
-.fo-card:nth-child(1) { --fo-bg: #171C26; }
-.fo-card:nth-child(2) { --fo-bg: #1B1A27; }
-.fo-card:nth-child(3) { --fo-bg: #17201F; }
+.fo-card:nth-child(1) { --fo-bg: #4A372D; }
+.fo-card:nth-child(2) { --fo-bg: #503A30; }
+.fo-card:nth-child(3) { --fo-bg: #46362C; }
 .fo-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #2E221C; opacity: var(--d, 0); pointer-events: none; z-index: 2; }
 .fo-body { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; position: relative; }
 .fo-n { font: 600 .74rem var(--mono); color: var(--muted); letter-spacing: .08em; }
@@ -387,7 +387,7 @@ html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { transition: no
 }
 
 /* ---------- projets : lien direct vers la page, type de projet en clair sous le titre ---------- */
-.fo-card:nth-child(4) { --fo-bg: #1E1A22; }
+.fo-card:nth-child(4) { --fo-bg: #4D3830; }
 .fo-meta { margin: -4px 0 0; font-size: .9rem; font-weight: 600; color: #CDB6A2; }
 .fo-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
 .fo-open { text-decoration: none; }

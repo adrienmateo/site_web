@@ -6,6 +6,9 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { BokehPass } from "three/addons/postprocessing/BokehPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import { SMAAPass } from "three/addons/postprocessing/SMAAPass.js";
+import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
 
 /* Accueil : le comptoir des mots en 3D (Three.js + GSAP).
    Le robot range sur l'étagère les mots-clés de hero.words (js/content.js, FR/EN) ; ils arrivent un par un sur le comptoir.
@@ -28,6 +31,8 @@ const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* téléphone ou tablette : pas de flou ni de halo, trop coûteux */
 const LITE = innerWidth < 760 || matchMedia("(pointer: coarse)").matches;
+/* ordi : haute qualité (ombres de contact, lissage, lumière de fenêtre, matières) ; ?lq pour la couper */
+const HQ = !LITE && !new URLSearchParams(location.search).has("lq");
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ antialias: true }); }
 catch (e) { section.classList.add("no-webgl"); throw e; } /* sans WebGL : le texte reste seul sur le fond */
@@ -41,7 +46,7 @@ const ANISO = renderer.capabilities.getMaxAnisotropy();
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(P.bg);
-scene.fog = new THREE.Fog(P.bg, LITE ? 10 : 12, 30);
+/* brume légère, seulement au loin : on garde le contraste */
 /* reflets doux sur toutes les matières */
 scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), .04).texture;
 scene.environmentIntensity = .18;
@@ -52,17 +57,19 @@ let composer = null, bokeh = null;
 if (!LITE) {
   composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
+  if (HQ) { const ao = new GTAOPass(scene, camera, 1024, 640); ao.updateGtaoMaterial({ radius: .5, distanceExponent: 1, thickness: 2, scale: 2 }); ao.blendIntensity = 1; composer.addPass(ao); }
   bokeh = new BokehPass(scene, camera, { focus: 7, aperture: .0016, maxblur: .008 });
   composer.addPass(bokeh);
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(512, 512), .3, .5, 1.4));
+  composer.addPass(new UnrealBloomPass(new THREE.Vector2(512, 512), .18, .45, 1.6));
+  if (HQ) composer.addPass(new SMAAPass(1024, 640));
   composer.addPass(new OutputPass());
 }
 
 /* lumière de petit matin : soleil rasant venant de la fenêtre à droite */
-scene.add(new THREE.HemisphereLight(P.hemi[0], P.hemi[1], P.hemi[2]));
-const sunLight = new THREE.DirectionalLight(P.sun[0], P.sun[1]);
+scene.add(new THREE.HemisphereLight(P.hemi[0], P.hemi[1], HQ ? .62 : P.hemi[2]));
+const sunLight = new THREE.DirectionalLight(P.sun[0], HQ ? 2.1 : P.sun[1]);
 sunLight.position.set(5, 7, 5); sunLight.target.position.set(1.2, 0, 0);
-sunLight.castShadow = true; sunLight.shadow.mapSize.set(2048, 2048); sunLight.shadow.bias = -.0005; sunLight.shadow.radius = 4;
+sunLight.castShadow = true; sunLight.shadow.mapSize.set(HQ ? 4096 : 2048, HQ ? 4096 : 2048); sunLight.shadow.bias = -.0005; sunLight.shadow.radius = 4;
 Object.assign(sunLight.shadow.camera, { left: -4, right: 6, top: 5, bottom: -3, near: 1, far: 20 });
 scene.add(sunLight, sunLight.target);
 const fill = new THREE.DirectionalLight(P.fill, .6); fill.position.set(-5, 3, 4); scene.add(fill);
@@ -122,11 +129,23 @@ function drawIcon(ctx, i, cx, cy, s) {
 }
 
 /* ---------- décor : comptoir et étagère en bois clair ---------- */
-mesh(new THREE.BoxGeometry(16, .14, 2.8), std(P.counter[0], { roughness: .55 }), 1.2, -.07, .2);
+/* le dessus du comptoir en parquet clair */
+const parquet = canvasTex(512, 512, (ctx, W, H) => {
+  ctx.fillStyle = P.counter[0]; ctx.fillRect(0, 0, W, H);
+  for (let y = 0; y < H; y += 64) for (let x = (y / 64) % 2 * -96; x < W; x += 192) {
+    ctx.fillStyle = "rgba(140,95,60," + (.04 + ((x * 7 + y * 3) % 5) * .012) + ")"; ctx.fillRect(x + 1, y + 1, 190, 62);
+    ctx.fillStyle = "rgba(120,80,50,.18)"; ctx.fillRect(x, y, 192, 1.5); ctx.fillRect(x, y, 1.5, 64);
+  }
+});
+parquet.redraw(); parquet.wrapS = parquet.wrapT = THREE.RepeatWrapping; parquet.repeat.set(8, 1.4);
+mesh(new THREE.BoxGeometry(16, .14, 2.8), std("#fff", { roughness: .5, map: parquet }), 1.2, -.07, .2);
 mesh(new THREE.BoxGeometry(16, 1.8, .12), std(P.counter[1]), 1.2, -.98, 1.56);
 mesh(new THREE.BoxGeometry(16, .04, .04), std(P.counter[2]), 1.2, -.02, 1.6);
 const SHELF_Z = -.95, BOARDS = [.62, 1.42], SLOT_X = [.45, 1.25, 2.05, 2.85];
-const wood = std(P.wood[0], { roughness: .6 }), woodDark = std(P.wood[1]);
+/* en haute qualité, le bois a une veinure */
+const grain = HQ ? canvasTex(256, 256, (ctx, W, H) => { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); for (let y = 0; y < H; y += 2) { ctx.fillStyle = "rgba(90,55,30," + (.04 + .08 * Math.abs(Math.sin(y * .09 + Math.sin(y * .013) * 4))) + ")"; ctx.fillRect(0, y, W, 2); } }) : null;
+if (grain) { grain.redraw(); grain.wrapS = grain.wrapT = THREE.RepeatWrapping; grain.repeat.set(2, 1); }
+const wood = std(P.wood[0], { roughness: .6, map: grain }), woodDark = std(P.wood[1], { map: grain });
 for (const y of BOARDS) mesh(new THREE.BoxGeometry(3.5, .07, .5), wood, 1.65, y - .035, SHELF_Z);
 for (const x of [-.12, 3.42]) mesh(new THREE.BoxGeometry(.08, 2.1, .5), woodDark, x, 1.05, SHELF_Z);
 const PAD = new THREE.Vector3(1.75, .015, .9);
@@ -140,7 +159,13 @@ let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 21474836
 const pick = a => a[Math.floor(rnd() * a.length)];
 /* le mur est juste derrière l'étagère des mots : plus de vide entre le comptoir et le fond */
 const WALL_Z = SHELF_Z - .32;
-const wall = new THREE.Mesh(new THREE.PlaneGeometry(30, 14), std(P.wall, { roughness: .95 }));
+/* mur en enduit, légèrement irrégulier */
+const plaster = canvasTex(512, 512, (ctx, W, H) => {
+  ctx.fillStyle = P.wall; ctx.fillRect(0, 0, W, H);
+  for (let k = 0; k < 2600; k++) { const r = 2 + Math.random() * 10; ctx.fillStyle = Math.random() < .5 ? "rgba(255,245,235,.05)" : "rgba(150,100,70,.04)"; ctx.beginPath(); ctx.arc(Math.random() * W, Math.random() * H, r, 0, Math.PI * 2); ctx.fill(); }
+});
+plaster.redraw(); plaster.wrapS = plaster.wrapT = THREE.RepeatWrapping; plaster.repeat.set(6, 3);
+const wall = new THREE.Mesh(new THREE.PlaneGeometry(30, 14), std("#fff", { roughness: .95, map: plaster }));
 wall.position.set(1, 3, WALL_Z); wall.receiveShadow = true; scene.add(wall);
 mesh(new THREE.BoxGeometry(30, .3, .06), std(P.base), 1, -.05, WALL_Z + .03);
 
@@ -159,13 +184,19 @@ mesh(new THREE.CylinderGeometry(.07, .07, .2, 16), glassMat, 2.95, TOP_Y + .16, 
 const WIN = { x: 4.1, y: 1.55, w: 1.5, h: 2.2 };
 const glass = new THREE.Mesh(new THREE.PlaneGeometry(WIN.w, WIN.h), new THREE.MeshStandardMaterial({ color: P.win[0], emissive: P.win[1], emissiveIntensity: P.win[2] }));
 glass.position.set(WIN.x, WIN.y, WALL_Z + .01); scene.add(glass);
+/* la lumière de la fenêtre : une source large et douce, tournée vers l'étagère et le robot */
+if (HQ) {
+  RectAreaLightUniformsLib.init();
+  const winLight = new THREE.RectAreaLight("#FFE4C4", 4.5, WIN.w, WIN.h);
+  winLight.position.set(WIN.x, WIN.y, WALL_Z + .15); winLight.lookAt(WIN.x - 2.2, .6, 1.4); scene.add(winLight);
+}
 for (const [w, h, x, y] of [[WIN.w + .16, .1, 0, WIN.h / 2], [WIN.w + .16, .1, 0, -WIN.h / 2], [.1, WIN.h, -WIN.w / 2, 0], [.1, WIN.h, WIN.w / 2, 0], [.06, WIN.h, 0, 0], [WIN.w, .06, 0, .2]])
   mesh(new THREE.BoxGeometry(w, h, .08), std(P.frame), WIN.x + x, WIN.y + y, WALL_Z + .05);
 const rayTex = canvasTex(64, 256, (ctx, W, H) => { const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "rgba(" + P.ray + ",.9)"); g.addColorStop(1, "rgba(" + P.ray + ",0)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); });
 rayTex.redraw();
 const rays = [];
 for (let k = 0; k < 4; k++) {
-  const ray = new THREE.Mesh(new THREE.PlaneGeometry(.5 + k * .12, 6), new THREE.MeshBasicMaterial({ map: rayTex, transparent: true, opacity: .16, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
+  const ray = new THREE.Mesh(new THREE.PlaneGeometry(.5 + k * .12, 6), new THREE.MeshBasicMaterial({ map: rayTex, transparent: true, opacity: .1, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide }));
   ray.position.set(WIN.x - 1.4 - k * .35, WIN.y - 1.6, WALL_Z + 1.2 + k * .2); ray.rotation.set(-.25, .2, -.75); scene.add(ray); rays.push(ray);
 }
 
@@ -221,17 +252,19 @@ const TERRA = P.robot[0];
 const HOME = { x: -.25, z: .95, rot: .55 }, WAIT = { x: PAD.x - .72, z: PAD.z };
 const robot = new THREE.Group(); robot.position.set(HOME.x, 0, HOME.z); robot.rotation.y = HOME.rot; scene.add(robot);
 const body = new THREE.Group(); robot.add(body);
-const terra = std(TERRA, { roughness: .55, metalness: .1 }), terraDark = std(P.robot[1], { roughness: .6 });
+/* peinture laquée : un vernis léger qui accroche la lumière */
+const terra = new THREE.MeshPhysicalMaterial({ color: TERRA, roughness: .42, metalness: .05, clearcoat: .7, clearcoatRoughness: .22 });
+const terraDark = new THREE.MeshPhysicalMaterial({ color: P.robot[1], roughness: .5, clearcoat: .4, clearcoatRoughness: .3 });
 const joint = std("#3A2A22", { roughness: .45, metalness: .2 }), steel = std("#A9A49C", { roughness: .3, metalness: .75 });
 const glow = color => new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 2.4 });
-const cyl = (r, h, n = 20) => new THREE.CylinderGeometry(r, r, h, n);
+const cyl = (r, h, n = 32) => new THREE.CylinderGeometry(r, r, h, n);
 
 const legs = [-.13, .13].map(x => {
   const g = new THREE.Group(); g.position.set(x, .44, 0); robot.add(g);
-  mesh(new THREE.SphereGeometry(.075, 16, 12), joint, 0, 0, 0, g);                       // hanche
-  mesh(new RoundedBoxGeometry(.19, .36, .21, 2, .05), terra, 0, -.2, 0, g);
+  mesh(new THREE.SphereGeometry(.075, 28, 20), joint, 0, 0, 0, g);                       // hanche
+  mesh(new RoundedBoxGeometry(.19, .36, .21, 4, .05), terra, 0, -.2, 0, g);
   mesh(cyl(.085, .04), joint, 0, -.19, 0, g);                                            // genou
-  mesh(new RoundedBoxGeometry(.25, .1, .32, 2, .04), terraDark, 0, -.39, .045, g);       // pied
+  mesh(new RoundedBoxGeometry(.25, .1, .32, 4, .04), terraDark, 0, -.39, .045, g);       // pied
   return g;
 });
 
@@ -242,11 +275,11 @@ const heart = mesh(new THREE.SphereGeometry(.035, 16, 12), glow("#F0B429"), 0, .
 
 const arms = [-1, 1].map(s => {
   const g = new THREE.Group(); g.position.set(s * .36, .88, 0); body.add(g);
-  mesh(new THREE.SphereGeometry(.09, 16, 12), joint, 0, 0, 0, g);                        // épaule
-  mesh(new RoundedBoxGeometry(.15, .2, .17, 2, .05), terra, 0, -.12, 0, g);
+  mesh(new THREE.SphereGeometry(.09, 28, 20), joint, 0, 0, 0, g);                        // épaule
+  mesh(new RoundedBoxGeometry(.15, .2, .17, 4, .05), terra, 0, -.12, 0, g);
   mesh(cyl(.07, .05), joint, 0, -.24, 0, g);                                             // coude
-  mesh(new RoundedBoxGeometry(.14, .17, .16, 2, .05), terra, 0, -.34, 0, g);
-  mesh(new RoundedBoxGeometry(.17, .1, .19, 2, .04), terraDark, 0, -.46, .01, g);        // main
+  mesh(new RoundedBoxGeometry(.14, .17, .16, 4, .05), terra, 0, -.34, 0, g);
+  mesh(new RoundedBoxGeometry(.17, .1, .19, 4, .04), terraDark, 0, -.46, .01, g);        // main
   mesh(new RoundedBoxGeometry(.05, .09, .07, 1, .02), terraDark, s * -.075, -.52, .06, g); // pouce
   return g;
 });
@@ -327,7 +360,7 @@ const hourHand = hand(.1, .014), minuteHand = hand(.15, .009);
 /* un petit bureau sur le côté, avec l'ordinateur posé dessus */
 const DESK = { x: 3.85, z: .5, h: .58, w: 1.05, d: .62 };
 /* plateau, pieds, caisson à tiroirs à droite, traverse */
-mesh(new RoundedBoxGeometry(DESK.w, .05, DESK.d, 2, .015), wood, DESK.x, DESK.h - .025, DESK.z);
+mesh(new RoundedBoxGeometry(DESK.w, .05, DESK.d, 4, .015), wood, DESK.x, DESK.h - .025, DESK.z);
 for (const [dx, dz] of [[-.48, -.26], [-.48, .26]]) mesh(new THREE.BoxGeometry(.05, DESK.h - .05, .05), woodDark, DESK.x + dx, (DESK.h - .05) / 2, DESK.z + dz);
 mesh(new THREE.BoxGeometry(.34, DESK.h - .05, DESK.d - .04), wood, DESK.x + .33, (DESK.h - .05) / 2, DESK.z);
 for (const y of [.12, .3]) {

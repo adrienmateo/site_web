@@ -99,15 +99,15 @@ html .hero .nt-hot:focus-visible { outline: 2px solid #E10600; outline-offset: 4
 }
 
 /* ---- barre de navigation et ouverture accordées à la DA sombre ---- */
-html .topbar .topbar-inner { background: rgba(14, 17, 22, .72); border-color: rgba(242, 243, 246, .1); box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .7); }
-html .topbar .brand, html .topbar .icon-link, html .topbar .burger { color: #F2F3F6; }
-html .topbar .nav a { color: #9AA3B2; }
-html .topbar .nav a:hover, html .topbar .nav a.active { color: #F2F3F6; background: rgba(242, 243, 246, .06); }
-html .topbar .lang { background: rgba(242, 243, 246, .06); border-color: rgba(242, 243, 246, .1); }
-html .topbar .lang button { color: #9AA3B2; }
-html .topbar .lang button[aria-pressed="true"] { background: #F2F3F6; color: #0E1116; }
-html .mmenu { background: rgba(14, 17, 22, .96); }
-html .mmenu a { color: #F2F3F6; border-color: #262C37; }
+html .topbar .topbar-inner { background: rgba(58, 42, 34, .86); border-color: rgba(243, 230, 216, .12); box-shadow: 0 10px 30px -14px rgba(42, 33, 28, .55); }
+html .topbar .brand, html .topbar .icon-link, html .topbar .burger { color: #F3E6D8; }
+html .topbar .nav a { color: #CDB6A2; }
+html .topbar .nav a:hover, html .topbar .nav a.active { color: #F3E6D8; background: rgba(243, 230, 216, .08); }
+html .topbar .lang { background: rgba(243, 230, 216, .08); border-color: rgba(243, 230, 216, .12); }
+html .topbar .lang button { color: #CDB6A2; }
+html .topbar .lang button[aria-pressed="true"] { background: #F3E6D8; color: #2A211C; }
+html .mmenu { background: rgba(58, 42, 34, .97); }
+html .mmenu a { color: #F3E6D8; border-color: #5C463A; }
 
 
 /* ---- l'accueil sombre remonte sous la barre de navigation : plus de bande blanche en haut ---- */
@@ -121,10 +121,10 @@ html .hero.wrap { margin: 0 !important; padding-top: 140px !important; border-ra
 html .topbar { position: absolute !important; top: 0; left: 0; right: 0; }
 
 /* ---- CV : action principale, toujours à portée ---- */
-.tb-cv { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 10px; background: #E10600; color: #fff;
+.tb-cv { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 10px; background: var(--accent, #C2381F); color: #fff;
   font: 700 .85rem var(--sans, "Manrope", sans-serif); text-decoration: none; transition: background .2s; }
 .tb-cv:hover { background: var(--accent-2, #B80500); }
-.tb-cv:focus-visible { outline: 2px solid #F2F3F6; outline-offset: 2px; }
+.tb-cv:focus-visible { outline: 2px solid #F3E6D8; outline-offset: 2px; }
 .tb-cv[hidden] { display: none; }
 @media (pointer: coarse) { .tb-cv { height: 44px; } }
 @media (max-width: 880px) { .topbar .tb-cv { margin-left: auto; } .topbar .tb-cv:not([hidden]) ~ .lang { margin-left: 0; } }
@@ -160,11 +160,27 @@ html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }
   html .hero h1 { font-size: clamp(2.9rem, 14.8vw, 4.2rem) !important; line-height: .95; margin: 14px 0 18px; text-shadow: 0 2px 18px rgba(14, 17, 22, .6); }
   html .hero .role { font-size: .95rem; padding: 7px 12px; margin-bottom: 18px; }
   html .hero .pitch { font-size: 1.2rem; line-height: 1.45; margin-bottom: 26px; }
-  html .hero .actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 8px; margin-bottom: 0; }
-  html .hero .actions .btn { justify-content: center; min-height: 50px; font-size: .95rem; padding-inline: 6px; white-space: nowrap; }
-  html .hero .actions .btn.primary { grid-column: 1 / -1; min-height: 56px; font-size: 1.05rem; }
+  html .hero .actions { gap: 10px 8px; margin-bottom: 0; }
+  html .hero .actions .btn { justify-content: center; min-height: 52px; font-size: 1rem; }
+  html .hero .actions .btn.primary { flex: 1 0 100%; min-height: 56px; font-size: 1.05rem; }
+  html .hero .actions .btn:not(.primary):not(.btn-ico) { flex: 1; }
+  html .hero .actions .btn-ico { width: 52px; }
   html .hero .stats { order: 9; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 0 !important; margin: 0 !important; padding-top: 30px; }
   html .hero .stats li, html .hero .stats li:nth-child(3) { padding: 0 0 0 16px; border-left: 1px solid rgba(242, 243, 246, .16); font-size: .88rem; }
   html .hero .stats li:nth-child(odd) { padding-left: 0; border-left: 0; }
   html .hero .stats li strong { font-size: 2rem; }
 }
+
+/* ---- étiquettes du robot : visibles d'office, une petite flèche dit qu'on peut cliquer ---- */
+.nt-scene.tips-on .nt-tip { opacity: 1; transform: none; }
+.nt-tip b::after { content: " ↓"; color: #FF6A63; }
+.nt-hot:hover .nt-tip { border-color: #3A4352; }
+@media (max-width: 700px) {
+  .nt-tip { padding: 7px 10px; border-radius: 10px; bottom: calc(100% + 6px); }
+  .nt-tip > span { display: none; }
+  .nt-tip-r { right: 14px; }
+}
+
+/* ---- LinkedIn et GitHub en icônes, à côté des deux actions principales ---- */
+html .hero .btn-ico { width: 48px; padding: 0; justify-content: center; }
+html .hero .btn-ico svg { width: 20px; height: 20px; fill: currentColor; }

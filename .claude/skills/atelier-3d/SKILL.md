@@ -14,6 +14,7 @@ La scène du haut de page est en Three.js (0.170, importmap dans `index.html`) e
 3. **Palette Abricot.** Constantes `P` en tête de fichier : mur `#EFCFB6`, bois `#B98A62`, robot terre cuite `#C8663F`, accent brique `#C2381F`, encre `#2A211C`. Boîtes : `COLORS`. Pas de bleu-gris, pas de noir pur.
 4. **Robot artisan.** Silhouette cube terre cuite, peinture laquée (`MeshPhysicalMaterial` avec `clearcoat`), écran-visière, yeux dessinés sur `eyeTex` avec des humeurs (`setMood` : neutral, focus, happy, surprise), antenne et voyant lumineux. Pas de tablier, pas de plaque sur la tête (refusés par le propriétaire du site).
 5. **Pas de glyphes Unicode** comme icônes : les pictogrammes sont dessinés au canvas.
+7. **Les boîtes sont de vrais emballages** (validé par le propriétaire) : boîte 0,6 × 0,74 × 0,36, face avec illustration pleine (`illus`, une par mot, dans l'ordre de `hero.words`), rayons, badge jaune « N°0x », bandeau « ATELIER · A-M.S », nom, phrase (`hero.wordTags`, FR/EN), code-barres ; tranche avec le nom à la verticale ; dessus avec rabats et ruban kraft ; grain de carton (`cardGrain`). Prototype de comparaison : `.claude/proto-boites.html`.
 6. **Accessibilité.** `prefers-reduced-motion` : étagère déjà remplie, rien ne bouge. La région `#comptoir-live` annonce les mots. La scène est `aria-hidden`.
 
 ## Qualité et performance

@@ -58,6 +58,16 @@ window.CONTENT = {
         "Accompagnement",
         "Métier et technique"
       ],
+      "wordTags": [
+        "Comprendre comment les choses fonctionnent",
+        "Aligner les équipes",
+        "Proposer la solution technique",
+        "Relier les systèmes",
+        "Fiabiliser, puis gagner du temps",
+        "Des outils qui automatisent les vérifications",
+        "Du premier atelier à l'hypercare",
+        "Un profil double"
+      ],
       "thread": [
         "besoin métier",
         "cadrage",
@@ -1097,6 +1107,16 @@ window.CONTENT = {
         "Automation and AI",
         "Support",
         "Business and tech"
+      ],
+      "wordTags": [
+        "Understand how things really work",
+        "Align the teams",
+        "Propose the technical solution",
+        "Connect the systems",
+        "Make it reliable, then save time",
+        "Internal tools that automate checks",
+        "From the first workshop to hypercare",
+        "A twofold profile"
       ],
       "thread": [
         "business need",

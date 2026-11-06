@@ -90,6 +90,19 @@
     if ($("skills-frise")) { renderAbout(T); renderSkills(T); renderWork(T); renderPath(T); }
     if ($("demo-steps")) renderDemo();
     if ($("demo-proves")) $("demo-proves").innerHTML = T.demo.proves.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("");
+    if ($("demo-summary")) {
+      /* chaque affirmation du résumé montre sa preuve : le code d'erreur, puis la phrase dite au client */
+      $("demo-summary").innerHTML = T.demo.summary.map(function (r, i) {
+        var proof = i === 1 ? '<code class="proof">' + esc(T.demo.summaryProof) + "</code>"
+          : i === 2 ? '<q class="proof">' + esc(T.demo.summaryQuote.replace(/^[«“]\s*|\s*[»”]$/g, "")) + '</q><button type="button" class="to-client">' + esc(T.demo.summaryLink) + "</button>" : "";
+        return '<div' + (i === 1 ? ' class="key"' : "") + "><dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + proof + "</dd></div>";
+      }).join("");
+      $("demo-summary").querySelector(".to-client").addEventListener("click", function () {
+        go(3);
+        $("console").scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        $("demo-body").focus({ preventScroll: true });
+      });
+    }
     if ($("f1-root")) renderF1(T);
     if ($("bl-root")) renderBacklog(T);
     if ($("me-root")) renderMethode(T);
@@ -658,30 +671,66 @@
     }).join("") + "</code></pre>";
   }
 
-  function renderDemo() {
-    var D = C[lang].demo;
+  /* les indices relevés aux étapes 1 et 2, rappelés au moment du diagnostic */
+  var CLUES = ["carrier=EXPRESSO default=true", "http=422 UNSERVICEABLE_AREA", '"postcode": "20000"'];
+  var NOTED_ROW = 2; // la ligne du transporteur par défaut, premier indice relevé
+  var seen = [true, false, false, false];
+
+  /* onglets créés une seule fois : le focus clavier n'est jamais détruit */
+  function buildDemoTabs(D) {
     $("demo-steps").innerHTML = D.steps.map(function (s, i) {
-      return '<li><button type="button" role="tab" data-step="' + i + '" aria-selected="' + (i === step) + '"' +
-        (i === step ? ' class="on"' : "") + '><span class="n">' + (i + 1) + "</span>" + esc(s) + "</button></li>";
+      return '<button type="button" role="tab" id="demo-tab-' + i + '" aria-controls="demo-body" data-step="' + i + '">' +
+        '<span class="n" aria-hidden="true">' + (i + 1) + "</span>" + esc(s) + '<span class="sr-only seen-label"></span></button>';
     }).join("");
+    var tabs = document.querySelectorAll("#demo-steps [role=tab]");
+    tabs.forEach(function (b, i) {
+      b.addEventListener("click", function () { go(i); });
+      b.addEventListener("keydown", function (e) {
+        var k = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+        if (k === undefined) return;
+        e.preventDefault();
+        k = (k + tabs.length) % tabs.length;
+        go(k); tabs[k].focus();
+      });
+    });
+  }
+
+  function renderDemo(announce) {
+    var D = C[lang].demo;
+    if (!$("demo-tab-0") || $("demo-steps").getAttribute("data-lang") !== lang) {
+      buildDemoTabs(D); $("demo-steps").setAttribute("data-lang", lang);
+    }
+    seen[step] = true;
+    document.querySelectorAll("#demo-steps [role=tab]").forEach(function (b, i) {
+      b.setAttribute("aria-selected", String(i === step));
+      b.tabIndex = i === step ? 0 : -1;
+      b.classList.toggle("on", i === step);
+      b.classList.toggle("seen", seen[i] && i !== step);
+      b.querySelector(".seen-label").textContent = seen[i] && i !== step ? ", " + D.seen : "";
+    });
+    $("demo-count").textContent = D.stepCount.replace("{n}", step + 1).replace("{total}", D.steps.length);
+    $("demo-body").setAttribute("aria-labelledby", "demo-tab-" + step);
 
     var html = "";
     if (step === 0) {
       html = '<p class="intro">' + esc(D.logsIntro) + '</p><div class="logs" role="list">' +
         LOGS.map(function (r, i) {
-          var cls = "log lvl-" + r[1].toLowerCase();
+          var cls = "log lvl-" + r[1].toLowerCase() + (i === NOTED_ROW ? " noted" : "");
           var inner = '<span class="t">' + r[0] + '</span><span class="l">' + r[1] + '</span><span class="s">' +
-            r[2] + '</span><span class="m">' + esc(r[3]) + "</span>";
+            r[2] + '</span><span class="m">' + esc(r[3]) + (i === NOTED_ROW ? ' <span class="tag">' + esc(D.noted) + "</span>" : "") + "</span>";
           return i === ERROR_ROW
-            ? '<button type="button" role="listitem" class="' + cls + ' clickable" id="error-row">' + inner + "</button>"
+            ? '<div role="listitem" class="log-item"><button type="button" class="' + cls + ' clickable" id="error-row" aria-label="' + esc(D.openDetailLabel) + '">' + inner +
+              '<span class="go" aria-hidden="true">' + esc(D.openDetail) + "</span></button></div>"
             : '<div role="listitem" class="' + cls + '">' + inner + "</div>";
-        }).join("") + "</div>";
+        }).join("") + '</div><p class="gloss">' + esc(D.logsGloss) + "</p>";
     } else if (step === 1) {
       html = '<p class="intro">' + esc(D.payloadIntro) + "</p>" + codeBlock(PAYLOAD) +
         '<p class="flag">' + esc(D.payloadFlag) + "</p>" +
         '<p class="intro">' + esc(D.responseIntro) + "</p>" + codeBlock(RESPONSE);
     } else if (step === 2) {
-      html = '<ol class="diag">' + D.diagnosis.map(function (d) { return "<li>" + esc(d) + "</li>"; }).join("") + "</ol>";
+      html = '<p class="clues-title">' + esc(D.clues) + '</p><ul class="clues">' +
+        CLUES.map(function (c) { return "<li><code>" + esc(c) + "</code></li>"; }).join("") + "</ul>" +
+        '<ol class="diag">' + D.diagnosis.map(function (d) { return "<li>" + esc(d) + "</li>"; }).join("") + "</ol>";
     } else {
       html = '<div class="fix"><div><h4>' + esc(D.techTitle) + "</h4><ul>" +
         D.tech.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") +
@@ -692,17 +741,21 @@
 
     $("demo-prev").disabled = step === 0;
     $("demo-next").textContent = step === 3 ? D.restart : D.next;
+    if (announce) $("demo-status").textContent = D.stepOf.replace("{n}", step + 1).replace("{total}", D.steps.length).replace("{name}", D.steps[step]);
 
     var err = $("error-row");
-    if (err) err.addEventListener("click", function () { go(1); });
-    document.querySelectorAll("#demo-steps button").forEach(function (b) {
-      b.addEventListener("click", function () { go(Number(b.getAttribute("data-step"))); });
-    });
+    if (err) err.addEventListener("click", function () { go(1); $("demo-body").focus({ preventScroll: true }); });
   }
 
   function go(n) {
+    var fromPrev = document.activeElement === $("demo-prev");
     step = Math.max(0, Math.min(3, n));
-    renderDemo();
+    renderDemo(true);
+    /* « Étape précédente » se désactive à l'étape 1 : le focus passe sur « Étape suivante » au lieu de se perdre */
+    if (fromPrev && step === 0) $("demo-next").focus();
+    /* sur téléphone, on revient en haut de la console si elle est sortie de l'écran */
+    var con = $("console"), top = con.getBoundingClientRect().top;
+    if (top < 0) con.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   }
 
   /* ---------- page behaviors ---------- */
@@ -767,8 +820,8 @@
   initChrome();
   initToolsToggle();
   if ($("thread")) {
-    var go = function () { drawThread(true); };
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(go, 60); }); else setTimeout(go, 200);
+    var drawNow = function () { drawThread(true); };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(drawNow, 60); }); else setTimeout(drawNow, 200);
     var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { drawThread(false); }, 120); });
   }
   initPillarSettle();

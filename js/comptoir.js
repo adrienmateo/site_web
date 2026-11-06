@@ -106,13 +106,13 @@ parquet.redraw(); parquet.wrapS = parquet.wrapT = THREE.RepeatWrapping; parquet.
 mesh(new THREE.BoxGeometry(16, .14, 2.8), std("#fff", { roughness: .5, map: parquet }), 1.2, -.07, .2);
 mesh(new THREE.BoxGeometry(16, 1.8, .12), std(P.counter[1]), 1.2, -.98, 1.56);
 mesh(new THREE.BoxGeometry(16, .04, .04), std(P.counter[2]), 1.2, -.02, 1.6);
-const SHELF_Z = -.95, BOARDS = [.62, 1.42], SLOT_X = [.45, 1.25, 2.05, 2.85];
+const SHELF_Z = -.95, BOARDS = [.62, 1.48], SLOT_X = [.45, 1.25, 2.05, 2.85];
 /* en haute qualité, le bois a une veinure */
 const grain = HQ ? canvasTex(256, 256, (ctx, W, H) => { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H); for (let y = 0; y < H; y += 2) { ctx.fillStyle = "rgba(90,55,30," + (.04 + .08 * Math.abs(Math.sin(y * .09 + Math.sin(y * .013) * 4))) + ")"; ctx.fillRect(0, y, W, 2); } }) : null;
 if (grain) { grain.redraw(); grain.wrapS = grain.wrapT = THREE.RepeatWrapping; grain.repeat.set(2, 1); }
 const wood = std(P.wood[0], { roughness: .6, map: grain }), woodDark = std(P.wood[1], { map: grain });
 for (const y of BOARDS) mesh(new THREE.BoxGeometry(3.5, .07, .5), wood, 1.65, y - .035, SHELF_Z);
-for (const x of [-.12, 3.42]) mesh(new THREE.BoxGeometry(.08, 2.3, .5), woodDark, x, 1.15, SHELF_Z);
+for (const x of [-.12, 3.42]) mesh(new THREE.BoxGeometry(.08, 2.36, .5), woodDark, x, 1.18, SHELF_Z);
 const PAD = new THREE.Vector3(1.75, .015, .9);
 mesh(new THREE.CylinderGeometry(.48, .5, .03, 48), std(P.pad), PAD.x, .015, PAD.z);
 const ring = new THREE.Mesh(new THREE.TorusGeometry(.49, .012, 8, 64), new THREE.MeshBasicMaterial({ color: P.accent }));
@@ -136,7 +136,7 @@ mesh(new THREE.BoxGeometry(30, .3, .06), std(P.base), 1, -.05, WALL_Z + .03);
 
 const potMat = std(P.pot), leafMat = std(P.leaf, { roughness: .8 }), glassMat = std(P.jar, { roughness: .15, transparent: true, opacity: .7 });
 /* plateau en haut de l'étagère des mots, contre le mur : plantes et bocal (la F1 s'y cache aussi) */
-const TOP_Y = 2.24; /* au-dessus des boîtes du rang du haut (1,42 + 0,74) */
+const TOP_Y = 2.30; /* au-dessus des boîtes du rang du haut (1,48 + 0,74), ~8 cm de marge */
 mesh(new THREE.BoxGeometry(3.6, .06, .52), wood, 1.65, TOP_Y + .03, SHELF_Z);
 function plant(x, s = 1) {
   mesh(new THREE.CylinderGeometry(.08 * s, .065 * s, .14 * s, 16), potMat, x, TOP_Y + .06 + .07 * s, SHELF_Z);

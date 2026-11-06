@@ -6,7 +6,6 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { BokehPass } from "three/addons/postprocessing/BokehPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { SMAAPass } from "three/addons/postprocessing/SMAAPass.js";
 import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
 
@@ -31,7 +30,7 @@ const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* téléphone ou tablette : pas de flou ni de halo, trop coûteux */
 const LITE = innerWidth < 760 || matchMedia("(pointer: coarse)").matches;
-/* ordi : haute qualité (ombres de contact, lissage, lumière de fenêtre, matières) ; ?lq pour la couper */
+/* ordi : haute qualité (lissage, lumière de fenêtre, matières) ; ?lq pour la couper. Pas d'ombres de contact ni de grain : l'image doit rester nette */
 const HQ = !LITE && !new URLSearchParams(location.search).has("lq");
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ antialias: true }); }
@@ -57,8 +56,7 @@ let composer = null, bokeh = null;
 if (!LITE) {
   composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
-  if (HQ) { const ao = new GTAOPass(scene, camera, 1024, 640); ao.updateGtaoMaterial({ radius: .5, distanceExponent: 1, thickness: 2, scale: 2 }); ao.blendIntensity = 1; composer.addPass(ao); }
-  bokeh = new BokehPass(scene, camera, { focus: 7, aperture: .0016, maxblur: .008 });
+  bokeh = new BokehPass(scene, camera, { focus: 7, aperture: .0009, maxblur: .004 });
   composer.addPass(bokeh);
   composer.addPass(new UnrealBloomPass(new THREE.Vector2(512, 512), .18, .45, 1.6));
   if (HQ) composer.addPass(new SMAAPass(1024, 640));
@@ -191,7 +189,7 @@ if (HQ) {
   winLight.position.set(WIN.x, WIN.y, WALL_Z + .15); winLight.lookAt(WIN.x - 2.2, .6, 1.4); scene.add(winLight);
 }
 for (const [w, h, x, y] of [[WIN.w + .16, .1, 0, WIN.h / 2], [WIN.w + .16, .1, 0, -WIN.h / 2], [.1, WIN.h, -WIN.w / 2, 0], [.1, WIN.h, WIN.w / 2, 0], [.06, WIN.h, 0, 0], [WIN.w, .06, 0, .2]])
-  mesh(new THREE.BoxGeometry(w, h, .08), std(P.frame), WIN.x + x, WIN.y + y, WALL_Z + .05);
+  mesh(new THREE.BoxGeometry(w, h, .08), std(P.frame), WIN.x + x, WIN.y + y, WALL_Z + .05).castShadow = false; /* pas de grande ombre en diagonale sur l'étagère */
 const rayTex = canvasTex(64, 256, (ctx, W, H) => { const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "rgba(" + P.ray + ",.9)"); g.addColorStop(1, "rgba(" + P.ray + ",0)"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); });
 rayTex.redraw();
 const rays = [];

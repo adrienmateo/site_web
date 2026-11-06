@@ -19,7 +19,8 @@ La scène du haut de page est en Three.js (0.170, importmap dans `index.html`) e
 ## Qualité et performance
 
 - `LITE` (largeur < 760 px ou écran tactile) : pas de post-traitement, densité de pixels 1,5, animations du décor ralenties ou coupées (vapeur, logs plus lents).
-- `HQ` (ordi, sauf `?lq`) : ombres de contact `GTAOPass`, lissage `SMAAPass`, flou de profondeur `BokehPass` qui suit le robot, halo `UnrealBloomPass` discret (force ≈ 0,18), lumière de fenêtre `RectAreaLight`, bois veiné, mur en enduit, parquet.
+- `HQ` (ordi, sauf `?lq`) : lissage `SMAAPass`, flou de profondeur `BokehPass` léger (aperture 0,0009, maxblur 0,004) qui suit le robot, halo `UnrealBloomPass` discret (force ≈ 0,18), lumière de fenêtre `RectAreaLight`, bois veiné, mur en enduit, parquet, robot laqué.
+- **Le propriétaire veut une image nette.** Refusés après essai : ombres de contact (`GTAOPass`, zones sombres et sales), grain par-dessus l'image, flou de fond prononcé, grande ombre en diagonale des montants de fenêtre (leurs `castShadow` restent à `false`). Ne pas les remettre sans lui montrer une comparaison.
 - Garder la brume légère (Fog 16 → 40) et le halo faible : au-delà, l'image devient laiteuse.
 - La scène ne se redessine pas hors de l'écran (`IntersectionObserver`). Ne pas casser ce garde-fou.
 - Les textures canvas se dessinent après le chargement des polices (`redraw()` en fin de fichier) : toute nouvelle texture texte doit y être ajoutée.

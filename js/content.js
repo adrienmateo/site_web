@@ -980,9 +980,20 @@ window.CONTENT = {
         "title": "Démo : une commande bloquée — Adrien-Matéo Soules",
         "description": "Une enquête pas à pas, des logs jusqu'à l'explication au client : un cas fictif mais typique de mon travail de Business Analyst IT."
       },
-      "kind": "Démo interactive, cas fictif",
-      "contextTitle": "Le contexte",
-      "context": "Chez un retailer, le service client signale qu'une commande n'est jamais partie, sans aucune alerte. Mon rôle : trouver la cause, la faire corriger et l'expliquer au client, sans jargon.",
+      "summary": [
+        [
+          "Le symptôme",
+          "La commande FR-48213 n'est jamais partie, et personne n'a été prévenu."
+        ],
+        [
+          "La cause",
+          "Le transporteur choisi par défaut ne livre pas la Corse. Il refusait l'envoi, sans relance ni alerte, pour toutes les commandes vers l'île."
+        ],
+        [
+          "La solution",
+          "Une règle de routage confie ces commandes à un transporteur qui dessert l'île, et une alerte prévient si un envoi échoue."
+        ]
+      ],
       "provesTitle": "Les compétences mobilisées",
       "proves": [
         "**Lire les logs** pour retrouver l'erreur parmi des centaines de lignes.",
@@ -990,14 +1001,21 @@ window.CONTENT = {
         "**Trouver la cause racine**, pas seulement le symptôme : toutes les commandes vers la Corse étaient touchées.",
         "**Expliquer au client** le problème et la solution, en langage métier."
       ],
-      "investigationTitle": "L'enquête",
+      "investigationTitle": "L'enquête, étape par étape",
+      "investigationLead": "Pour voir comment j'y suis arrivé, suivez l'enquête comme je la mène : des logs jusqu'à l'explication au client.",
       "methodLink": "Cette enquête suit ma méthode de travail",
-      "title": "Démo : une commande est bloquée",
-      "lead": "Un cas fictif, mais typique. Suivez l'enquête comme je la mène : des logs jusqu'à l'explication au client.",
+      "title": "Démo : une commande bloquée",
+      "lead": "Chez un retailer, le service client signale qu'une commande n'est jamais partie, sans aucune alerte. Mon rôle : trouver la cause, la faire corriger et l'expliquer au client, sans jargon. Le cas est fictif, mais typique de mon travail.",
       "prev": "Étape précédente",
       "next": "Étape suivante",
       "restart": "Recommencer",
-      "note": "Données fictives",
+      "stepOf": "Étape {n} sur {total} : {name}",
+      "stepsLabel": "Étapes de l'enquête",
+      "openDetail": "Ouvrir",
+      "clues": "Les indices relevés",
+      "endTitle": "Ce cas vous parle ?",
+      "endLead": "Il résume ma façon de travailler : comprendre, faire corriger, expliquer. Mon parcours complet est dans mon CV.",
+      "nextProject": "Projet suivant : Du besoin au backlog",
       "steps": [
         "Les logs",
         "Le payload",
@@ -1984,9 +2002,20 @@ window.CONTENT = {
         "title": "Demo: a stuck order — Adrien-Matéo Soules",
         "description": "A step-by-step investigation, from the logs to the explanation for the client: a fictional but typical case from my work as an IT Business Analyst."
       },
-      "kind": "Interactive demo, fictional case",
-      "contextTitle": "The context",
-      "context": "At a retailer, customer service reports that an order never shipped, with no alert at all. My role: find the cause, get it fixed and explain it to the client, without jargon.",
+      "summary": [
+        [
+          "The symptom",
+          "Order FR-48213 never shipped, and nobody was notified."
+        ],
+        [
+          "The cause",
+          "The default carrier doesn't deliver to Corsica. It rejected the shipment, with no retry and no alert, for every order to the island."
+        ],
+        [
+          "The fix",
+          "A routing rule now hands these orders to a carrier that serves the island, and an alert fires if a shipment fails."
+        ]
+      ],
       "provesTitle": "Skills involved",
       "proves": [
         "**Reading logs** to find the error among hundreds of lines.",
@@ -1994,14 +2023,21 @@ window.CONTENT = {
         "**Finding the root cause**, not just the symptom: every order to Corsica was affected.",
         "**Explaining it to the client**: the problem and the fix, in business language."
       ],
-      "investigationTitle": "The investigation",
+      "investigationTitle": "The investigation, step by step",
+      "investigationLead": "To see how I got there, follow the investigation the way I run it: from the logs to the explanation for the client.",
       "methodLink": "This investigation follows my working method",
-      "title": "Demo: an order is stuck",
-      "lead": "A fictional case, but a typical one. Follow the investigation the way I run it: from the logs to the explanation to the client.",
+      "title": "Demo: a stuck order",
+      "lead": "At a retailer, customer service reports that an order never shipped, with no alert at all. My role: find the cause, get it fixed and explain it to the client, without jargon. The case is fictional, but typical of my work.",
       "prev": "Previous step",
       "next": "Next step",
       "restart": "Start over",
-      "note": "Fictional data",
+      "stepOf": "Step {n} of {total}: {name}",
+      "stepsLabel": "Investigation steps",
+      "openDetail": "Open",
+      "clues": "Clues found",
+      "endTitle": "Does this case speak to you?",
+      "endLead": "It sums up how I work: understand, get it fixed, explain. My full background is in my resume.",
+      "nextProject": "Next project: From need to backlog",
       "steps": [
         "The logs",
         "The payload",

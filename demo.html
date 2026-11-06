@@ -28,27 +28,24 @@
   </header>
 
   <main id="main">
-    <section class="wrap project-hero">
-      <span class="kind hero-in" data-i18n="demo.kind">Démo interactive, cas fictif</span>
-      <h1 class="hero-in" style="--i:1" data-i18n="demo.title">Démo : une commande est bloquée</h1>
-      <p class="pitch hero-in" style="--i:2" data-i18n="demo.lead"></p>
+    <!-- l'essentiel d'abord : un recruteur qui ne clique pas repart avec le symptôme, la cause et la solution -->
+    <section class="wrap project-hero demo-hero">
+      <h1 class="hero-in" data-i18n="demo.title">Démo : une commande bloquée</h1>
+      <p class="pitch hero-in" style="--i:1" data-i18n="demo.lead"></p>
+      <dl class="demo-summary hero-in" style="--i:2" id="demo-summary"></dl>
     </section>
 
-    <section class="section wrap">
-      <h2 class="reveal" data-i18n="demo.contextTitle"></h2>
-      <p class="demo-context reveal" data-i18n="demo.context"></p>
-    </section>
-
-    <section class="section wrap">
-      <h2 class="reveal" data-i18n="demo.investigationTitle"></h2>
-      <div class="console reveal" id="console">
-        <ol class="steps" id="demo-steps" role="tablist"></ol>
-        <div class="console-body" id="demo-body" aria-live="polite"></div>
+    <section class="section wrap demo-investigation" aria-labelledby="demo-inv-title">
+      <h2 id="demo-inv-title" data-i18n="demo.investigationTitle"></h2>
+      <p class="lead" data-i18n="demo.investigationLead"></p>
+      <div class="console" id="console">
+        <div class="steps" id="demo-steps" role="tablist" data-i18n-label="demo.stepsLabel"></div>
+        <div class="console-body" id="demo-body" role="tabpanel" tabindex="-1"></div>
         <div class="console-foot">
           <button type="button" class="btn small" id="demo-prev" data-i18n="demo.prev"></button>
-          <span class="note" data-i18n="demo.note"></span>
           <button type="button" class="btn small primary" id="demo-next" data-i18n="demo.next"></button>
         </div>
+        <p class="sr-only" id="demo-status" aria-live="polite"></p>
       </div>
     </section>
 
@@ -56,6 +53,18 @@
       <h2 class="reveal" data-i18n="demo.provesTitle"></h2>
       <ul class="tl-points demo-proves reveal" id="demo-proves"></ul>
       <a class="demo-method reveal" href="methode.html" data-langlink="methode.html"><span data-i18n="demo.methodLink"></span><span class="pj-arrow" aria-hidden="true"></span></a>
+    </section>
+
+    <section class="section wrap demo-end">
+      <div class="contact-card">
+        <h2 data-i18n="demo.endTitle"></h2>
+        <p class="lead" data-i18n="demo.endLead"></p>
+        <div class="actions">
+          <a class="btn primary" data-cv href="#" download hidden data-i18n="hero.ctaCv"></a>
+          <a class="btn" data-href="mail" href="#" data-i18n="hero.ctaContact"></a>
+          <a class="btn" href="backlog.html" data-langlink="backlog.html" data-i18n="demo.nextProject"></a>
+        </div>
+      </div>
     </section>
   </main>
 

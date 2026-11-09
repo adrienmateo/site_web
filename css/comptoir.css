@@ -9,7 +9,7 @@
 .comptoir.is-ready .comptoir-stage canvas { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .comptoir-stage canvas { transition: none; } }
 /* bords très légèrement assombris ; pas de grain : l'image reste nette */
-.comptoir-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply;
+.comptoir-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: normal;
   background: radial-gradient(ellipse 75% 70% at 62% 48%, rgba(90, 48, 28, 0) 60%, rgba(90, 48, 28, .14) 100%); }
 /* voile crème sous le texte : la scène reste visible à droite, le texte reste lisible à gauche */
 .comptoir-veil { position: absolute; inset: 0; pointer-events: none;

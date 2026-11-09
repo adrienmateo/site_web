@@ -1,13 +1,6 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { BokehPass } from "three/addons/postprocessing/BokehPass.js";
-import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
-import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { SMAAPass } from "three/addons/postprocessing/SMAAPass.js";
-import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
 
 /* Accueil : le comptoir des mots en 3D (Three.js + GSAP).
    Le robot range sur l'étagère les mots-clés de hero.words (js/content.js, FR/EN) ; ils arrivent un par un sur le comptoir.
@@ -35,7 +28,7 @@ const LITE = innerWidth < 760 || matchMedia("(pointer: coarse)").matches;
 /* ordi : haute qualité (lissage, lumière de fenêtre, matières) ; ?lq pour la couper. Pas d'ombres de contact ni de grain : l'image doit rester nette */
 const HQ = !LITE && !new URLSearchParams(location.search).has("lq");
 let renderer;
-try { renderer = new THREE.WebGLRenderer({ antialias: true }); }
+try { renderer = new THREE.WebGLRenderer({ antialias: LITE, powerPreference: "high-performance" }); /* avec les effets, le lissage est fait par SMAA : celui du navigateur serait du calcul perdu */ }
 catch (e) { section.classList.add("no-webgl"); throw e; } /* sans WebGL : le texte reste seul sur le fond */
 renderer.setPixelRatio(Math.min(devicePixelRatio, LITE ? 1.5 : 2));
 renderer.shadowMap.enabled = true;
@@ -56,6 +49,8 @@ const camera = new THREE.PerspectiveCamera(34, 1, .1, 60);
 /* effets « cinéma » : le fond se floute, les lumières font un halo */
 let composer = null, bokeh = null;
 if (!LITE) {
+  /* ces modules ne servent que sur ordi : le téléphone ne les télécharge pas */
+  const [{ EffectComposer }, { RenderPass }, { BokehPass }, { UnrealBloomPass }, { OutputPass }, { SMAAPass }] = await Promise.all(["EffectComposer", "RenderPass", "BokehPass", "UnrealBloomPass", "OutputPass", "SMAAPass"].map(n => import(`three/addons/postprocessing/${n}.js`)));
   composer = new EffectComposer(renderer);
   composer.addPass(new RenderPass(scene, camera));
   bokeh = new BokehPass(scene, camera, { focus: 7, aperture: .0009, maxblur: .004 });
@@ -151,6 +146,7 @@ const glass = new THREE.Mesh(new THREE.PlaneGeometry(WIN.w, WIN.h), new THREE.Me
 glass.position.set(WIN.x, WIN.y, WALL_Z + .01); scene.add(glass);
 /* la lumière de la fenêtre : une source large et douce, tournée vers l'étagère et le robot */
 if (HQ) {
+  const { RectAreaLightUniformsLib } = await import("three/addons/lights/RectAreaLightUniformsLib.js");
   RectAreaLightUniformsLib.init();
   const winLight = new THREE.RectAreaLight("#FFE4C4", 4.5, WIN.w, WIN.h);
   winLight.position.set(WIN.x, WIN.y, WALL_Z + .15); winLight.lookAt(WIN.x - 2.2, .6, 1.4); scene.add(winLight);
@@ -729,11 +725,13 @@ scene.add(new THREE.Points(moteGeo, new THREE.PointsMaterial({ color: P.mote, si
 const clock = new THREE.Clock(), tmp = new THREE.Vector3();
 let nextBlink = 2, nextLog = 0;
 /* hors de l'écran, la scène ne se redessine pas */
-let onScreen = true;
+let onScreen = true, lastDraw = 0;
 new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; }).observe(section);
-function frame() {
+function frame(ts = performance.now()) {
   requestAnimationFrame(frame);
-  if (!onScreen) return;
+  /* hors écran, rien ; et pas plus de ~60 images par seconde sur les écrans 120-240 Hz : l'animation est calme, le gain est invisible à l'œil */
+  if (!onScreen || ts - lastDraw < 13) return;
+  lastDraw = ts;
   const t = clock.getElapsedTime();
   if (carried) {
     robot.updateMatrixWorld();
@@ -789,10 +787,26 @@ function frame() {
 
 /* les étiquettes attendent les polices pour être nettes */
 await Promise.all(['800 40px "Bricolage Grotesque"', '600 20px "JetBrains Mono"'].map(f => document.fonts.load(f)));
-boxes.forEach(b => b.userData.texs.forEach(t => t.redraw()));
 [signTex, eyeTex, corkTex, schemaTex, clockTex, screenTex].forEach(tex => tex.redraw());
 /* changement de langue : les étiquettes des boîtes se redessinent */
 new MutationObserver(() => { WORDS = words(); TAGS = tags(); boxes.forEach(b => b.userData.texs.forEach(t => t.redraw())); }).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+/* les tout petits objets (vis, roues de la F1…) ne projettent plus d'ombre : elle ne se voit pas, mais elle coûtait à chaque image */
+const objSize = new THREE.Vector3(), objBox = new THREE.Box3();
+scene.traverse(o => { if (o.isMesh && o.castShadow && Math.max(...objBox.setFromObject(o).getSize(objSize).toArray()) < .05) o.castShadow = false; });
 resize();
+/* les shaders se compilent en arrière-plan : la page ne se fige pas à la première image.
+   Avec les effets, la scène est dessinée dans une image intermédiaire : c'est pour elle qu'il faut compiler. */
+if (composer) renderer.setRenderTarget(composer.renderTarget1);
+const compiled = renderer.compileAsync(scene, camera).catch(() => {});
+renderer.setRenderTarget(null);
+await compiled;
+/* les boîtes se dessinent une par une et partent vers la carte graphique à l'avance : pas d'à-coup à leur apparition */
+async function prepareBoxes() {
+  for (const b of boxes) for (const t of b.userData.texs) { t.redraw(); renderer.initTexture(t); await new Promise(r => setTimeout(r)); }
+}
+/* sans animation (ou capture ?demo) : l'étagère doit être prête dès la première image */
+const instant = RM || new URLSearchParams(location.search).has("demo");
+if (instant) { await prepareBoxes(); await start(); }
 frame();
-setTimeout(start, RM ? 0 : 700);
+requestAnimationFrame(() => requestAnimationFrame(() => section.classList.add("is-ready")));
+if (!instant) { await prepareBoxes(); setTimeout(start, 700); }

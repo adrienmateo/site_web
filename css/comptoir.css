@@ -5,9 +5,11 @@
 .comptoir { position: relative; height: 100vh; min-height: 640px; max-height: 1080px; overflow: hidden;
   background: linear-gradient(180deg, #F4CDB3 0%, #F9E6D6 58%, var(--surface-2) 100%); }
 .comptoir-stage { position: absolute; inset: 0; }
-.comptoir-stage canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+.comptoir-stage canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; opacity: 0; transition: opacity .6s ease; }
+.comptoir.is-ready .comptoir-stage canvas { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .comptoir-stage canvas { transition: none; } }
 /* bords très légèrement assombris ; pas de grain : l'image reste nette */
-.comptoir-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply;
+.comptoir-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: normal;
   background: radial-gradient(ellipse 75% 70% at 62% 48%, rgba(90, 48, 28, 0) 60%, rgba(90, 48, 28, .14) 100%); }
 /* voile crème sous le texte : la scène reste visible à droite, le texte reste lisible à gauche */
 .comptoir-veil { position: absolute; inset: 0; pointer-events: none;

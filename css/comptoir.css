@@ -39,7 +39,8 @@
 @media (max-width: 760px) {
   /* la barre du haut flotte au-dessus : la scène commence juste dessous */
   .comptoir { height: auto; min-height: 0; max-height: none; overflow: visible; padding-top: 68px; }
-  .comptoir-stage { position: relative; height: 46vh; min-height: 300px; }
+  /* scène plus basse : le nom et le bouton CV tiennent dans le premier écran */
+  .comptoir-stage { position: relative; height: 33vh; min-height: 210px; max-height: 280px; }
   .comptoir-fade, .comptoir-veil { display: none; }
   .comptoir-copy { position: static; transform: none; width: auto; margin: 18px 16px 0; padding-bottom: 32px; }
 }

@@ -308,7 +308,7 @@
           var x = link(l[0]);
           return '<a class="fo-link" href="' + esc(x.href) + '"' + (x.ext ? ' target="_blank" rel="noopener"' : "") + ">" + esc(l[1]) + "</a>";
         }).join("") + "</div></div>" +
-        '<div class="fo-img" aria-hidden="true">' + (p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : thumb(p)) + "</div></article>";
+        '<div class="fo-img" aria-hidden="true">' + (p.img ? '<img src="' + esc(p.thumb || p.img) + '" alt="" loading="lazy">' : thumb(p)) + "</div></article>";
     }).join("");
   }
 
@@ -380,7 +380,7 @@
     gb: '<svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="gb-t"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0 60,30M60,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 60,30M60,0 0,30" clip-path="url(#gb-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg>'
   };
   function badge(x) {
-    return '<span class="org-logo" aria-hidden="true">' + (x.logo ? '<img src="' + esc(x.logo) + '" alt="">' : "<b>" + esc(x.mono || "") + "</b>") + "</span>";
+    return '<span class="org-logo" aria-hidden="true">' + (x.logo ? '<img src="' + esc(x.logo) + '" alt="" width="34" height="34" loading="lazy">' : "<b>" + esc(x.mono || "") + "</b>") + "</span>";
   }
   function renderPath(T) {
     $("timeline").innerHTML = T.path.timeline.map(function (t, i) {

@@ -303,6 +303,7 @@ window.CONTENT = {
             "Gherkin",
             "Wireframes"
           ],
+          "thumb": "images/thumbs/wf-retour.webp",
           "img": "images/wf-retour.jpg",
           "links": [
             [
@@ -331,6 +332,7 @@ window.CONTENT = {
             "Claude",
             "ECharts"
           ],
+          "thumb": "images/thumbs/f1-gp.webp",
           "img": "images/f1-gp.jpg",
           "links": [
             [
@@ -371,6 +373,7 @@ window.CONTENT = {
               true
             ]
           ],
+          "thumb": "images/thumbs/site-hero.webp",
           "img": "images/site-hero.jpg"
         },
         {
@@ -1353,6 +1356,7 @@ window.CONTENT = {
             "Gherkin",
             "Wireframes"
           ],
+          "thumb": "images/thumbs/wf-retour.webp",
           "img": "images/wf-retour.jpg",
           "links": [
             [
@@ -1381,6 +1385,7 @@ window.CONTENT = {
             "Claude",
             "ECharts"
           ],
+          "thumb": "images/thumbs/f1-gp.webp",
           "img": "images/f1-gp.jpg",
           "links": [
             [
@@ -1421,6 +1426,7 @@ window.CONTENT = {
               true
             ]
           ],
+          "thumb": "images/thumbs/site-hero.webp",
           "img": "images/site-hero.jpg"
         },
         {

@@ -291,6 +291,25 @@ window.CONTENT = {
       "shows": "Ce que ça montre",
       "projects": [
         {
+          "id": "demo",
+          "title": "Démo : une commande bloquée",
+          "kind": "Démo interactive, cas fictif",
+          "text": "Un cas fictif mais typique de mon travail chez OneStock : des logs au payload, jusqu'à l'explication au client.",
+          "tags": [
+            "Logs",
+            "API REST",
+            "Postman",
+            "Diagnostic"
+          ],
+          "links": [
+            [
+              "demo.html",
+              "Suivre l'enquête",
+              true
+            ]
+          ]
+        },
+        {
           "id": "backlog",
           "title": "Du besoin au backlog",
           "kind": "Étude de cas",
@@ -375,25 +394,6 @@ window.CONTENT = {
           ],
           "thumb": "images/thumbs/site-hero.webp",
           "img": "images/site-hero.jpg"
-        },
-        {
-          "id": "demo",
-          "title": "Démo : une commande bloquée",
-          "kind": "Démo interactive, cas fictif",
-          "text": "Un cas fictif mais typique de mon travail chez OneStock : des logs au payload, jusqu'à l'explication au client.",
-          "tags": [
-            "Logs",
-            "API REST",
-            "Postman",
-            "Diagnostic"
-          ],
-          "links": [
-            [
-              "demo.html",
-              "Suivre l'enquête",
-              true
-            ]
-          ]
         }
       ]
     },
@@ -1344,6 +1344,25 @@ window.CONTENT = {
       "shows": "What it shows",
       "projects": [
         {
+          "id": "demo",
+          "title": "Demo: a stuck order",
+          "kind": "Interactive demo, fictional case",
+          "text": "A fictional but typical case from my work at OneStock: from the logs to the payload, all the way to the explanation for the client.",
+          "tags": [
+            "Logs",
+            "REST API",
+            "Postman",
+            "Diagnosis"
+          ],
+          "links": [
+            [
+              "demo.html",
+              "Follow the investigation",
+              true
+            ]
+          ]
+        },
+        {
           "id": "backlog",
           "title": "From need to backlog",
           "kind": "Case study",
@@ -1428,25 +1447,6 @@ window.CONTENT = {
           ],
           "thumb": "images/thumbs/site-hero.webp",
           "img": "images/site-hero.jpg"
-        },
-        {
-          "id": "demo",
-          "title": "Demo: a stuck order",
-          "kind": "Interactive demo, fictional case",
-          "text": "A fictional but typical case from my work at OneStock: from the logs to the payload, all the way to the explanation for the client.",
-          "tags": [
-            "Logs",
-            "REST API",
-            "Postman",
-            "Diagnosis"
-          ],
-          "links": [
-            [
-              "demo.html",
-              "Follow the investigation",
-              true
-            ]
-          ]
         }
       ]
     },

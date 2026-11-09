@@ -1,0 +1,3 @@
+Bricolage Grotesque, Manrope et JetBrains Mono sont distribuées sous licence SIL Open Font License 1.1.
+Texte de la licence : https://openfontlicense.org
+Sources : https://fonts.google.com/specimen/Bricolage+Grotesque, https://fonts.google.com/specimen/Manrope, https://fonts.google.com/specimen/JetBrains+Mono

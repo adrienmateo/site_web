@@ -1,0 +1,28 @@
+/* Barre de navigation de l'accueil (DA abricot) : couleurs, position et bouton CV. Page : index.html. */
+
+html .topbar .topbar-inner { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(58, 42, 34, .86); border-color: rgba(243, 230, 216, .12); box-shadow: 0 10px 30px -14px rgba(42, 33, 28, .55); }
+html .topbar .brand, html .topbar .icon-link, html .topbar .burger { color: #F3E6D8; }
+html .topbar .nav a { color: #CDB6A2; }
+html .topbar .nav a:hover, html .topbar .nav a.active { color: #F3E6D8; background: rgba(243, 230, 216, .08); }
+html .topbar .lang { background: rgba(243, 230, 216, .08); border-color: rgba(243, 230, 216, .12); }
+html .topbar .lang button { color: #CDB6A2; }
+html .topbar .lang button[aria-pressed="true"] { background: #F3E6D8; color: #2A211C; }
+html .mmenu { background: rgba(58, 42, 34, .97); }
+html .mmenu a { color: #F3E6D8; border-color: #5C463A; }
+
+/* ---- la barre du haut reste en haut de la page : elle ne suit pas le défilement ---- */
+html .topbar { position: absolute !important; top: 0; left: 0; right: 0; }
+
+/* ---- CV : action principale, toujours à portée ---- */
+.tb-cv { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 10px; background: var(--accent, #C2381F); color: #fff;
+  font: 700 .85rem var(--sans, "Manrope", sans-serif); text-decoration: none; transition: background .2s; }
+.tb-cv:hover { background: var(--accent-2, #B80500); }
+.tb-cv:focus-visible { outline: 2px solid #F3E6D8; outline-offset: 2px; }
+.tb-cv[hidden] { display: none; }
+@media (pointer: coarse) { .tb-cv { height: 44px; } }
+@media (max-width: 880px) { .topbar .tb-cv { margin-left: auto; } .topbar .tb-cv:not([hidden]) ~ .lang { margin-left: 0; } }
+/* petit écran : le nom est déjà en grand dans l'accueil, la barre garde le CV, la langue et le menu */
+@media (max-width: 480px) { .topbar .brand-first { display: none; } }
+/* menu mobile ouvert : le CV est dans la liste, pas besoin du bouton de la barre */
+.menu-open .topbar .tb-cv { visibility: hidden; }
+html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }

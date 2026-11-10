@@ -89,7 +89,7 @@
 
     if ($("skills-frise")) { renderAbout(T); renderSkills(T); renderWork(T); renderPath(T); }
     if ($("demo-steps")) renderDemo();
-    if ($("demo-proves")) $("demo-proves").innerHTML = T.demo.proves.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("");
+    if ($("demo-proves")) renderProves(T.demo);
     if ($("demo-summary")) {
       /* chaque affirmation du résumé montre sa preuve : le code d'erreur, puis la phrase dite au client */
       $("demo-summary").innerHTML = T.demo.summary.map(function (r, i) {
@@ -695,6 +695,44 @@
     });
   }
 
+  /* compétences : une carte par compétence, avec sa preuve et un lien vers l'étape ; cochée dès que l'étape a été vue */
+  var opened = [false, false, false, false];
+  var visited = [false, false, false, false]; /* étapes atteintes par un geste de l'utilisateur (pas l'étape d'arrivée) */
+  function renderProves(D) {
+    var ul = $("demo-proves");
+    ul.innerHTML = D.proves.map(function (x, i) {
+      return '<li class="pcard" data-step="' + i + '"><button type="button" class="pcard-head" aria-expanded="false" aria-controls="pcard-' + i + '">' +
+        '<span class="pcheck" aria-hidden="true"></span><span class="ptxt">' + rich(x) + '</span><span class="pchev" aria-hidden="true"></span></button>' +
+        '<div class="pcard-body" id="pcard-' + i + '" hidden><p>' + esc(D.provesProof[i]) + '</p>' +
+        '<button type="button" class="pcard-see">' + esc(D.provesSee.replace("{n}", i + 1)) + "</button></div></li>";
+    }).join("");
+    ul.querySelectorAll(".pcard").forEach(function (li) {
+      var i = Number(li.getAttribute("data-step")), head = li.querySelector(".pcard-head"), body = li.querySelector(".pcard-body");
+      head.addEventListener("click", function () {
+        var open = head.getAttribute("aria-expanded") !== "true";
+        head.setAttribute("aria-expanded", String(open)); body.hidden = !open;
+        if (open) { opened[i] = true; syncProves(); }
+      });
+      li.querySelector(".pcard-see").addEventListener("click", function () {
+        go(i);
+        $("console").scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        $("demo-body").focus({ preventScroll: true });
+      });
+    });
+    syncProves();
+  }
+  function syncProves() {
+    var ul = $("demo-proves");
+    if (!ul || !ul.firstChild) return;
+    var D = C[lang].demo, n = 0;
+    ul.querySelectorAll(".pcard").forEach(function (li, i) {
+      var done = !!(visited[i] || opened[i]); if (done) n++;
+      li.classList.toggle("done", done);
+    });
+    var c = $("demo-proves-count");
+    if (c) c.textContent = D.provesCount.replace("{n}", n).replace("{total}", D.proves.length);
+  }
+
   function renderDemo(announce) {
     var D = C[lang].demo;
     if (!$("demo-tab-0") || $("demo-steps").getAttribute("data-lang") !== lang) {
@@ -719,9 +757,9 @@
           var inner = '<span class="t">' + r[0] + '</span><span class="l">' + r[1] + '</span><span class="s">' +
             r[2] + '</span><span class="m">' + esc(r[3]) + (i === NOTED_ROW ? ' <span class="tag">' + esc(D.noted) + "</span>" : "") + "</span>";
           return i === ERROR_ROW
-            ? '<div role="listitem" class="log-item"><button type="button" class="' + cls + ' clickable" id="error-row" aria-label="' + esc(D.openDetailLabel) + '">' + inner +
+            ? '<div role="listitem" class="log-item" style="--i:' + i + '"><button type="button" class="' + cls + ' clickable" id="error-row" aria-label="' + esc(D.openDetailLabel) + '">' + inner +
               '<span class="go" aria-hidden="true">' + esc(D.openDetail) + "</span></button></div>"
-            : '<div role="listitem" class="' + cls + '">' + inner + "</div>";
+            : '<div role="listitem" class="' + cls + '" style="--i:' + i + '">' + inner + "</div>";
         }).join("") + '</div><p class="gloss">' + esc(D.logsGloss) + "</p>";
     } else if (step === 1) {
       html = '<div class="exchange"><div><p class="intro">' + esc(D.payloadIntro) + "</p>" + codeBlock(PAYLOAD) +
@@ -730,7 +768,7 @@
     } else if (step === 2) {
       html = '<p class="clues-title">' + esc(D.clues) + '</p><ul class="clues">' +
         CLUES.map(function (c) { return "<li><code>" + esc(c) + "</code></li>"; }).join("") + "</ul>" +
-        '<ol class="diag">' + D.diagnosis.map(function (d) { return "<li>" + esc(d) + "</li>"; }).join("") + "</ol>";
+        '<ol class="diag">' + D.diagnosis.map(function (d, i) { return '<li style="--i:' + i + '">' + esc(d) + "</li>"; }).join("") + "</ol>";
     } else {
       html = '<div class="fix"><div><h4>' + esc(D.techTitle) + "</h4><ul>" +
         D.tech.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") +
@@ -746,6 +784,8 @@
     var again = $("demo-restart");
     if (again) again.addEventListener("click", function () { go(0); $("demo-tab-0").focus({ preventScroll: true }); });
     syncHash();
+    if (announce) visited[step] = true;
+    syncProves();
     if (announce) $("demo-status").textContent = D.stepOf.replace("{n}", step + 1).replace("{total}", D.steps.length).replace("{name}", D.steps[step]);
 
     var err = $("error-row");

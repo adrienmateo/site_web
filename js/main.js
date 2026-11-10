@@ -724,9 +724,9 @@
             : '<div role="listitem" class="' + cls + '">' + inner + "</div>";
         }).join("") + '</div><p class="gloss">' + esc(D.logsGloss) + "</p>";
     } else if (step === 1) {
-      html = '<p class="intro">' + esc(D.payloadIntro) + "</p>" + codeBlock(PAYLOAD) +
-        '<p class="flag">' + esc(D.payloadFlag) + "</p>" +
-        '<p class="intro">' + esc(D.responseIntro) + "</p>" + codeBlock(RESPONSE);
+      html = '<div class="exchange"><div><p class="intro">' + esc(D.payloadIntro) + "</p>" + codeBlock(PAYLOAD) +
+        '<p class="flag">' + esc(D.payloadFlag) + "</p></div>" +
+        '<div><p class="intro">' + esc(D.responseIntro) + "</p>" + codeBlock(RESPONSE) + "</div></div>";
     } else if (step === 2) {
       html = '<p class="clues-title">' + esc(D.clues) + '</p><ul class="clues">' +
         CLUES.map(function (c) { return "<li><code>" + esc(c) + "</code></li>"; }).join("") + "</ul>" +
@@ -735,22 +735,43 @@
       html = '<div class="fix"><div><h4>' + esc(D.techTitle) + "</h4><ul>" +
         D.tech.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") +
         '</ul><pre class="code"><code><span class="ln ok">HTTP/1.1 201 Created</span><span class="ln">{ "shipment_id": "SHP-77120", "carrier": "ISLANDEX" }</span></code></pre></div>' +
-        "<div><h4>" + esc(D.bizTitle) + '</h4><blockquote>' + esc(D.biz) + "</blockquote></div></div>";
+        "<div><h4>" + esc(D.bizTitle) + '</h4><blockquote>' + esc(D.biz) + "</blockquote></div></div>" +
+        '<p class="again"><button type="button" class="again-btn" id="demo-restart">' + esc(D.restart) + "</button></p>";
     }
     $("demo-body").innerHTML = html;
 
     $("demo-prev").disabled = step === 0;
-    $("demo-next").textContent = step === 3 ? D.restart : D.next;
+    /* à la dernière étape, le bouton principal mène aux compétences et au CV au lieu de boucler */
+    $("demo-next").textContent = step === 3 ? D.toProof : D.next;
+    var again = $("demo-restart");
+    if (again) again.addEventListener("click", function () { go(0); $("demo-tab-0").focus({ preventScroll: true }); });
+    syncHash();
     if (announce) $("demo-status").textContent = D.stepOf.replace("{n}", step + 1).replace("{total}", D.steps.length).replace("{name}", D.steps[step]);
 
     var err = $("error-row");
     if (err) err.addEventListener("click", function () { go(1); $("demo-body").focus({ preventScroll: true }); });
   }
 
+  /* l'étape vit dans l'URL (#etape-2 / #step-2) : un rechargement ou un lien partagé la retrouve */
+  function stepFromHash() {
+    var m = /^#(?:etape|step)-([1-4])$/.exec(location.hash);
+    return m ? Number(m[1]) - 1 : null;
+  }
+  function syncHash() {
+    var want = step ? "#" + (lang === "fr" ? "etape" : "step") + "-" + (step + 1) : "";
+    if (location.hash === want || (!want && stepFromHash() === null)) return;
+    try { history.replaceState(null, "", location.pathname + location.search + want); } catch (e) { /* ignore */ }
+  }
+
   function go(n) {
     var fromPrev = document.activeElement === $("demo-prev");
+    var was = step;
     step = Math.max(0, Math.min(3, n));
     renderDemo(true);
+    if (step !== was) {
+      var body = $("demo-body");
+      body.classList.remove("swap"); void body.offsetWidth; body.classList.add("swap");
+    }
     /* « Étape précédente » se désactive à l'étape 1 : le focus passe sur « Étape suivante » au lieu de se perdre */
     if (fromPrev && step === 0) $("demo-next").focus();
     /* sur téléphone, on revient en haut de la console si elle est sortie de l'écran */
@@ -814,9 +835,19 @@
   });
   if ($("demo-prev")) {
     $("demo-prev").addEventListener("click", function () { go(step - 1); });
-    $("demo-next").addEventListener("click", function () { go(step === 3 ? 0 : step + 1); });
+    $("demo-next").addEventListener("click", function () {
+      if (step < 3) { go(step + 1); return; }
+      var t = $("demo-proves-title");
+      t.focus({ preventScroll: true });
+      t.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+    });
+    var fromHash = stepFromHash();
+    if (fromHash !== null) step = fromHash;
+    window.addEventListener("hashchange", function () { var h = stepFromHash(); if (h !== null && h !== step) go(h); });
   }
   setLang(initialLang());
+  /* lien direct vers une étape : on arrive sur la console, une fois la page chargée */
+  if (fromHash) window.addEventListener("load", function () { $("console").scrollIntoView({ block: "start", behavior: "instant" }); });
   initChrome();
   initToolsToggle();
   if ($("thread")) {

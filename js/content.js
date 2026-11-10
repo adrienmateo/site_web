@@ -1032,6 +1032,7 @@ window.CONTENT = {
       "prev": "Étape précédente",
       "next": "Étape suivante",
       "restart": "Recommencer",
+      "toProof": "Ce que ça démontre",
       "stepOf": "Étape {n} sur {total} : {name}",
       "stepsLabel": "Étapes de l'enquête",
       "stepCount": "Étape {n} sur {total}",
@@ -1053,7 +1054,7 @@ window.CONTENT = {
         "Le diagnostic",
         "La résolution"
       ],
-      "logsIntro": "Le service client signale que la commande FR-48213 n'est jamais partie. Je commence par les logs. Cliquez sur la ligne en erreur.",
+      "logsIntro": "Le service client signale que la commande FR-48213 n'est jamais partie. Je commence par les logs. Ouvrez la ligne en erreur.",
       "payloadIntro": "La requête envoyée au transporteur, telle que le système l'a émise :",
       "payloadFlag": "Le code postal commence par 20 : la commande part en Corse.",
       "responseIntro": "Et la réponse du transporteur :",
@@ -2085,6 +2086,7 @@ window.CONTENT = {
       "prev": "Previous step",
       "next": "Next step",
       "restart": "Start over",
+      "toProof": "What this shows",
       "stepOf": "Step {n} of {total}: {name}",
       "stepsLabel": "Investigation steps",
       "stepCount": "Step {n} of {total}",
@@ -2106,7 +2108,7 @@ window.CONTENT = {
         "The diagnosis",
         "The resolution"
       ],
-      "logsIntro": "Customer service reports that order FR-48213 never shipped. I start with the logs. Click the line with the error.",
+      "logsIntro": "Customer service reports that order FR-48213 never shipped. I start with the logs. Open the line with the error.",
       "payloadIntro": "The request sent to the carrier, exactly as the system issued it:",
       "payloadFlag": "The postcode starts with 20: the order is going to Corsica.",
       "responseIntro": "And the carrier's response:",

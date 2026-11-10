@@ -233,10 +233,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
   .scene-layer { transform-origin: 50% 100%; }
   .hero.wrap::before { background: linear-gradient(90deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.86) 26%, rgba(255,255,255,.35) 40%, rgba(255,255,255,0) 50%) !important; }
 }
-/* curseur normal sur la scène, curseur rouge partout ailleurs */
-html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { opacity: 0 !important; }
-html.has-cursor.cursor-scene #top, html.has-cursor.cursor-scene #top * { cursor: auto !important; }
-html.has-cursor.cursor-scene #top a, html.has-cursor.cursor-scene #top button { cursor: pointer !important; }
 
 /* ===== Scène : décor fixe + robot en code ===== */
 .hero-scene { background: linear-gradient(180deg, #9FAEAE 0%, #9FAEAE 100%) !important; overflow: hidden; }
@@ -308,8 +304,6 @@ html.has-cursor.cursor-scene #top a, html.has-cursor.cursor-scene #top button { 
 .pj-arrow::before { position: absolute; inset: 0; left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; border-radius: 50%;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px 16px no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px 16px no-repeat; }
 .pj-arrow::after { display: none !important; }
-/* curseur rouge : disparaît instantanément sur la scène */
-html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { transition: none !important; visibility: hidden; }
 
 /* ===== Scène vidéo (Gemini) ===== */
 .hero-scene { background: #C6CEC9 !important; }
@@ -368,6 +362,11 @@ html.cursor-scene .cursor-ring, html.cursor-scene .cursor-trail { transition: no
   .fo-text { font-size: .92rem; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .fo-card { position: relative; top: auto; transform: none !important; }
+  .fo-card::after { display: none; }
+}
+/* téléphone peu haut : une carte collée dépasserait de l'écran et ses liens resteraient cachés */
+@media (max-width: 860px) and (max-height: 760px) {
   .fo-card { position: relative; top: auto; transform: none !important; }
   .fo-card::after { display: none; }
 }

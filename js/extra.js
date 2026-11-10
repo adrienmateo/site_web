@@ -178,10 +178,9 @@
     (function loop() { requestAnimationFrame(loop); if (!visible || calm) return;
       cx += (mx - cx) * .05; cy += (my - cy) * .05;
       layer.style.transform = "translate3d(" + (-cx * 12).toFixed(2) + "px," + (-cy * 7).toFixed(2) + "px,0) scale(1.03)"; })();
-    hero.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") root.classList.add("cursor-scene"); });
-    hero.addEventListener("pointermove", function (e) { if (e.pointerType !== "mouse") return; var r = hero.getBoundingClientRect(); root.classList.add("cursor-scene");
+    hero.addEventListener("pointermove", function (e) { if (e.pointerType !== "mouse") return; var r = hero.getBoundingClientRect();
       mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5; });
-    hero.addEventListener("pointerleave", function () { mx = my = 0; root.classList.remove("cursor-scene"); });
+    hero.addEventListener("pointerleave", function () { mx = my = 0; });
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; playing(visible); }).observe(fig);
   })();
 

@@ -732,16 +732,6 @@ li:hover > .org-logo { transform: translateY(-2px) rotate(-3deg); box-shadow: va
 .about-body p strong { color: var(--ink); }
 @media (max-width: 700px) { .pillars { grid-template-columns: 1fr; } }
 
-/* ---------- curseur « fil rouge » (ordinateur) ---------- */
-.has-cursor, .has-cursor a, .has-cursor button, .has-cursor .pj-row, .has-cursor .fo-card, .has-cursor .tool-btn, .has-cursor .step { cursor: none; }
-.has-cursor input, .has-cursor textarea { cursor: text; }
-.cursor-trail { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; opacity: 0; transition: opacity .2s; }
-.cursor-trail path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.cursor-ring { position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity .2s; }
-.cursor-ring::before { content: ""; position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); transform: translate(-50%, -50%); transition: width .3s var(--ease), height .3s var(--ease), background .3s; }
-.cursor-ring.is-link::before { width: 28px; height: 28px; background: rgba(225, 6, 0, .08); }
-.cursor-ring.is-down::before { width: 9px; height: 9px; }
-.cursor-on .cursor-ring, .cursor-on .cursor-trail { opacity: 1; }
 /* piliers : transition douce pendant la mise en place */
 .pillar { will-change: transform; }
 
@@ -788,10 +778,6 @@ dialog.wfbox { width: min(1080px, calc(100vw - 32px)); }
   .afd-hint { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .afd-print, .afd-cover { transition: none; } .wfbox .wf { animation: none; } }
-
-/* modale projet : le curseur personnalisé passe sous la modale, on rend le pointeur normal */
-html.has-cursor dialog.modal[open], html.has-cursor dialog.modal[open] * { cursor: auto !important; }
-html.has-cursor dialog.modal[open] a, html.has-cursor dialog.modal[open] button { cursor: pointer !important; }
 
 /* ---------- méthode : encart vers l'exemple concret ---------- */
 .example-link { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 28px; border-radius: 22px;

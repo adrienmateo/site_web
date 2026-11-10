@@ -23,6 +23,13 @@ html .topbar { position: absolute !important; top: 0; left: 0; right: 0; }
 @media (max-width: 880px) { .topbar .tb-cv { margin-left: auto; } .topbar .tb-cv:not([hidden]) ~ .lang { margin-left: 0; } }
 /* petit écran : le nom est déjà en grand dans l'accueil, la barre garde le CV, la langue et le menu */
 @media (max-width: 480px) { .topbar .brand-first { display: none; } }
+/* largeur moyenne, juste avant le menu burger : on resserre pour que la barre ne dépasse pas de la page */
+@media (min-width: 881px) and (max-width: 1100px) {
+  html .topbar .topbar-inner { gap: 10px; }
+  html .topbar .topbar-inner > .icon-link, html .topbar .brand-first { display: none; }
+  html .topbar .nav { margin-left: 8px; gap: 2px; }
+  html .topbar .nav a { padding: 6px 7px; }
+}
 /* menu mobile ouvert : le CV est dans la liste, pas besoin du bouton de la barre */
 .menu-open .topbar .tb-cv { visibility: hidden; }
 html .mmenu a.mm-cv { color: #FF6A63; border-bottom: 0; }

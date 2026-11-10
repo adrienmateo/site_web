@@ -825,7 +825,6 @@
     var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { drawThread(false); }, 120); });
   }
   initPillarSettle();
-  initThreadCursor();
   document.documentElement.classList.add("ready");
 
   /* ---------- piliers : se posent un à un au défilement (ordinateur et mobile) ---------- */
@@ -850,40 +849,5 @@
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     frame();
-  }
-
-  /* ---------- curseur « fil rouge » : ordinateur uniquement ---------- */
-  function initThreadCursor() {
-    if (!window.matchMedia) return;
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var root = document.documentElement;
-    var trail = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    trail.setAttribute("class", "cursor-trail"); trail.setAttribute("aria-hidden", "true");
-    var path = document.createElementNS("http://www.w3.org/2000/svg", "path"); trail.appendChild(path);
-    var ring = document.createElement("div"); ring.className = "cursor-ring"; ring.setAttribute("aria-hidden", "true");
-    document.body.appendChild(trail); document.body.appendChild(ring);
-    root.classList.add("has-cursor");
-    var mx = -100, my = -100, rx = -100, ry = -100, pts = [], visible = false;
-    document.addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      if (!visible) { visible = true; rx = mx; ry = my; root.classList.add("cursor-on"); }
-      var t = e.target.closest ? e.target : e.target.parentElement;
-      var link = t && t.closest("a, button, [role='button'], .tool-btn, .step");
-      ring.classList.toggle("is-link", !!link);
-    }, { passive: true });
-    document.addEventListener("mouseleave", function () { visible = false; root.classList.remove("cursor-on"); pts = []; path.setAttribute("d", ""); });
-    document.addEventListener("mousedown", function () { ring.classList.add("is-down"); });
-    document.addEventListener("mouseup", function () { ring.classList.remove("is-down"); });
-    (function loop() {
-      rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2;
-      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
-      if (visible) {
-        if (root.classList.contains("cursor-scene")) { pts = []; path.setAttribute("d", ""); rx = mx; ry = my; } else {
-        pts.push([rx, ry]); if (pts.length > 8) pts.shift();
-        path.setAttribute("d", pts.length > 1 ? "M" + pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" L") : ""); }
-      }
-      requestAnimationFrame(loop);
-    })();
   }
 })();

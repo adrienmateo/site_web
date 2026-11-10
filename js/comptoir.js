@@ -47,7 +47,7 @@ scene.environmentIntensity = .18;
 const camera = new THREE.PerspectiveCamera(34, 1, .1, 60);
 
 /* effets « cinéma » : le fond se floute, les lumières font un halo */
-let composer = null, bokeh = null;
+let composer = null, bokeh = null, bloom = null;
 if (!LITE) {
   /* ces modules ne servent que sur ordi : le téléphone ne les télécharge pas */
   const [{ EffectComposer }, { RenderPass }, { BokehPass }, { UnrealBloomPass }, { OutputPass }, { SMAAPass }] = await Promise.all(["EffectComposer", "RenderPass", "BokehPass", "UnrealBloomPass", "OutputPass", "SMAAPass"].map(n => import(`three/addons/postprocessing/${n}.js`)));
@@ -55,7 +55,8 @@ if (!LITE) {
   composer.addPass(new RenderPass(scene, camera));
   bokeh = new BokehPass(scene, camera, { focus: 7, aperture: .0009, maxblur: .004 });
   composer.addPass(bokeh);
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(512, 512), .18, .45, 1.6));
+  bloom = new UnrealBloomPass(new THREE.Vector2(512, 512), .18, .45, 1.6);
+  composer.addPass(bloom);
   if (HQ) composer.addPass(new SMAAPass(1024, 640));
   composer.addPass(new OutputPass());
 }
@@ -732,6 +733,7 @@ function frame(ts = performance.now()) {
   /* hors écran, rien ; et pas plus de ~60 images par seconde sur les écrans 120-240 Hz : l'animation est calme, le gain est invisible à l'œil */
   if (!onScreen || ts - lastDraw < 13) return;
   lastDraw = ts;
+  watch(ts);
   const t = clock.getElapsedTime();
   if (carried) {
     robot.updateMatrixWorld();
@@ -793,7 +795,48 @@ new MutationObserver(() => { WORDS = words(); TAGS = tags(); boxes.forEach(b => 
 /* les tout petits objets (vis, roues de la F1…) ne projettent plus d'ombre : elle ne se voit pas, mais elle coûtait à chaque image */
 const objSize = new THREE.Vector3(), objBox = new THREE.Box3();
 scene.traverse(o => { if (o.isMesh && o.castShadow && Math.max(...objBox.setFromObject(o).getSize(objSize).toArray()) < .05) o.castShadow = false; });
-resize();
+
+/* ---------- qualité adaptative ----------
+   Sur un PC sans carte graphique, l'image complète est trop lourde et la page rame. On mesure la cadence réelle :
+   si elle reste basse, on allège palier par palier, du moins visible au plus visible. Un PC qui tient la cadence
+   garde l'image complète. Le palier trouvé est retenu 30 jours, pour ne pas ramer à chaque visite.
+   ?q=0, 1, 2… force un palier (0 = image complète) sans rien mesurer ni retenir. */
+const Q_KEY = "comptoir-q", Q_DAYS = 30;
+const shadowMax = s => { const sh = sunLight.shadow; if (sh.mapSize.x <= s) return; sh.mapSize.set(s, s); if (sh.map) { sh.map.dispose(); sh.map = null; } };
+const ratioMax = r => { renderer.setPixelRatio(Math.min(devicePixelRatio, r)); if (composer) composer.setPixelRatio(renderer.getPixelRatio()); };
+const steps = [];
+if (!LITE) steps.push(() => { shadowMax(2048); ratioMax(1.5); });       /* ombres et finesse : presque invisible */
+if (devicePixelRatio > 1) steps.push(() => ratioMax(1));                 /* image un peu moins fine */
+if (bokeh) steps.push(() => { bokeh.enabled = false; });                 /* plus de flou d'arrière-plan : la scène n'est plus dessinée deux fois */
+steps.push(() => { ratioMax(.75); shadowMax(1024); if (bloom) bloom.enabled = false; }); /* dernier recours */
+let level = 0;
+function setLevel(n, keep) {
+  n = Math.max(0, Math.min(n, steps.length));
+  while (level < n) steps[level++]();
+  resize();
+  if (keep) try { localStorage.setItem(Q_KEY, level + ":" + Date.now()); } catch (e) {}
+}
+const qForced = new URLSearchParams(location.search).get("q");
+let qStart = 0;
+if (qForced !== null) qStart = parseInt(qForced, 10) || 0;
+else try { const [n, at] = (localStorage.getItem(Q_KEY) || "").split(":"); if (Date.now() - at < Q_DAYS * 864e5) qStart = parseInt(n, 10) || 0; } catch (e) {}
+/* la cadence est jugée sur deux secondes de suite : un à-coup passager ne change rien */
+let wPrev = 0, wSum = 0, wN = 0, wSlow = 0, wFrom = 0;
+function watch(ts) {
+  if (qForced !== null || level >= steps.length) return;
+  const dt = ts - wPrev; wPrev = ts;
+  if (!wFrom) wFrom = ts + 1500;
+  /* démarrage, onglet masqué, retour après un défilement : on ne compte pas */
+  if (ts < wFrom || dt > 1000 || document.hidden) { wSum = wN = 0; return; }
+  wSum += dt; wN++;
+  if (wSum < 1000) return;
+  const avg = wSum / wN; wSum = wN = 0;
+  wSlow = avg > 24 ? wSlow + 1 : 0;                                      /* 24 ms par image : moins de 42 images par seconde */
+  if (wSlow < 2) return;
+  wSlow = 0; wFrom = ts + 800;
+  setLevel(level + (avg > 45 ? 2 : 1), true);                            /* très lent : on descend de deux paliers d'un coup */
+}
+setLevel(qStart);
 /* les shaders se compilent en arrière-plan : la page ne se fige pas à la première image.
    Avec les effets, la scène est dessinée dans une image intermédiaire : c'est pour elle qu'il faut compiler. */
 if (composer) renderer.setRenderTarget(composer.renderTarget1);

@@ -1024,6 +1024,14 @@ window.CONTENT = {
         "**Trouver la cause racine**, pas seulement le symptôme : toutes les commandes vers la Corse étaient touchées.",
         "**Expliquer au client** le problème et la solution, en langage métier."
       ],
+      "provesProof": [
+        "Parmi les lignes, une seule est en erreur : shipment.create failed, http 422.",
+        "La requête part avec le code postal 20000 et le transporteur répond UNSERVICEABLE_AREA.",
+        "Le transporteur par défaut ne livre pas la Corse : toutes les commandes en 20xxx sont touchées.",
+        "« Elles partent désormais automatiquement avec un autre transporteur. »"
+      ],
+      "provesSee": "Revoir à l'étape {n}",
+      "provesCount": "{n} sur {total} compétences démontrées",
       "investigationTitle": "L'enquête, étape par étape",
       "investigationLead": "Pour voir comment j'y suis arrivé, suivez l'enquête comme je la mène : des logs jusqu'à l'explication au client.",
       "methodLink": "Cette enquête suit ma méthode de travail",
@@ -2078,6 +2086,14 @@ window.CONTENT = {
         "**Finding the root cause**, not just the symptom: every order to Corsica was affected.",
         "**Explaining it to the client**: the problem and the fix, in business language."
       ],
+      "provesProof": [
+        "Among the lines, only one is an error: shipment.create failed, http 422.",
+        "The request goes out with postcode 20000 and the carrier answers UNSERVICEABLE_AREA.",
+        "The default carrier does not deliver to Corsica: every 20xxx order is affected.",
+        "“They now ship automatically with another carrier.”"
+      ],
+      "provesSee": "Review step {n}",
+      "provesCount": "{n} of {total} skills demonstrated",
       "investigationTitle": "The investigation, step by step",
       "investigationLead": "To see how I got there, follow the investigation the way I run it: from the logs to the explanation for the client.",
       "methodLink": "This investigation follows my working method",
